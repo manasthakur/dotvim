@@ -115,14 +115,14 @@ if has("cscope")
     " Hitting CTRL-space *twice* before the search type does a vertical 
     " split instead of a horizontal one (vim 6 and up only)
 
-    nmap <C-@><C-@>s :vert scs find s <C-R>=expand("<cword>")<CR><CR>	
-    nmap <C-@><C-@>g :vert scs find g <C-R>=expand("<cword>")<CR><CR>	
-    nmap <C-@><C-@>c :vert scs find c <C-R>=expand("<cword>")<CR><CR>	
-    nmap <C-@><C-@>t :vert scs find t <C-R>=expand("<cword>")<CR><CR>	
-    nmap <C-@><C-@>e :vert scs find e <C-R>=expand("<cword>")<CR><CR>	
-    nmap <C-@><C-@>f :vert scs find f <C-R>=expand("<cfile>")<CR><CR>	
-    nmap <C-@><C-@>i :vert scs find i <C-R>=expand("<cfile>")<CR><CR>	
-    nmap <C-@><C-@>d :vert scs find d <C-R>=expand("<cword>")<CR><CR>	
+    " nmap <C-@><C-@>s :vert scs find s <C-R>=expand("<cword>")<CR><CR>	
+    " nmap <C-@><C-@>g :vert scs find g <C-R>=expand("<cword>")<CR><CR>	
+    " nmap <C-@><C-@>c :vert scs find c <C-R>=expand("<cword>")<CR><CR>	
+    " nmap <C-@><C-@>t :vert scs find t <C-R>=expand("<cword>")<CR><CR>	
+    " nmap <C-@><C-@>e :vert scs find e <C-R>=expand("<cword>")<CR><CR>	
+    " nmap <C-@><C-@>f :vert scs find f <C-R>=expand("<cfile>")<CR><CR>	
+    " nmap <C-@><C-@>i :vert scs find i <C-R>=expand("<cfile>")<CR><CR>	
+    " nmap <C-@><C-@>d :vert scs find d <C-R>=expand("<cword>")<CR><CR>	
 
 
     """"""""""""" key map timeouts
