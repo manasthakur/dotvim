@@ -22,6 +22,12 @@ ln -sf <path-to-myvim> ~/.vim
 ln -sf <path-to-myvim>/vimrc ~/.vimrc	" Use <path-to-myvim>/mac_vimrc on macOS
 ```
 
+- Generate helptags
+```
+vim
+:helptags ALL
+```
+
 Plugins get installed into `.vim/pack/myplugins/start/`, which is the default
 `packpath` to load plugins by vim8's builtin package manager. See `:h packages`.
 
