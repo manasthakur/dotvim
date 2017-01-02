@@ -23,13 +23,13 @@ set number                          "show line numbers on the left hand side
 set relativenumber	                "show relative line numbers
 
 set showmatch                       "highlight matching parenthesis
-set nohlsearch                      "don't highlight matches
+set nohlsearch                      "don't highlight matches (not needed in some Vim versions)
 set incsearch                       "show search matches as you type
 
 set ignorecase                      "ignore case while searching
 set smartcase                       "don't ignore case when search term consists capital letters 
 set wildmenu                        "visual autocomplete for command menu
-set wildignorecase	                "ignore case in wildmenu (like zsh)
+set wildignorecase	                "ignore case in wildmenu (like zsh; not needed on macOS)
 
 set backspace=indent,eol,start	    "make backspace work everywhere
 set complete-=i	                    "don't complete from include files
@@ -45,7 +45,7 @@ set mouse=a                         "enable mouse for all activities
 " MAPPINGS {{{1
 " =============================================================================
 
-" Scroll using Ctrl-Dn and Ctrl-Up
+" Scroll using Ctrl-Dn and Ctrl-Up (won't work on macOS)
 noremap <C-Down> <C-F>
 noremap <C-Up> <C-B>
 
@@ -141,8 +141,14 @@ augroup vimrc
 	autocmd InsertLeave * set nocursorline
 augroup END
 
-" Reset colorscheme for incompatible environments
-nnoremap <leader>r :colorscheme default<CR>
+" Reset guicolors and colorscheme for incompatible environments using '\r'
+function! ResetColors()
+	if has('termguicolors')
+		set notermguicolors
+	endif
+	colorscheme default
+endfunction
+nnoremap <leader>r :call ResetColors()<CR>
 
 " }}}1
 " =============================================================================
