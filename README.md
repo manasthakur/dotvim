@@ -9,7 +9,7 @@ work properly in lower Vim versions of Vim.
 
 - Clone repository
 ```
-git clone https://manasthakur@bitbucket.org/manasthakur/myvim.git
+git clone --recursive https://manasthakur@bitbucket.org/manasthakur/myvim.git
 ```
 
 - Symlink `.vim`:
