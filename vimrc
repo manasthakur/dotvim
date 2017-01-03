@@ -108,7 +108,7 @@ if executable('ag')
     function! Search()
         let grep_term = input("Search: ")
         if !empty(grep_term)
-            execute 'silent grep!' grep_term | cwindow
+            execute 'silent grep!' grep_term | copen
         else
             echo
         endif
