@@ -22,7 +22,7 @@ if [[ $1 == "init" ]]; then
 elif [[ $1 == "install" ]]; then
 	git submodule add https://github.com/${2}.git pack/myplugins/start/${2#*/}
 elif [[ $1 == "update" ]]; then
-	git submodule foreach git pull
+	git submodule foreach git pull origin master
 elif [[ $1 == "remove" ]]; then
 	echo "Removing ${2}"
 	git submodule deinit pack/myplugins/start/${2}
