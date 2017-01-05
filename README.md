@@ -33,11 +33,14 @@ Plugins get installed into `.vim/pack/myplugins/start/`, which is the default
 
 ### Updating plugins
 
-Go to `.vim` and run `./plug.sh update`.
+Go to `.vim` and run `git submodule foreach git pull`.
 
 ### Add plugin
 
-Go to `.vim` and run `git submodule add <plugin-url>`.
+Go to `.vim` and run `git submodule add <plugin-url> pack/myplugins/start/plugin-name`.
+
+If a plugin needs to be installed just for testing, it can be installed inside
+`pack/myplugins/opt` and loaded using `:packadd plugin-name`.
 
 ### Remove plugin
 
@@ -45,9 +48,10 @@ Go to `.vim` and run:
 ```
 git submodule deinit <path-to-plugin>
 git rm -r <path-to-plugin>
+rm -rf .git/modules/pack/myplugins/start/plugin-name
 ```
 
-## Current plugins (as listed in `myvim/plug.sh`)
+## Current plugins
 
 * [CtrlP](https://github.com/ctrlpvim/ctrlp.vim)
 * [Commentary](https://github.com/tpope/vim-commentary)
