@@ -211,6 +211,7 @@ let g:ctrlp_open_multiple_files = 'i'
 " Mappings
 nnoremap <silent>, :CtrlPBuffer<CR>
 nnoremap <silent><leader>t :CtrlPBufTag<CR>
+nnoremap <silent><leader>l : CtrlPLine<CR>
 
 " }}}2
 " -------------------------------------
