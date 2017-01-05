@@ -214,15 +214,6 @@ nnoremap <silent><leader>t :CtrlPBufTag<CR>
 
 " }}}2
 " -------------------------------------
-" MuComplete {{{2
-" -------------------------------------
-
-" Define which completions to use
-let g:mucomplete#chains = {}
-let g:mucomplete#chains.default = ['file', 'c-p']
-
-" }}}2
-" -------------------------------------
 " UltiSnips {{{2
 " -------------------------------------
 
