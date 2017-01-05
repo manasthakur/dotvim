@@ -52,7 +52,7 @@ git rm -r <path-to-plugin>
 * [CtrlP](https://github.com/ctrlpvim/ctrlp.vim)
 * [Commentary](https://github.com/tpope/vim-commentary)
 * [Fugitive](https://github.com/tpope/vim-fugitive)
-* [Dispatch](https://github.com/tpope/vim-dispatch)
+* [Vinegar](https://github.com/tpope/vim-vinegar)
 * [MuComplete](https://github.com/lifepillar/vim-mucomplete)
 * [UltiSnips](https://github.com/SirVer/ultisnips)
 * [Tagbar](https://github.com/majutsushi/tagbar)
