@@ -35,7 +35,7 @@ function! MyFoldLevel(lnum)
 	endif
 
 	" Fold following environments
-	let fold_envs = ['tabular', 'figure', 'algorithm', 'minipage', 'verbatim', 'semiverbatim', 'lstlisting']
+	let fold_envs = ['figure', 'algorithm', 'frame']
 	let envs = '\(' . join(fold_envs, '\|') . '\)'
 
 	if cur_line =~ '^\s*\\begin{' . envs
