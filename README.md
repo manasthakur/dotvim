@@ -4,6 +4,7 @@ This is my personal vim-configuration.
 It keeps changing based on my needs and experience.
 As the current configuration uses the package feature added in Vim 8, it may not
 work properly in lower Vim versions of Vim.
+In such a case, simply use the included 'vimrc-pluginless' as `.vimrc`.
 
 ## Usage
 
@@ -33,7 +34,13 @@ Plugins get installed into `.vim/pack/myplugins/start/`, which is the default
 
 ### Updating plugins
 
-Go to `.vim` and run `git submodule foreach git pull`.
+To update all the plugins, go to `.vim` and run `git submodule foreach git pull`.
+
+To update a particular one, go to the plugin's directory inside `pack` and run
+`git pull`.
+
+A better workflow:
+First `git fetch` a plugin, review changes, and then `git merge`.
 
 ### Add plugin
 
