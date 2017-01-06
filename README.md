@@ -34,13 +34,13 @@ Plugins get installed into `.vim/pack/myplugins/start/`, which is the default
 
 ### Updating plugins
 
-To update all the plugins, go to `.vim` and run `git submodule foreach git pull`.
+To update all the plugins, go to `.vim` and run `git submodule foreach git pull origin master`.
 
 To update a particular one, go to the plugin's directory inside `pack` and run
-`git pull`.
+`git pull origin master`.
 
 A better workflow:
-First `git fetch` a plugin, review changes, and then `git merge`.
+First `git fetch origin master` a plugin, review changes, and then `git merge`.
 
 ### Add plugin
 
