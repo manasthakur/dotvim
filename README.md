@@ -18,7 +18,7 @@ git clone --recursive https://manasthakur@bitbucket.org/manasthakur/myvim.git
 ln -sf <path-to-myvim> ~/.vim
 ```
 
-- Symlink `.vim`:
+- Symlink `.vimrc`:
 ```
 ln -sf <path-to-myvim>/vimrc ~/.vimrc	" Use <path-to-myvim>/mac_vimrc on macOS
 ```
