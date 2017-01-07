@@ -2,10 +2,10 @@
 
 " Set <leader>\ to run make (need to define 'makeprg')
 function! Javac()
-	execute 'silent make'
+	execute 'silent lmake'
 	redraw!
-	if len(getqflist()) > 0
-		execute 'copen'
+	if len(getloclist(0)) > 0
+		execute 'lopen'
 	else
 		echo 'No errors!'
 	endif

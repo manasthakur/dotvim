@@ -79,9 +79,9 @@ nnoremap [b :bprevious<CR>
 nnoremap ]t :tabnext<CR>
 nnoremap [t :tabprevious<CR>
 
-" Quickfix-windows
-nnoremap ]q :cnext<CR>
-nnoremap [q :cprevious<CR>
+" Location-lists
+nnoremap ]q :lnext<CR>
+nnoremap [q :lprevious<CR>
 
 " Make 'Y' behave like other capitals
 nnoremap Y y$
@@ -108,7 +108,7 @@ if executable('ag')
     function! Search()
         let grep_term = input("Search: ")
         if !empty(grep_term)
-            execute 'silent grep!' grep_term | copen
+            execute 'silent lgrep!' grep_term | lopen
         else
             echo
         endif
@@ -119,7 +119,7 @@ if executable('ag')
 	set grepprg=ag\ --nogroup\ --nocolor\ --vimgrep
 	set grepformat^=%f:%l:%c:%m
 	nnoremap <leader>a :call Search()<CR>
-	nnoremap <leader>c :silent grep! <cword> \| copen<CR><C-l>
+	nnoremap <leader>c :silent lgrep! <cword> \| lopen<CR><C-l>
 endif
 
 " }}}1
