@@ -1,0 +1,132 @@
+" Manas's pluginless vimrc that should work on most Vim versions
+
+" BASIC SETTINGS
+
+set tabstop=4			    "number of spaces per TAB
+set shiftwidth=4		    "number of spaces for auto-indentation
+set autoindent			    "next line starts from where previous one did
+filetype plugin indent on	    "enable filetype-based plugins and indentation
+syntax enable			    "enable syntax-coloring
+
+set hidden			    "enable opening other file while keeping the previous one in buffer
+set laststatus=2		    "display statusline all the time
+set confirm			    "confirm when closing vim with unsaved buffers
+set scrolloff=1			    "keep one extra line while scrolling for context
+
+set ruler			    "show ruler with line and column numbers at bottom-right
+set number			    "show line numbers on the left hand side
+
+set showmatch			    "highlight matching parenthesis
+set nohlsearch			    "don't highlight matches (not needed in some Vim versions)
+set incsearch			    "show search matches as you type
+
+set ignorecase			    "ignore case while searching
+set smartcase			    "don't ignore case when search term consists capital letters 
+set wildmenu			    "visual autocomplete for command menu
+
+set backspace=indent,eol,start	    "make backspace work everywhere
+set complete-=i			    "don't complete from include files
+
+set history=200			    "keep 200 lines of command line history
+set ttimeout			    "time out for key codes
+set ttimeoutlen=100		    "wait up to 100ms after Esc for special key
+set mouse=a			    "enable mouse for all activities
+
+" MAPPINGS
+
+" Scroll using Ctrl-Dn and Ctrl-Up (won't work on macOS)
+noremap <C-Down> <C-F>
+noremap <C-Up> <C-B>
+
+" Delete buffer without closing window
+function! Bclose()
+    let curbufnr = bufnr("%")
+    let altbufnr = bufnr("#")
+
+    if buflisted(altbufnr)
+	buffer #
+    else
+	bnext
+    endif
+
+    if bufnr("%") == curbufnr
+	new
+    endif
+
+    if buflisted(curbufnr)
+	execute("bdelete " . curbufnr)
+    endif
+endfunction
+
+" Buffers
+nnoremap <leader>w :update<CR>
+nnoremap <leader>q :call Bclose()<CR>
+nnoremap ]b :bnext<CR>
+nnoremap [b :bprevious<CR>
+
+" Tabs
+nnoremap ]t :tabnext<CR>
+nnoremap [t :tabprevious<CR>
+
+" Quickfix-windows
+nnoremap ]q :cnext<CR>
+nnoremap [q :cprevious<CR>
+
+" Make 'Y' behave like other capitals
+nnoremap Y y$
+
+" Run macro from register 'q' with 'Q'
+nnoremap Q @q
+
+" Toggle spellcheck using `\s`
+nnoremap <leader>s :set spell!<CR>
+
+" Toggle paste using '\z'
+set pastetoggle=<leader>z
+
+" Auto-insert ending brace and a new line to write above
+inoremap {<CR> {<CR>}<C-O>O
+
+" Don't save options while saving sessions
+set sessionoptions-=options
+
+" Load vim's builtin matching plugin
+runtime! macros/matchit.vim
+
+" SEARCHING
+
+if executable('ag')
+    " Grep and open the results in the quickfix window
+    function! Search()
+	let grep_term = input("Search: ")
+	if !empty(grep_term)
+	    execute 'silent lgrep!' grep_term | lopen
+	else
+	    echo
+	endif
+	redraw!
+    endfunction
+
+    " Use ag instead of grep
+    set grepprg=ag\ --nogroup\ --nocolor\ --vimgrep
+    set grepformat^=%f:%l:%c:%m
+    nnoremap <leader>a :call Search()<CR>
+    nnoremap <leader>c :silent lgrep! <cword> \| lopen<CR><C-l>
+endif
+
+" APPEARANCE
+
+" Use 24-bit true colors, if available
+if has('termguicolors')
+    set termguicolors
+endif
+
+" Reset guicolors and colorscheme for incompatible environments using '\r'
+function! ResetColors()
+    if has('termguicolors')
+	set notermguicolors
+    endif
+    colorscheme default
+endfunction
+nnoremap <leader>r :call ResetColors()<CR>
+
