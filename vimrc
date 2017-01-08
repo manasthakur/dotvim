@@ -5,7 +5,8 @@
 " BASIC SETTINGS {{{1
 " =============================================================================
 
-set softtabstop=4                   "number of spaces per TAB while editing
+set tabstop=4	                    "number of spaces a TAB character is shown as
+set softtabstop=4                   "number of spaces inserted per TAB
 set shiftwidth=4                    "number of spaces for auto-indentation
 set expandtab                       "expand tabs to spaces
 set autoindent                      "next line starts from where previous one did
