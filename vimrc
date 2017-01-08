@@ -7,7 +7,7 @@
 
 set softtabstop=4                   "number of spaces per TAB while editing
 set shiftwidth=4                    "number of spaces for auto-indentation
-set expandtab
+set expandtab                       "expand tabs to spaces
 set autoindent                      "next line starts from where previous one did
 filetype plugin indent on           "enable filetype-based plugins and indentation
 
