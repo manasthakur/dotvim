@@ -5,40 +5,41 @@
 " BASIC SETTINGS {{{1
 " =============================================================================
 
-set softtabstop=4		    "number of spaces per TAB while editing
-set shiftwidth=4		    "number of spaces for auto-indentation
-set autoindent			    "next line starts from where previous one did
-filetype plugin indent on	    "enable filetype-based plugins and indentation
+set softtabstop=4                   "number of spaces per TAB while editing
+set shiftwidth=4                    "number of spaces for auto-indentation
+set expandtab
+set autoindent                      "next line starts from where previous one did
+filetype plugin indent on           "enable filetype-based plugins and indentation
 
-syntax enable			    "enable syntax-coloring
-set foldmethod=marker		    "fold using markers
+syntax enable                       "enable syntax-coloring
+set foldmethod=marker               "fold using markers
 
-set hidden			    "enable opening other file while keeping the previous one in buffer
-set laststatus=2		    "display statusline all the time
-set confirm			    "confirm when closing vim with unsaved buffers
-set scrolloff=1			    "keep one extra line while scrolling for context
+set hidden                          "enable opening other file while keeping the previous one in buffer
+set laststatus=2                    "display statusline all the time
+set confirm                         "confirm when closing vim with unsaved buffers
+set scrolloff=1                     "keep one extra line while scrolling for context
 
-set ruler			    "show ruler with line and column numbers at bottom-right
-set number			    "show line numbers on the left hand side
-set relativenumber		    "show relative line numbers
+set ruler                           "show ruler with line and column numbers at bottom-right
+set number                          "show line numbers on the left hand side
+set relativenumber                  "show relative line numbers
 
-set showmatch			    "highlight matching parenthesis
-set nohlsearch			    "don't highlight matches (not needed in some Vim versions)
-set incsearch			    "show search matches as you type
+set showmatch                       "highlight matching parenthesis
+set nohlsearch                      "don't highlight matches (not needed in some Vim versions)
+set incsearch                       "show search matches as you type
 
-set ignorecase			    "ignore case while searching
-set smartcase			    "don't ignore case when search term consists capital letters
-set wildmenu			    "visual autocomplete for command menu
-set wildignorecase		    "ignore case in wildmenu (like zsh; not needed on macOS)
+set ignorecase                      "ignore case while searching
+set smartcase                       "don't ignore case when search term consists capital letters
+set wildmenu                        "visual autocomplete for command menu
+set wildignorecase                  "ignore case in wildmenu (like zsh; not needed on macOS)
 
-set backspace=indent,eol,start	    "make backspace work everywhere
-set complete-=i			    "don't complete from include files
-set completeopt=menuone		    "display completion menu even if there is only one match
+set backspace=indent,eol,start      "make backspace work everywhere
+set complete-=i                     "don't complete from include files
+set completeopt=menuone             "display completion menu even if there is only one match
 
-set history=200			    "keep 200 lines of command line history
-set ttimeout			    "time out for key codes
-set ttimeoutlen=100		    "wait up to 100ms after Esc for special key
-set mouse=a			    "enable mouse for all activities
+set history=200                     "keep 200 lines of command line history
+set ttimeout                        "time out for key codes
+set ttimeoutlen=100                 "wait up to 100ms after Esc for special key
+set mouse=a                         "enable mouse for all activities
 
 " }}}1
 " =============================================================================
@@ -55,17 +56,17 @@ function! Bclose()
     let altbufnr = bufnr("#")
 
     if buflisted(altbufnr)
-	buffer #
+        buffer #
     else
-	bnext
+        bnext
     endif
 
     if bufnr("%") == curbufnr
-	new
+        new
     endif
 
     if buflisted(curbufnr)
-	execute("bdelete " . curbufnr)
+        execute("bdelete " . curbufnr)
     endif
 endfunction
 
@@ -106,13 +107,13 @@ inoremap {<CR> {<CR>}<C-O>O
 if executable('ag')
     " Grep and open the results in the quickfix window
     function! Search()
-	let grep_term = input("Search: ")
-	if !empty(grep_term)
-	    execute 'silent lgrep!' grep_term | lopen
-	else
-	    echo
-	endif
-	redraw!
+        let grep_term = input("Search: ")
+        if !empty(grep_term)
+            execute 'silent lgrep!' grep_term | lopen
+        else
+            echo
+        endif
+        redraw!
     endfunction
 
     " Use ag instead of grep
@@ -145,7 +146,7 @@ augroup END
 " Reset guicolors and colorscheme for incompatible environments using '\r'
 function! ResetColors()
     if has('termguicolors')
-	set notermguicolors
+        set notermguicolors
     endif
     colorscheme default
 endfunction
@@ -192,15 +193,15 @@ function! EnableStatus()
     set laststatus=2
 endfunction
 let g:ctrlp_buffer_func = {
-	    \ 'enter': 'DisableStatus',
-	    \ 'exit':  'EnableStatus',
-	    \ }
+            \ 'enter': 'DisableStatus',
+            \ 'exit':  'EnableStatus',
+            \ }
 
 " Ignore list
 let g:ctrlp_custom_ignore = {
-	    \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-	    \ 'file': '\v\.(class|o|so)$',
-	    \ }
+            \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+            \ 'file': '\v\.(class|o|so)$',
+            \ }
 
 " Search only from the current directory
 let g:ctrlp_working_path_mode = 'a'
