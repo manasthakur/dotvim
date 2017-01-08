@@ -2,7 +2,7 @@
 
 " BASIC SETTINGS
 
-set tabstop=4			    "number of spaces per TAB
+set softtabstop=4		    "number of spaces per TAB
 set shiftwidth=4		    "number of spaces for auto-indentation
 set autoindent			    "next line starts from where previous one did
 filetype plugin indent on	    "enable filetype-based plugins and indentation
