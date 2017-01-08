@@ -27,7 +27,7 @@ set nohlsearch			    "don't highlight matches (not needed in some Vim versions)
 set incsearch			    "show search matches as you type
 
 set ignorecase			    "ignore case while searching
-set smartcase			    "don't ignore case when search term consists capital letters 
+set smartcase			    "don't ignore case when search term consists capital letters
 set wildmenu			    "visual autocomplete for command menu
 set wildignorecase		    "ignore case in wildmenu (like zsh; not needed on macOS)
 
