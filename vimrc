@@ -14,6 +14,8 @@ filetype plugin indent on           "enable filetype-based plugins and indentati
 
 syntax enable                       "enable syntax-coloring
 set foldmethod=marker               "fold using markers
+set backspace=indent,eol,start      "make backspace work everywhere
+set formatoptions+=j                "remove comment-leader when joining comments
 
 set hidden                          "enable opening other file while keeping the previous one in buffer
 set laststatus=2                    "display statusline all the time
@@ -32,10 +34,6 @@ set ignorecase                      "ignore case while searching
 set smartcase                       "don't ignore case when search term consists capital letters
 set wildmenu                        "visual autocomplete for command menu
 set wildignorecase                  "ignore case in wildmenu (like zsh; not needed on macOS)
-
-set backspace=indent,eol,start      "make backspace work everywhere
-set complete-=i                     "don't complete from include files
-set completeopt=menuone             "display completion menu even if there is only one match
 
 set history=200                     "keep 200 lines of command line history
 set ttimeout                        "time out for key codes
@@ -123,6 +121,35 @@ if executable('ag')
     nnoremap <leader>a :call Search()<CR>
     nnoremap <leader>c :silent lgrep! <cword> \| lopen<CR><C-l>
 endif
+
+" }}}1
+" =============================================================================
+" COMPLETION {{{1
+" =============================================================================
+
+" Don't complete from include files
+set complete-=i         
+
+" Complete filenames and keywords with <Tab>
+function! CleverTab()
+    let str = strpart(getline('.'), 0, col('.')-1)
+    if str =~ '[^ \t]*$'
+        return "\<Tab>"
+    else
+        if match(str, '\/') != -1
+            return "\<C-X>\<C-F>"
+        else
+            return "\<C-P>"
+        endif
+    endif
+endfunction
+inoremap <Tab> <C-R>=CleverTab()<CR>
+
+" Make '<CR>' select an entry from completion-menu
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Type '<Tab>' literal at end-of-lines using <Shift-Tab>
+inoremap <S-Tab> <C-V><Tab>
 
 " }}}1
 " =============================================================================
@@ -244,3 +271,4 @@ nnoremap <silent><leader>f :TagbarCurrentTag<CR>
 
 " }}}1
 " =============================================================================
+

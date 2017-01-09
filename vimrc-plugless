@@ -8,7 +8,10 @@ set shiftwidth=4                    "number of spaces for auto-indentation
 set expandtab                       "expand tabs to spaces
 set autoindent                      "next line starts from where previous one did
 filetype plugin indent on           "enable filetype-based plugins and indentation
+
 syntax enable                       "enable syntax-coloring
+set backspace=indent,eol,start      "make backspace work everywhere
+set formatoptions+=j                "remove comment-leader when joining comments
 
 set hidden                          "enable opening other file while keeping the previous one in buffer
 set laststatus=2                    "display statusline all the time
@@ -25,9 +28,6 @@ set incsearch                       "show search matches as you type
 set ignorecase                      "ignore case while searching
 set smartcase                       "don't ignore case when search term consists capital letters
 set wildmenu                        "visual autocomplete for command menu
-
-set backspace=indent,eol,start      "make backspace work everywhere
-set complete-=i                     "don't complete from include files
 
 set history=200                     "keep 200 lines of command line history
 set ttimeout                        "time out for key codes
@@ -70,9 +70,9 @@ nnoremap [b :bprevious<CR>
 nnoremap ]t :tabnext<CR>
 nnoremap [t :tabprevious<CR>
 
-" Quickfix-windows
-nnoremap ]q :cnext<CR>
-nnoremap [q :cprevious<CR>
+" Location-lists
+nnoremap ]q :lnext<CR>
+nnoremap [q :lprevious<CR>
 
 " Make 'Y' behave like other capitals
 nnoremap Y y$
@@ -115,6 +115,32 @@ if executable('ag')
     nnoremap <leader>a :call Search()<CR>
     nnoremap <leader>c :silent lgrep! <cword> \| lopen<CR><C-l>
 endif
+
+" COMPLETION
+
+" Don't complete from include files
+set complete-=i         
+
+" Complete filenames and keywords with <Tab>
+function! CleverTab()
+    let str = strpart(getline('.'), 0, col('.')-1)
+    if str =~ '[^ \t]*$'
+        return "\<Tab>"
+    else
+        if match(str, '\/') != -1
+            return "\<C-X>\<C-F>"
+        else
+            return "\<C-P>"
+        endif
+    endif
+endfunction
+inoremap <Tab> <C-R>=CleverTab()<CR>
+
+" Make '<CR>' select an entry from completion-menu
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Type '<Tab>' literal at end-of-lines using <Shift-Tab>
+inoremap <S-Tab> <C-V><Tab>
 
 " APPEARANCE
 
