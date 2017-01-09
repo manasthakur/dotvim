@@ -15,7 +15,6 @@ filetype plugin indent on           "enable filetype-based plugins and indentati
 syntax enable                       "enable syntax-coloring
 set foldmethod=marker               "fold using markers
 set backspace=indent,eol,start      "make backspace work everywhere
-set formatoptions+=j                "remove comment-leader when joining comments
 
 set hidden                          "enable opening other file while keeping the previous one in buffer
 set laststatus=2                    "display statusline all the time
@@ -49,29 +48,9 @@ set mouse=a                         "enable mouse for all activities
 noremap <C-Down> <C-F>
 noremap <C-Up> <C-B>
 
-" Delete buffer without closing window
-function! Bclose()
-    let curbufnr = bufnr("%")
-    let altbufnr = bufnr("#")
-
-    if buflisted(altbufnr)
-        buffer #
-    else
-        bnext
-    endif
-
-    if bufnr("%") == curbufnr
-        new
-    endif
-
-    if buflisted(curbufnr)
-        execute("bdelete " . curbufnr)
-    endif
-endfunction
-
 " Buffers
 nnoremap <leader>w :update<CR>
-nnoremap <leader>q :call Bclose()<CR>
+nnoremap <leader>q :bdelete<CR>
 nnoremap ]b :bnext<CR>
 nnoremap [b :bprevious<CR>
 
@@ -89,10 +68,10 @@ nnoremap Y y$
 " Run macro from register 'q' with 'Q'
 nnoremap Q @q
 
-" Toggle spellcheck using `\s`
+" Toggle spellcheck
 nnoremap <leader>s :set spell!<CR>
 
-" Toggle paste using '\z'
+" Toggle paste
 set pastetoggle=<leader>z
 
 " Auto-insert ending brace and a new line to write above
@@ -104,23 +83,27 @@ inoremap {<CR> {<CR>}<C-O>O
 " =============================================================================
 
 if executable('ag')
-    " Grep and open the results in the quickfix window
-    function! Search()
-        let grep_term = input("Search: ")
-        if !empty(grep_term)
-            execute 'silent lgrep!' grep_term | lopen
-        else
-            echo
-        endif
-        redraw!
-    endfunction
-
-    " Use ag instead of grep
+    " If available, use 'ag' as the grep-program
     set grepprg=ag\ --nogroup\ --nocolor\ --vimgrep
     set grepformat^=%f:%l:%c:%m
-    nnoremap <leader>a :call Search()<CR>
+
+    " Shorthand to search the word under cursor
     nnoremap <leader>c :silent lgrep! <cword> \| lopen<CR><C-l>
+else
+    set grepprg=grep\ -Rn\ $*\ .
 endif
+
+" Grep and open the results in the quickfix window
+function! Search()
+    let grep_term = input("Search: ")
+    if !empty(grep_term)
+        execute 'silent lgrep!' grep_term | lopen
+    else
+        echo
+    endif
+    redraw!
+endfunction
+nnoremap <leader>a :call Search()<CR>
 
 " }}}1
 " =============================================================================
@@ -271,4 +254,3 @@ nnoremap <silent><leader>f :TagbarCurrentTag<CR>
 
 " }}}1
 " =============================================================================
-
