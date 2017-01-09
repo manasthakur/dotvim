@@ -133,7 +133,7 @@ set complete-=i
 " Complete filenames and keywords with <Tab>
 function! CleverTab()
     let str = strpart(getline('.'), 0, col('.')-1)
-    if str =~ '[^ \t]*$'
+    if empty(matchstr(str, '[^ \t]*$'))
         return "\<Tab>"
     else
         if match(str, '\/') != -1
