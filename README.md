@@ -4,24 +4,18 @@ This is my personal vim-configuration.
 It keeps changing based on my needs and experience.
 As the current configuration uses the package feature added in Vim 8, it may not
 work properly in lower Vim versions of Vim.
-In such a case, simply use the included 'vimrc-minimal' as `.vimrc` (doesn't
-configure plugins as well).
+In such a case (or if plugin-configurations are not needed), use the included 'vimrc-minimal' instead of `vimrc`.
 
 ## Usage
 
-- Clone repository
+- Clone repository into `$HOME/.vim`
 ```
-git clone --recursive https://manasthakur@bitbucket.org/manasthakur/myvim.git
-```
-
-- Symlink `.vim`:
-```
-ln -sf <path-to-myvim> ~/.vim
+git clone --recursive https://manasthakur@bitbucket.org/manasthakur/myvim.git ~/.vim
 ```
 
-- Symlink `.vimrc`:
+- If the Vim version is < 7.4, symlink `.vimrc`:
 ```
-ln -sf <path-to-myvim>/vimrc ~/.vimrc	" Use <path-to-myvim>/mac_vimrc on macOS
+ln -sf ~/.vim/vimrc ~/.vimrc
 ```
 
 - Generate helptags
