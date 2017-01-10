@@ -5,41 +5,44 @@
 " BASIC SETTINGS {{{1
 " =============================================================================
 
-set tabstop=4	                    "number of spaces a TAB character is shown as
-set softtabstop=4                   "number of spaces inserted per TAB
-set shiftwidth=4                    "number of spaces for auto-indentation
-set expandtab                       "expand tabs to spaces
-set autoindent                      "next line starts from where previous one did
-filetype plugin indent on           "enable filetype-based plugins and indentation
+set tabstop=4	                    " Number of spaces a TAB character is shown as
+set softtabstop=4                   " Number of spaces inserted per TAB
+set shiftwidth=4                    " Number of spaces for auto-indentation
+set expandtab                       " Expand tabs to spaces
+set autoindent                      " Start next line from where the previous one did
 
-syntax enable                       "enable syntax-coloring
-set foldmethod=marker               "fold using markers
-set backspace=indent,eol,start      "make backspace work everywhere
-set formatoptions+=j	            "remove comment-leader when joining commented lines
+filetype plugin indent on           " Enable filetype-based plugins and indentation
+syntax enable                       " Enable syntax-coloring
+runtime macros/matchit.vim	        " Load vim's builtin matchit plugin
+set showmatch                       " Highlight matching parenthesis
 
-set hidden                          "enable opening other file while keeping the previous one in buffer
-set laststatus=2                    "display statusline all the time
-set confirm                         "confirm when closing vim with unsaved buffers
-set scrolloff=1                     "keep one extra line while scrolling for context
-set display=lastline	            "don't show '@' lines when a line doesn't fit the screen
+set foldmethod=marker               " Fold using markers
+set backspace=indent,eol,start      " Make backspace work everywhere
+set display=lastline	            " Don't show '@' lines when a line doesn't fit the screen
+set formatoptions+=j	            " Remove comment-leader when joining commented lines
+set sessionoptions-=options	        " Don't save options while saving sessions
 
-set ruler                           "show ruler with line and column numbers at bottom-right
-set number                          "show line numbers on the left hand side
-set relativenumber                  "show relative line numbers
+set hidden                          " Enable opening other file while keeping the previous one in buffer
+set confirm                         " Confirm when closing vim with unsaved buffers
+set scrolloff=1                     " Keep one extra line while scrolling for context
+set laststatus=2                    " Display statusline all the time
+set wildmenu                        " Visual autocomplete for command menu
+set wildignorecase                  " Ignore case in wildmenu (like zsh; not needed on macOS)
 
-set showmatch                       "highlight matching parenthesis
-set nohlsearch                      "don't highlight matches (not needed in some Vim versions)
-set incsearch                       "show search matches as you type
+set ruler                           " Show ruler with line and column numbers at bottom-right
+set number                          " Show line numbers on the left hand side
+set relativenumber                  " Show relative line numbers
 
-set ignorecase                      "ignore case while searching
-set smartcase                       "don't ignore case when search term consists capital letters
-set wildmenu                        "visual autocomplete for command menu
-set wildignorecase                  "ignore case in wildmenu (like zsh; not needed on macOS)
+set nohlsearch                      " Don't highlight matches (not needed in some Vim versions)
+set incsearch                       " Show search matches as you type
+set ignorecase                      " Ignore case while searching
+set smartcase                       " Don't ignore case when search term consists capital letters
 
-set history=200                     "keep 200 lines of command line history
-set ttimeout                        "time out for key codes
-set ttimeoutlen=100                 "wait up to 100ms after Esc for special key
-set mouse=a                         "enable mouse for all activities
+set history=200                     " Keep 200 lines of command line history
+set ttimeout                        " Time out for key codes
+set ttimeoutlen=100                 " Wait up to 100ms after Esc for special key
+set pastetoggle=<leader>z	        " Toggle paste using '<leader>z'
+set mouse=a                         " Enable mouse for all activities
 
 " }}}1
 " =============================================================================
@@ -70,14 +73,11 @@ nnoremap Y y$
 " Run macro from register 'q' with 'Q'
 nnoremap Q @q
 
-" Toggle spellcheck
-nnoremap <leader>s :set spell!<CR>:set spell?<CR>
-
-" Toggle paste
-set pastetoggle=<leader>z
-
 " Auto-insert ending brace and a new line to write above
 inoremap {<CR> {<CR>}<C-O>O
+
+" Toggle spellcheck
+nnoremap <leader>s :set spell!<CR>:set spell?<CR>
 
 " }}}1
 " =============================================================================
@@ -88,9 +88,6 @@ if executable('ag')
     " If available, use 'ag' as the grep-program
     set grepprg=ag\ --nogroup\ --nocolor\ --vimgrep
     set grepformat^=%f:%l:%c:%m
-
-    " Shorthand to search the word under cursor
-    nnoremap <leader>c :silent lgrep! <cword> \| lopen<CR><C-l>
 else
     set grepprg=grep\ -IRn\ --exclude=tags\ $*\ .
 endif
@@ -106,6 +103,7 @@ function! Search()
     redraw!
 endfunction
 nnoremap <leader>a :call Search()<CR>
+nmap <leader>c <leader>a<C-r><C-w><CR>
 
 " }}}1
 " =============================================================================
@@ -156,7 +154,7 @@ augroup vimrc
     autocmd InsertLeave * set nocursorline
 augroup END
 
-" Reset guicolors and colorscheme for incompatible environments using '\r'
+" Reset guicolors and colorscheme for incompatible environments
 function! ResetColors()
     if has('termguicolors')
         set notermguicolors
@@ -171,27 +169,11 @@ nnoremap <leader>r :call ResetColors()<CR>
 " =============================================================================
 
 " -------------------------------------
-" Sessionist {{{2
-" -------------------------------------
-
-" Don't save options while saving sessions
-set sessionoptions-=options
-
-" }}}2
-" -------------------------------------
 " Scratchpad {{{2
 " -------------------------------------
 
-" Toggle scratchpad using '\x'
+" Toggle scratchpad
 nnoremap <leader>x :ScratchpadToggle<CR>  
-
-" }}}2
-" -------------------------------------
-" MatchIt {{{2
-" -------------------------------------
-
-" Load vim's builtin matching plugin
-runtime! macros/matchit.vim
 
 " }}}2
 " -------------------------------------
