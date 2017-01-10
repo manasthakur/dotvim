@@ -11,11 +11,13 @@ filetype plugin indent on           "enable filetype-based plugins and indentati
 
 syntax enable                       "enable syntax-coloring
 set backspace=indent,eol,start      "make backspace work everywhere
+set formatoptions+=j	            "remove comment-leader when joining commented lines
 
 set hidden                          "enable opening other file while keeping the previous one in buffer
 set laststatus=2                    "display statusline all the time
 set confirm                         "confirm when closing vim with unsaved buffers
 set scrolloff=1                     "keep one extra line while scrolling for context
+set display=lastline	            "don't show '@' lines when a line doesn't fit the screen
 
 set ruler                           "show ruler with line and column numbers at bottom-right
 set number                          "show line numbers on the left hand side
@@ -60,7 +62,7 @@ nnoremap Y y$
 nnoremap Q @q
 
 " Toggle spellcheck
-nnoremap <leader>s :set spell!<CR>
+nnoremap <leader>s :set spell!<CR>:set spell?<CR>
 
 " Toggle paste
 set pastetoggle=<leader>z
