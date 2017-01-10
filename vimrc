@@ -90,7 +90,7 @@ if executable('ag')
     " Shorthand to search the word under cursor
     nnoremap <leader>c :silent lgrep! <cword> \| lopen<CR><C-l>
 else
-    set grepprg=grep\ -Rn\ $*\ .
+    set grepprg=grep\ -IRn\ --exclude=tags\ $*\ .
 endif
 
 " Grep and open the results in the quickfix window
