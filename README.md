@@ -4,7 +4,8 @@ This is my personal vim-configuration.
 It keeps changing based on my needs and experience.
 As the current configuration uses the package feature added in Vim 8, it may not
 work properly in lower Vim versions of Vim.
-In such a case, simply use the included 'vimrc-pluginless' as `.vimrc`.
+In such a case, simply use the included 'vimrc-minimal' as `.vimrc` (doesn't
+configure plugins as well).
 
 ## Usage
 

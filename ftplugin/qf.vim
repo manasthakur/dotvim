@@ -1,8 +1,8 @@
-" Quickfix window specific settings
+" Location-list specific settings
 
-" Close quickfix windows using 'q'
+" Close location-list using 'q'
 nnoremap <buffer> q :lclose<CR>
 
-" Jump to entry and close quickfix window using 'O'
+" Jump to entry and close location-list using 'O'
 nnoremap <buffer><silent> O <CR>:lclose<CR>
 
