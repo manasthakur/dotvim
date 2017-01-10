@@ -13,7 +13,7 @@ set autoindent                      " Start next line from where the previous on
 
 filetype plugin indent on           " Enable filetype-based plugins and indentation
 syntax enable                       " Enable syntax-coloring
-runtime macros/matchit.vim	        " Load vim's builtin matchit plugin
+packadd! matchit	                " Load vim's builtin matchit plugin
 set showmatch                       " Highlight matching parenthesis
 
 set foldmethod=marker               " Fold using markers
