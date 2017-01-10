@@ -73,20 +73,12 @@ runtime! macros/matchit.vim
 
 " SEARCHING
 
-if executable('ag')
-    " If available, use 'ag' as the grep-program
-    set grepprg=ag\ --nogroup\ --nocolor\ --vimgrep
-    set grepformat^=%f:%l:%c:%m
-
-    " Shorthand to search the word under cursor
-    nnoremap <leader>c :silent lgrep! <cword> \| lopen<CR><C-l>
-else
-    set grepprg=grep\ -Rn\ $*\ .
-endif
+" Enhance the behaviour of grep
+set grepprg=grep\ -IRn\ --exclude=tags $*\ .
 
 " Grep and open the results in the quickfix window
 function! Search()
-    let grep_term = input("Search: ")
+    let grep_term = input("Grep: ")
     if !empty(grep_term)
         execute 'silent lgrep!' grep_term | lopen
     else

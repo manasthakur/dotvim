@@ -95,7 +95,7 @@ endif
 
 " Grep and open the results in the quickfix window
 function! Search()
-    let grep_term = input("Search: ")
+    let grep_term = input("Grep: ")
     if !empty(grep_term)
         execute 'silent lgrep!' grep_term | lopen
     else
