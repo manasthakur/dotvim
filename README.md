@@ -13,7 +13,7 @@ In such a case (or if plugin-configurations are not needed), use the included 'v
 git clone --recursive https://manasthakur@bitbucket.org/manasthakur/myvim.git ~/.vim
 ```
 
-- If the Vim version is < 7.4, symlink `.vimrc`:
+- Symlink `.vimrc`:
 ```
 ln -sf ~/.vim/vimrc ~/.vimrc
 ```
