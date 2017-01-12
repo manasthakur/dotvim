@@ -207,7 +207,7 @@ let g:ctrlp_open_multiple_files = 'i'
 " Mappings
 nnoremap <silent>, :CtrlPBuffer<CR>
 nnoremap <silent>; :CtrlPBufTag<CR>
-nnoremap <silent><C-k> : CtrlPLine<CR>
+nnoremap <silent><C-k> :CtrlPLine<CR>
 
 " }}}2
 " -------------------------------------
@@ -226,7 +226,7 @@ let g:UltiSnipsListSnippets='<C-K>'
 " Tagbar {{{2
 " -------------------------------------
 
-" Sort tags in order of their appearance (default: name)
+" Don't sort the tags
 let g:tagbar_sort = 0
 
 " Mappings
