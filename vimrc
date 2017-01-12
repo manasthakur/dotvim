@@ -121,6 +121,8 @@ function! CleverTab()
     else
         if match(str, '\/') != -1
             return "\<C-X>\<C-F>"
+        elseif !empty(tagfiles())
+            return "\<C-X>\<C-]>"
         else
             return "\<C-P>"
         endif
