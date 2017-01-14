@@ -37,6 +37,10 @@ To update a particular one, go to the plugin's directory inside `pack` and run
 A better workflow:
 First `git fetch origin master` a plugin, review changes, and then `git merge`.
 
+On another machine, if a `git pull` for the main repository leads to uncommitted
+changes in the submodules (as a few plugins got updated), perform a `git
+submodule update` to change the state at which the submodules are.
+
 ### Add plugin
 
 Go to `.vim` and run `git submodule add <plugin-url> pack/myplugins/start/plugin-name`.
