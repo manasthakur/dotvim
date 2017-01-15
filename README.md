@@ -62,7 +62,7 @@ rm -rf .git/modules/pack/myplugins/start/plugin-name
 * [CtrlP](https://github.com/ctrlpvim/ctrlp.vim)
 * [Commentary](https://github.com/tpope/vim-commentary)
 * [Fugitive](https://github.com/tpope/vim-fugitive)
-* [Vinegar](https://github.com/tpope/vim-vinegar)
+* [Vinegar](https://github.com/manasthakur/vim-vinegar)
 * [UltiSnips](https://github.com/SirVer/ultisnips)
 * [Tagbar](https://github.com/majutsushi/tagbar)
 * [Sessionist](https://github.com/manasthakur/vim-sessionist)
