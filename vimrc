@@ -114,7 +114,7 @@ nmap <leader>c <leader>a<C-r><C-w><CR>
 " Don't complete from include files
 set complete-=i         
 
-" Complete filenames, tags and keywords with <Tab>
+" Complete filenames and keywords with <Tab>
 function! CleverTab()
     let str = strpart(getline('.'), 0, col('.')-1)
     if pumvisible()
