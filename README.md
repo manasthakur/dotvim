@@ -18,7 +18,7 @@ repository](https://github.com/honza/vim-snippets).
 - Clone repository into `$HOME/.vim`:
 
     ```
-    git clone --recursive https://manasthakur@bitbucket.org/manasthakur/myvim.git ~/.vim
+    git clone --recursive https://github.com/manasthakur/myvim.git ~/.vim
     ```
 
 - Symlink `.vimrc` (not _needed_ in Vim 7.4+):
