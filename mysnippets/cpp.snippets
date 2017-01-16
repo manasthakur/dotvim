@@ -1,3 +1,5 @@
+# Snippets for C++ files
+
 priority -50
 
 extends c
@@ -5,9 +7,6 @@ extends c
 # We want to overwrite everything in parent ft.
 priority -49
 
-###########################################################################
-#                            TextMate Snippets                            #
-###########################################################################
 snippet beginend "$1.begin(), $1.end() (beginend)"
 ${1:v}${1/^.*?(-)?(>)?$/(?2::(?1:>:.))/}begin(), $1${1/^.*?(-)?(>)?$/(?2::(?1:>:.))/}end()
 endsnippet

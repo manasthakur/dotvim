@@ -1,3 +1,5 @@
+# Snippets for shell scripts
+
 priority -50
 
 global !p
@@ -22,9 +24,6 @@ def getShell():
 	return "sh"
 endglobal
 
-###########################################################################
-#                            TextMate Snippets                            #
-###########################################################################
 snippet #!
 `!p snip.rv = '#!/bin/' + getShell() + "\n\n" `
 endsnippet

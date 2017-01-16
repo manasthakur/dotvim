@@ -1,5 +1,6 @@
 " Manas's vimrc
 " vim: set foldenable foldmethod=marker:
+" Filetype-specific settings are in .vim/ftplugin/
 " Toggle folds using 'za'
 " =============================================================================
 " BASIC SETTINGS {{{1
@@ -135,6 +136,19 @@ inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " Type '<Tab>' literal at end-of-lines using <Shift-Tab>
 inoremap <S-Tab> <C-V><Tab>
+
+" }}}1
+" =============================================================================
+" CSCOPE {{{1
+" =============================================================================
+
+" Add cscope database, if present in current directory
+if filereadable("cscope.out")
+    cs add cscope.out  
+endif
+
+" Find the callers of the function under cursor
+nmap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR>	
 
 " }}}1
 " =============================================================================
