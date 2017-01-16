@@ -62,11 +62,11 @@ If a plugin needs to be installed just for testing, it can be installed inside
 
 Go to `.vim` and run:
 
-    ```
-    git submodule deinit <path-to-plugin>
-    git rm -r <path-to-plugin>
-    rm -rf .git/modules/pack/myplugins/start/plugin-name
-    ```
+```
+git submodule deinit <path-to-plugin>
+git rm -r <path-to-plugin>
+rm -rf .git/modules/pack/myplugins/start/plugin-name
+```
 
 ## Current plugins
 
