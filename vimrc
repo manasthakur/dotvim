@@ -94,7 +94,7 @@ else
 endif
 
 " Grep and open the results in the quickfix window
-function! Search()
+function! Search() abort
     let grep_term = input("Grep: ")
     if !empty(grep_term)
         execute 'silent lgrep!' grep_term | lopen
@@ -115,7 +115,7 @@ nmap <leader>c <leader>a<C-r><C-w><CR>
 set complete-=i         
 
 " Complete filenames and keywords with <Tab>
-function! CleverTab()
+function! CleverTab() abort
     let str = strpart(getline('.'), 0, col('.')-1)
     if pumvisible()
         return "\<C-E>"
