@@ -20,32 +20,32 @@ setlocal foldexpr=MyFoldLevel(v:lnum)
 
 " Function that returns foldlevel for a line
 function! MyFoldLevel(lnum)
-	let cur_line = getline(a:lnum)
+    let cur_line = getline(a:lnum)
 
-	if cur_line =~ '^\s*\\section'
-		return '>1'
-	endif
+    if cur_line =~ '^\s*\\section'
+        return '>1'
+    endif
 
-	if cur_line =~ '^\s*\\subsection'
-		return '>2'
-	endif
+    if cur_line =~ '^\s*\\subsection'
+        return '>2'
+    endif
 
-	if cur_line =~ '^\s*\\subsubsection'
-		return '>3'
-	endif
+    if cur_line =~ '^\s*\\subsubsection'
+    return '>3'
+    endif
 
-	" Fold following environments
-	let fold_envs = ['figure', 'algorithm', 'frame']
-	let envs = '\(' . join(fold_envs, '\|') . '\)'
+    " Fold following environments
+    let fold_envs = ['figure', 'algorithm', 'frame']
+    let envs = '\(' . join(fold_envs, '\|') . '\)'
 
-	if cur_line =~ '^\s*\\begin{' . envs
-		return 'a1'
-	endif
+    if cur_line =~ '^\s*\\begin{' . envs
+        return 'a1'
+    endif
 
-	if cur_line =~ '^\s*\\end{' . envs
-		return 's1'
-	endif
+    if cur_line =~ '^\s*\\end{' . envs
+        return 's1'
+    endif
 
-	return '='
+    return '='
 endfunction
 

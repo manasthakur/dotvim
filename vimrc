@@ -6,7 +6,7 @@
 " BASIC SETTINGS {{{1
 " =============================================================================
 
-set tabstop=4	                    " Number of spaces a TAB character is shown as
+set tabstop=4                       " Number of spaces a TAB character is shown as
 set softtabstop=4                   " Number of spaces inserted per TAB
 set shiftwidth=4                    " Number of spaces for auto-indentation
 set expandtab                       " Expand tabs to spaces
@@ -14,14 +14,14 @@ set autoindent                      " Start next line from where the previous on
 
 filetype plugin indent on           " Enable filetype-based plugins and indentation
 syntax enable                       " Enable syntax-coloring
-packadd! matchit	                " Load vim's builtin matchit plugin
+packadd! matchit                    " Load vim's builtin matchit plugin
 set showmatch                       " Highlight matching parenthesis
 
 set foldmethod=marker               " Fold using markers
 set backspace=indent,eol,start      " Make backspace work everywhere
-set display=lastline	            " Don't show '@' lines when a line doesn't fit the screen
-set formatoptions+=j	            " Remove comment-leader when joining commented lines
-set sessionoptions-=options	        " Don't save options while saving sessions
+set display=lastline                " Don't show '@' lines when a line doesn't fit the screen
+set formatoptions+=j                " Remove comment-leader when joining commented lines
+set sessionoptions-=options         " Don't save options while saving sessions
 
 set hidden                          " Enable opening other file while keeping the previous one in buffer
 set confirm                         " Confirm when closing vim with unsaved buffers
@@ -42,7 +42,7 @@ set smartcase                       " Don't ignore case when search term consist
 set history=200                     " Keep 200 lines of command line history
 set ttimeout                        " Time out for key codes
 set ttimeoutlen=100                 " Wait up to 100ms after Esc for special key
-set pastetoggle=<leader>z	        " Toggle paste using '<leader>z'
+set pastetoggle=<leader>z           " Toggle paste using '<leader>z'
 set mouse=a                         " Enable mouse for all activities
 
 " }}}1
@@ -112,7 +112,7 @@ nmap <leader>c <leader>a<C-r><C-w><CR>
 " =============================================================================
 
 " Don't complete from include files
-set complete-=i         
+set complete-=i
 
 " Complete filenames and keywords with <Tab>
 function! CleverTab() abort
@@ -144,7 +144,7 @@ inoremap <S-Tab> <C-V><Tab>
 
 " Add cscope database, if present in current directory
 if filereadable("cscope.out")
-    cs add cscope.out  
+    cs add cscope.out
 endif
 
 " Find the callers of the function under cursor
@@ -189,7 +189,7 @@ nnoremap <leader>r :call ResetColors()<CR>
 " -------------------------------------
 
 " Toggle scratchpad
-nnoremap <leader>x :ScratchpadToggle<CR>  
+nnoremap <leader>x :ScratchpadToggle<CR>
 
 " }}}2
 " -------------------------------------
