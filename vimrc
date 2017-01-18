@@ -6,8 +6,8 @@
 " BASIC SETTINGS {{{1
 " =============================================================================
 
-set softtabstop=4		    " Number of spaces inserted per TAB
-set shiftwidth=4		    " Number of spaces for auto-indentation
+set softtabstop=4		    " Number of spaces a <Tab> counts for
+set shiftwidth=4		    " Number of spaces for indentation
 set autoindent			    " Start next line from where the previous one did
 
 filetype plugin indent on	    " Enable filetype-based plugins and indentation
@@ -146,7 +146,7 @@ if filereadable("cscope.out")
 endif
 
 " Find the callers of the function under cursor
-nmap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR>	
+nmap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR>
 
 " }}}1
 " =============================================================================
