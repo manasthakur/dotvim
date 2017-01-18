@@ -1,8 +1,15 @@
-" Location-list specific settings
+" Quickfix/Location-list specific settings
 
-" Close location-list using 'q'
-nnoremap <buffer><silent> q :lclose<CR>
+" Is this a location-list or a quickfix-list?
+let b:qf_isloclist = len(getloclist(0)) > 0 ? 1 : 0
 
-" Jump to entry and close location-list using 'O'
-nnoremap <buffer><silent> O <CR>:lclose<CR>
+" Close using 'q'
+" Jump to entry and close using 'O'
+if b:qf_isloclist
+    nnoremap <buffer><silent> q :lclose<CR>
+    nnoremap <buffer><silent> O <CR>:lclose<CR>
+else 
+    nnoremap <buffer><silent> q :cclose<CR>
+    nnoremap <buffer><silent> O <CR>:cclose<CR>
+endif
 
