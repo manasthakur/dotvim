@@ -1,5 +1,5 @@
 " Manas's vimrc
-" vim: set foldenable foldmethod=marker:
+" vim: set fen fdm=marker:
 " Filetype-specific settings are in .vim/ftplugin/
 " Toggle folds using 'za'
 " =============================================================================
@@ -137,19 +137,6 @@ inoremap <S-Tab> <Space><Tab>
 
 " }}}1
 " =============================================================================
-" CSCOPE {{{1
-" =============================================================================
-
-" Add cscope database, if present in current directory
-if filereadable("cscope.out")
-    cs add cscope.out
-endif
-
-" Find the callers of the function under cursor
-nmap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR>
-
-" }}}1
-" =============================================================================
 " APPEARANCE {{{1
 " =============================================================================
 
@@ -176,6 +163,19 @@ function! ResetColors()
     colorscheme default
 endfunction
 nnoremap <leader>r :call ResetColors()<CR>
+
+" }}}1
+" =============================================================================
+" CSCOPE {{{1
+" =============================================================================
+
+" Add cscope database, if present in current directory
+if filereadable("cscope.out")
+    cs add cscope.out
+endif
+
+" Find the callers of the function under cursor
+nmap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR>
 
 " }}}1
 " =============================================================================
