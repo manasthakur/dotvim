@@ -117,6 +117,6 @@ inoremap <Tab> <C-R>=CleverTab()<CR>
 " Make '<CR>' select an entry from completion-menu
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
-" Type '<Tab>' literal at end-of-lines using <Shift-Tab>
-inoremap <S-Tab> <C-V><Tab>
+" Insert '<Tab>' at end-of-lines using <Shift-Tab>
+inoremap <S-Tab> <Space><Tab>
 

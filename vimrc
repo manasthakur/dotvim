@@ -6,44 +6,42 @@
 " BASIC SETTINGS {{{1
 " =============================================================================
 
-set tabstop=4                       " Number of spaces a TAB character is shown as
-set softtabstop=4                   " Number of spaces inserted per TAB
-set shiftwidth=4                    " Number of spaces for auto-indentation
-set expandtab                       " Expand tabs to spaces
-set autoindent                      " Start next line from where the previous one did
+set softtabstop=4		    " Number of spaces inserted per TAB
+set shiftwidth=4		    " Number of spaces for auto-indentation
+set autoindent			    " Start next line from where the previous one did
 
-filetype plugin indent on           " Enable filetype-based plugins and indentation
-syntax enable                       " Enable syntax-coloring
-packadd! matchit                    " Load vim's builtin matchit plugin
-set showmatch                       " Highlight matching parenthesis
+filetype plugin indent on	    " Enable filetype-based plugins and indentation
+syntax enable			    " Enable syntax-coloring
+packadd! matchit		    " Load vim's builtin matchit plugin
+set showmatch			    " Highlight matching parenthesis
 
-set foldmethod=marker               " Fold using markers
-set backspace=indent,eol,start      " Make backspace work everywhere
-set display=lastline                " Don't show '@' lines when a line doesn't fit the screen
-set formatoptions+=j                " Remove comment-leader when joining commented lines
-set sessionoptions-=options         " Don't save options while saving sessions
+set foldmethod=marker		    " Fold using markers
+set backspace=indent,eol,start	    " Make backspace work everywhere
+set display=lastline		    " Don't show '@' lines when a line doesn't fit the screen
+set formatoptions+=j		    " Remove comment-leader when joining commented lines
+set sessionoptions-=options	    " Don't save options while saving sessions
 
-set hidden                          " Enable opening other file while keeping the previous one in buffer
-set confirm                         " Confirm when closing vim with unsaved buffers
-set scrolloff=1                     " Keep one extra line while scrolling for context
-set laststatus=2                    " Display statusline all the time
-set wildmenu                        " Visual autocomplete for command menu
-set wildignorecase                  " Ignore case in wildmenu (like zsh; not needed on macOS)
+set hidden			    " Enable opening other file while keeping the previous one in buffer
+set confirm			    " Confirm when closing vim with unsaved buffers
+set scrolloff=1			    " Keep one extra line while scrolling for context
+set laststatus=2		    " Display statusline all the time
+set wildmenu			    " Visual autocomplete for command menu
+set wildignorecase		    " Ignore case in wildmenu (like zsh; not needed on macOS)
 
-set ruler                           " Show ruler with line and column numbers at bottom-right
-set number                          " Show line numbers on the left hand side
-set relativenumber                  " Show relative line numbers
+set ruler			    " Show ruler with line and column numbers at bottom-right
+set number			    " Show line numbers on the left hand side
+set relativenumber		    " Show relative line numbers
 
-set nohlsearch                      " Don't highlight matches (not needed in some Vim versions)
-set incsearch                       " Show search matches as you type
-set ignorecase                      " Ignore case while searching
-set smartcase                       " Don't ignore case when search term consists capital letters
+set nohlsearch			    " Don't highlight matches (not needed in some Vim versions)
+set incsearch			    " Show search matches as you type
+set ignorecase			    " Ignore case while searching
+set smartcase			    " Don't ignore case when search term consists capital letters
 
-set history=200                     " Keep 200 lines of command line history
-set ttimeout                        " Time out for key codes
-set ttimeoutlen=100                 " Wait up to 100ms after Esc for special key
-set pastetoggle=<leader>z           " Toggle paste using '<leader>z'
-set mouse=a                         " Enable mouse for all activities
+set history=200			    " Keep 200 lines of command line history
+set ttimeout			    " Time out for key codes
+set ttimeoutlen=100		    " Wait up to 100ms after Esc for special key
+set pastetoggle=<leader>z	    " Toggle paste using '<leader>z'
+set mouse=a			    " Enable mouse for all activities
 
 " }}}1
 " =============================================================================
@@ -134,8 +132,8 @@ inoremap <Tab> <C-R>=CleverTab()<CR>
 " Make '<CR>' select an entry from completion-menu
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
-" Type '<Tab>' literal at end-of-lines using <Shift-Tab>
-inoremap <S-Tab> <C-V><Tab>
+" Insert '<Tab>' at end-of-lines using <Shift-Tab>
+inoremap <S-Tab> <Space><Tab>
 
 " }}}1
 " =============================================================================
