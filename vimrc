@@ -140,7 +140,7 @@ inoremap <S-Tab> <Space><Tab>
 " =============================================================================
 
 " Enable fugitive in the statusline
-set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
+set statusline=%<%f\ %h%m%r\ %{exists('g:loaded_fugitive')?fugitive#statusline():''}%=%-14.(%l,%c%V%)\ %P
 
 " Highlight current line
 set cursorline
