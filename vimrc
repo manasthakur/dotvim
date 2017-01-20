@@ -28,7 +28,6 @@ set laststatus=2		    " Display statusline all the time
 set wildmenu			    " Visual autocomplete for command menu
 set wildignorecase		    " Ignore case in wildmenu (like zsh; not needed on macOS)
 
-set ruler			    " Show ruler with line and column numbers at bottom-right
 set number			    " Show line numbers on the left hand side
 set relativenumber		    " Show relative line numbers
 
@@ -139,6 +138,9 @@ inoremap <S-Tab> <Space><Tab>
 " =============================================================================
 " APPEARANCE {{{1
 " =============================================================================
+
+" Enable fugitive in the statusline
+set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 
 " Use 24-bit true colors, if available
 if has('termguicolors')
