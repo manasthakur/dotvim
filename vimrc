@@ -142,6 +142,9 @@ inoremap <S-Tab> <Space><Tab>
 " Enable fugitive in the statusline
 set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 
+" Highlight current line
+set cursorline
+
 " Use 24-bit true colors, if available
 if has('termguicolors')
     set termguicolors
@@ -149,13 +152,6 @@ endif
 
 " Use seoul colorscheme
 colorscheme seoul
-
-" Highlight current line in insert mode
-augroup vimrc
-    autocmd!
-    autocmd InsertEnter * set cursorline
-    autocmd InsertLeave * set nocursorline
-augroup END
 
 " Reset guicolors and colorscheme for incompatible environments
 function! ResetColors()
