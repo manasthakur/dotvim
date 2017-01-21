@@ -142,8 +142,12 @@ inoremap <S-Tab> <Space><Tab>
 " Enable fugitive in the statusline
 set statusline=%<%f\ %h%m%r\ %{exists('g:loaded_fugitive')?fugitive#statusline():''}%=%-14.(%l,%c%V%)\ %P
 
-" Highlight current line
-set cursorline
+" Highlight current line in the active window
+augroup vimrc
+    autocmd!
+    autocmd WinEnter,VimEnter * set cursorline
+    autocmd WinLeave * set nocursorline
+augroup END
 
 " Use 24-bit true colors, if available
 if has('termguicolors')
