@@ -139,7 +139,7 @@ inoremap <S-Tab> <Space><Tab>
 " APPEARANCE {{{1
 " =============================================================================
 
-" Enable fugitive in the statusline
+" Custom statusline with ruler and fugitive
 set statusline=%<%f\ %h%m%r\ %{exists('g:loaded_fugitive')?fugitive#statusline():''}%=%-14.(%l,%c%V%)\ %P
 
 " Highlight current line in the active window
