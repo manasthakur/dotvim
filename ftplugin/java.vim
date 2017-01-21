@@ -25,6 +25,10 @@ function! RunAsync(command) abort
     endif
 endfunction
 
-" Set <leader>\ to run 'ant'
-nnoremap <buffer> <silent> <leader>\ :call RunAsync('ant')<CR>
+" Set <leader>\ to compile using 'ant'
+if exists("*job_start")
+    nnoremap <buffer> <silent> <leader>\ :call RunAsync('ant')<CR>
+else
+    nnoremap <buffer> <leader>\ :silent lmake \| lwindow \| redraw!<CR>
+endif
 
