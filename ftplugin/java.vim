@@ -26,7 +26,7 @@ function! RunAsync(command) abort
 endfunction
 
 " Set <leader>\ to compile using 'ant'
-if exists("*job_start")
+if v:version >= 800
     nnoremap <buffer> <silent> <leader>\ :call RunAsync('ant')<CR>
 else
     nnoremap <buffer> <leader>\ :silent lmake \| lwindow \| redraw!<CR>
