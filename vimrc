@@ -17,17 +17,19 @@ set showmatch			    " Highlight matching parenthesis
 
 set foldmethod=marker		    " Fold using markers
 set backspace=indent,eol,start	    " Make backspace work everywhere
-set display=lastline		    " Don't show '@' lines when a line doesn't fit the screen
 set formatoptions+=j		    " Remove comment-leader when joining commented lines
 set sessionoptions-=options	    " Don't save options while saving sessions
 
 set hidden			    " Enable opening other file while keeping the previous one in buffer
 set confirm			    " Confirm when closing vim with unsaved buffers
-set scrolloff=1			    " Keep one extra line while scrolling for context
+
 set laststatus=2		    " Display statusline all the time
+set scrolloff=1			    " Keep one extra line while scrolling for context
+set display=lastline		    " Don't show '@'s when a line doesn't fit the screen
 set wildmenu			    " Visual autocomplete for command menu
 set wildignorecase		    " Ignore case in wildmenu (like zsh; not needed on macOS)
 
+set ruler			    " Show ruler with line and column numbers at bottom-right
 set number			    " Show line numbers on the left hand side
 set relativenumber		    " Show relative line numbers
 
@@ -39,7 +41,6 @@ set smartcase			    " Don't ignore case when search term consists capital letter
 set history=200			    " Keep 200 lines of command line history
 set ttimeout			    " Time out for key codes
 set ttimeoutlen=100		    " Wait up to 100ms after Esc for special key
-set pastetoggle=<leader>z	    " Toggle paste using '<leader>z'
 set mouse=a			    " Enable mouse for all activities
 
 " }}}1
@@ -74,8 +75,11 @@ nnoremap Q @q
 " Auto-insert ending brace and a new line to write above
 inoremap {<CR> {<CR>}<C-O>O
 
-" Toggle spellcheck
-nnoremap <leader>s :set spell!<CR>:set spell?<CR>
+" Toggles
+nnoremap cop :setlocal paste!<CR>:setlocal paste?<CR>
+nnoremap cos :setlocal spell!<CR>:setlocal spell?<CR>
+nnoremap coh :setlocal hlsearch!<CR>:setlocal hlsearch?<CR>
+nnoremap cob :set background=<C-R>=&background == 'dark' ? 'light' : 'dark'<CR><CR>
 
 " }}}1
 " =============================================================================
@@ -230,7 +234,7 @@ nnoremap <silent><C-k> :CtrlPLine<CR>
 " UltiSnips {{{2
 " -------------------------------------
 
-" Use custom snippet-diretory instead of other plugins
+" Use custom snippet-diretory
 let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/mysnippets']
 
 " Mappings
