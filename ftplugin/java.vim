@@ -5,16 +5,15 @@ compiler ant
 
 " Function to handle job-exit
 function! ExitHandler(job, exit_status) abort
-    execute 'lgetfile ' . g:async_outfile | lwindow
+    execute 'lgetfile ' . g:async_outfile
+    echo ""
     if a:exit_status == 0
 	echo "No errors!"
-    else
-	echo
     endif
     unlet g:async_outfile
 endfunction
 
-" Function to run jobs asynchronously (Vim 8 only)
+" Function to run 'ant' asynchronously (Vim 8 only)
 function! RunAsync(command) abort
     if !filereadable(expand("build.xml"))
 	echo "Buildfile: build.xml does not exist!"

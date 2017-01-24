@@ -1,5 +1,4 @@
 " Manas's pluginless vimrc that should work on most Vim versions
-" Filetype-specific settings are in .vim/ftplugin/
 
 " BASIC SETTINGS
 " ==============
@@ -84,9 +83,7 @@ set grepprg=grep\ -IRn\ --exclude=tags\ $*\ .
 function! Search() abort
     let grep_term = input("Grep: ")
     if !empty(grep_term)
-        execute 'silent lgrep!' grep_term | lopen
-    else
-        echo
+        execute 'silent lgrep!' grep_term
     endif
     redraw!
 endfunction

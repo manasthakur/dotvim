@@ -1,9 +1,9 @@
 " Manas's vimrc
 " vim: set fen fdm=marker:
-" Filetype-specific settings are in .vim/ftplugin/
+" Filetype-specific settings are in '.vim/ftplugin'
 " Toggle folds using 'za'
 " =============================================================================
-" BASIC SETTINGS {{{1
+" SETTINGS {{{1
 " =============================================================================
 
 set softtabstop=4		    " Number of spaces a <Tab> counts for
@@ -42,6 +42,19 @@ set history=200			    " Keep 200 lines of command line history
 set ttimeout			    " Time out for key codes
 set ttimeoutlen=100		    " Wait up to 100ms after Esc for special key
 set mouse=a			    " Enable mouse for all activities
+
+" Autocommands
+augroup vimrc
+    autocmd!
+
+    " Highlight current line in the active window
+    autocmd WinEnter,VimEnter * set cursorline
+    autocmd WinLeave * set nocursorline
+
+    " Automatically open quickfix/location lists when populated
+    autocmd QuickFixCmdPost [^l]* cwindow
+    autocmd QuickFixCmdPost l*    lwindow
+augroup END
 
 " }}}1
 " =============================================================================
@@ -98,9 +111,7 @@ endif
 function! Search() abort
     let grep_term = input("Grep: ")
     if !empty(grep_term)
-        execute 'silent lgrep!' grep_term | lopen
-    else
-        echo
+        execute 'silent lgrep!' grep_term
     endif
     redraw!
 endfunction
@@ -145,13 +156,6 @@ inoremap <S-Tab> <Space><Tab>
 
 " Custom statusline with ruler and fugitive
 set statusline=%<%f\ %h%m%r\ %{exists('g:loaded_fugitive')?fugitive#statusline():''}%=%-14.(%l,%c%V%)\ %P
-
-" Highlight current line in the active window
-augroup vimrc
-    autocmd!
-    autocmd WinEnter,VimEnter * set cursorline
-    autocmd WinLeave * set nocursorline
-augroup END
 
 " Use 24-bit true colors, if available
 if has('termguicolors')
