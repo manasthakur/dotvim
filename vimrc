@@ -43,19 +43,6 @@ set ttimeout			    " Time out for key codes
 set ttimeoutlen=100		    " Wait up to 100ms after Esc for special key
 set mouse=a			    " Enable mouse for all activities
 
-" Autocommands
-augroup vimrc
-    autocmd!
-
-    " Highlight current line in the active window
-    autocmd WinEnter,VimEnter * set cursorline
-    autocmd WinLeave * set nocursorline
-
-    " Automatically open quickfix/location lists when populated
-    autocmd QuickFixCmdPost [^l]* cwindow
-    autocmd QuickFixCmdPost l*    lwindow
-augroup END
-
 " }}}1
 " =============================================================================
 " MAPPINGS {{{1
@@ -93,6 +80,25 @@ nnoremap cop :setlocal paste!<CR>:setlocal paste?<CR>
 nnoremap cos :setlocal spell!<CR>:setlocal spell?<CR>
 nnoremap coh :setlocal hlsearch!<CR>:setlocal hlsearch?<CR>
 nnoremap cob :set background=<C-R>=&background == 'dark' ? 'light' : 'dark'<CR><CR>
+
+" }}}1
+" =============================================================================
+" AUTOCOMMANDS {{{1
+" =============================================================================
+
+augroup vimrc
+    " Clear the autocommands of this group
+    autocmd!
+
+    " Highlight current line in the active window
+    autocmd VimEnter * set cursorline
+    autocmd WinEnter * if &filetype != "tagbar" | set cursorline | endif
+    autocmd WinLeave * set nocursorline
+
+    " Automatically open quickfix/location lists when populated
+    autocmd QuickFixCmdPost [^l]* cwindow
+    autocmd QuickFixCmdPost l*    lwindow
+augroup END
 
 " }}}1
 " =============================================================================
