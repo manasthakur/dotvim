@@ -122,7 +122,7 @@ function! Search() abort
     redraw!
 endfunction
 nnoremap <leader>a :call Search()<CR>
-nmap <leader>c <leader>a<C-r><C-w><CR>
+nmap <leader>c <leader>a<C-R><C-W><CR>
 
 " }}}1
 " =============================================================================
@@ -150,7 +150,7 @@ endfunction
 inoremap <Tab> <C-R>=CleverTab()<CR>
 
 " Make '<CR>' select an entry from completion-menu
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <expr> <CR> pumvisible() ? "\<C-Y>" : "\<C-G>u\<CR>"
 
 " Insert '<Tab>' at end-of-lines using <Shift-Tab>
 inoremap <S-Tab> <Space><Tab>
@@ -237,7 +237,7 @@ let g:ctrlp_open_multiple_files = 'i'
 " Mappings
 nnoremap <silent>, :CtrlPBuffer<CR>
 nnoremap <silent>; :CtrlPBufTag<CR>
-nnoremap <silent><C-k> :CtrlPLine<CR>
+nnoremap <silent><C-K> :CtrlPLine<CR>
 
 " }}}2
 " -------------------------------------
