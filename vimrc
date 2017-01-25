@@ -113,10 +113,10 @@ else
     set grepprg=grep\ -IRn\ --exclude=tags\ $*\ .
 endif
 
-" Maps to grep text
+" Maps
 command! -nargs=+ -bar Grep silent lgrep! <args> | redraw!
 nnoremap <leader>a :Grep<Space>
-nnoremap <leader>c :Grep<C-R><C-W><CR>
+nnoremap <leader>c :Grep <C-R><C-W><CR>
 
 " }}}1
 " =============================================================================
@@ -228,7 +228,7 @@ let g:ctrlp_working_path_mode = 'a'
 " Open multiple marked files in hidden buffers
 let g:ctrlp_open_multiple_files = 'i'
 
-" Mappings
+" Maps
 nnoremap <silent>, :CtrlPBuffer<CR>
 nnoremap <silent>; :CtrlPBufTag<CR>
 nnoremap <silent><C-K> :CtrlPLine<CR>
@@ -241,7 +241,7 @@ nnoremap <silent><C-K> :CtrlPLine<CR>
 " Use custom snippet-diretory
 let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/mysnippets']
 
-" Mappings
+" Maps
 let g:UltiSnipsExpandTrigger='<C-J>'
 let g:UltiSnipsListSnippets='<C-K>'
 
@@ -253,7 +253,7 @@ let g:UltiSnipsListSnippets='<C-K>'
 " Don't sort the tags
 let g:tagbar_sort = 0
 
-" Mappings
+" Maps
 nnoremap <silent><leader>d :TagbarToggle<CR>
 nnoremap <silent><leader>f :TagbarCurrentTag<CR>
 
