@@ -114,7 +114,7 @@ else
 endif
 
 " Maps to grep text
-command! -nargs=+ -complete=tag -bar Grep silent lgrep! <args> | redraw!
+command! -nargs=+ -bar Grep silent lgrep! <args> | redraw!
 nnoremap <leader>a :Grep<Space>
 nnoremap <leader>c :Grep<C-R><C-W><CR>
 
@@ -143,10 +143,10 @@ function! CleverTab() abort
 endfunction
 inoremap <Tab> <C-R>=CleverTab()<CR>
 
-" Make '<CR>' select an entry from completion-menu
+" Make <CR> select an entry from completion-menu
 inoremap <expr> <CR> pumvisible() ? "\<C-Y>" : "\<C-G>u\<CR>"
 
-" Insert '<Tab>' at end-of-lines using <Shift-Tab>
+" Insert <Tab> at end-of-lines using <Shift-Tab>
 inoremap <S-Tab> <Space><Tab>
 
 " }}}1
@@ -180,12 +180,12 @@ nnoremap <leader>r :call ResetColors()<CR>
 " =============================================================================
 
 " Add cscope database, if present in current directory
-if filereadable("cscope.out")
+if filereadable('cscope.out')
     cs add cscope.out
 endif
 
 " Find the callers of the function under cursor
-nmap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR>
+nmap <C-\>c :cs find c <C-R>=expand('<cword>')<CR><CR>
 
 " }}}1
 " =============================================================================
