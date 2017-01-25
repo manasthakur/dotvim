@@ -113,16 +113,10 @@ else
     set grepprg=grep\ -IRn\ --exclude=tags\ $*\ .
 endif
 
-" Grep and open the results in the quickfix window
-function! Search() abort
-    let grep_term = input("Grep: ")
-    if !empty(grep_term)
-        execute 'silent lgrep!' grep_term
-    endif
-    redraw!
-endfunction
-nnoremap <leader>a :call Search()<CR>
-nmap <leader>c <leader>a<C-R><C-W><CR>
+" Maps to grep text
+command! -nargs=+ -complete=tag -bar Grep silent lgrep! <args> | redraw!
+nnoremap <leader>a :Grep<Space>
+nnoremap <leader>c :Grep<C-R><C-W><CR>
 
 " }}}1
 " =============================================================================
