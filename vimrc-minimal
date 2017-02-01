@@ -1,20 +1,15 @@
-" Manas's pluginless vimrc that should work on most Vim versions
-
-" BASIC SETTINGS
-" ==============
-
-set softtabstop=4		    " Number of spaces a <Tab> counts for
-set shiftwidth=4		    " Number of spaces for indentation
-set expandtab			    " Expand tabs to spaces
-set autoindent			    " Start next line from where the previous one did
+" Manas's minimal vimrc that should work on most Vim versions
 
 filetype plugin indent on	    " Enable filetype-based plugins and indentation
 syntax enable			    " Enable syntax-coloring
 runtime macros/matchit.vim	    " Load vim's builtin matchit plugin
 set showmatch			    " Highlight matching parenthesis
 
+set softtabstop=4		    " Number of spaces a <Tab> counts for
+set shiftwidth=4		    " Number of spaces for indentation
+set expandtab			    " Expand tabs to spaces
+set autoindent			    " Start next line from where the previous one did
 set backspace=indent,eol,start	    " Make backspace work everywhere
-set formatoptions+=j		    " Remove comment-leader when joining commented lines
 
 set hidden			    " Enable opening other file while keeping the previous one in buffer
 set confirm			    " Confirm when closing vim with unsaved buffers
@@ -32,84 +27,18 @@ set incsearch			    " Show search matches as you type
 set ignorecase			    " Ignore case while searching
 set smartcase			    " Don't ignore case when search term consists capital letters
 
-set history=200			    " Keep 200 lines of command line history
-set ttimeout			    " Time out for key codes
-set ttimeoutlen=100		    " Wait up to 100ms after Esc for special key
 set mouse=a			    " Enable mouse for all activities
-
-" MAPPINGS
-" ========
 
 " Scroll using Ctrl-Dn and Ctrl-Up (won't work on macOS)
 noremap <C-Down> <C-F>
 noremap <C-Up> <C-B>
 
-" Buffers
+" Buffer maps
 nnoremap <leader>w :update<CR>
 nnoremap <leader>q :bdelete<CR>
 nnoremap ]b :bnext<CR>
 nnoremap [b :bprevious<CR>
 
-" Tabs
-nnoremap ]t :tabnext<CR>
-nnoremap [t :tabprevious<CR>
-
-" Location-lists
-nnoremap ]q :lnext<CR>
-nnoremap [q :lprevious<CR>
-
-" Make 'Y' behave like other capitals
-nnoremap Y y$
-
-" Run macro from register 'q' with 'Q'
-nnoremap Q @q
-
 " Auto-insert ending brace and a new line to write above
 inoremap {<CR> {<CR>}<C-O>O
-
-" Toggles
-nnoremap cop :setlocal paste!<CR>:setlocal paste?<CR>
-nnoremap cos :setlocal spell!<CR>:setlocal spell?<CR>
-nnoremap coh :setlocal hlsearch!<CR>:setlocal hlsearch?<CR>
-nnoremap cob :set background=<C-R>=&background == 'dark' ? 'light' : 'dark'<CR><CR>
-
-" SEARCHING
-" =========
-
-" Let 'grep' behave better
-set grepprg=grep\ -IRn\ --exclude=tags\ $*\ .
-
-" Maps for grepping text and word under cursor
-command! -nargs=+ -bar Grep silent lgrep! <args> | redraw!
-nnoremap <leader>a :Grep<Space>
-nnoremap <leader>c :Grep <C-R><C-W><CR>
-
-" COMPLETION
-" ==========
-
-" Don't complete from include files
-set complete-=i
-
-" Complete filenames and keywords with <Tab>
-function! CleverTab() abort
-    let str = strpart(getline('.'), 0, col('.')-1)
-    if pumvisible()
-        return "\<C-E>"
-    elseif empty(matchstr(str, '[^ \t]*$'))
-        return "\<Tab>"
-    else
-        if match(str, '\/') != -1
-            return "\<C-X>\<C-F>"
-        else
-            return "\<C-P>"
-        endif
-    endif
-endfunction
-inoremap <Tab> <C-R>=CleverTab()<CR>
-
-" Make <CR> select an entry from completion-menu
-inoremap <expr> <CR> pumvisible() ? "\<C-Y>" : "\<C-G>u\<CR>"
-
-" Insert <Tab> at end-of-lines using <Shift-Tab>
-inoremap <S-Tab> <Space><Tab>
 

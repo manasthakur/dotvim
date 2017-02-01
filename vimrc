@@ -6,14 +6,14 @@
 " SETTINGS {{{1
 " =============================================================================
 
-set softtabstop=4		    " Number of spaces a <Tab> counts for
-set shiftwidth=4		    " Number of spaces for indentation
-set autoindent			    " Start next line from where the previous one did
-
 filetype plugin indent on	    " Enable filetype-based plugins and indentation
 syntax enable			    " Enable syntax-coloring
 packadd! matchit		    " Load vim's builtin matchit plugin
 set showmatch			    " Highlight matching parenthesis
+
+set softtabstop=4		    " Number of spaces a <Tab> counts for
+set shiftwidth=4		    " Number of spaces for indentation
+set autoindent			    " Start next line from where the previous one did
 
 set foldmethod=marker		    " Fold using markers
 set backspace=indent,eol,start	    " Make backspace work everywhere
