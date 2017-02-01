@@ -25,13 +25,9 @@ set number			    " Show line numbers on the left hand side
 set nohlsearch			    " Don't highlight matches (not needed in some Vim versions)
 set incsearch			    " Show search matches as you type
 set ignorecase			    " Ignore case while searching
-set smartcase			    " Don't ignore case when search term consists capital letters
+set smartcase			    " Don't ignore case when search-term contains capitals
 
-set mouse=a			    " Enable mouse for all activities
-
-" Scroll using Ctrl-Dn and Ctrl-Up (won't work on macOS)
-noremap <C-Down> <C-F>
-noremap <C-Up> <C-B>
+set mouse=a			    " Enable mouse
 
 " Buffer maps
 nnoremap <leader>w :update<CR>

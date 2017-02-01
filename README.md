@@ -5,10 +5,8 @@ It keeps changing based on my needs and experience.
 Nothing should be kept in the vimrc without understanding its need and usage;
 `:help option` is the way to go.
 
-As the current configuration uses the package feature added in Vim 8, it may not
-work properly in lower Vim versions.
-In such a case (or if plugin-configurations are not needed), use the included
-[vimrc-minimal](vimrc-minimal) instead of [vimrc](vimrc).
+There is also a [minimal vimrc](vimrc-minimal) included that should work on most
+Vim versions (useful over ssh).
 
 Most of the snippets in [mysnippets](mysnippets) have been taken from [this
 repository](https://github.com/honza/vim-snippets).

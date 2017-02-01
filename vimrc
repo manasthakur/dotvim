@@ -36,12 +36,12 @@ set relativenumber		    " Show relative line numbers
 set nohlsearch			    " Don't highlight matches (not needed in some Vim versions)
 set incsearch			    " Show search matches as you type
 set ignorecase			    " Ignore case while searching
-set smartcase			    " Don't ignore case when search term consists capital letters
+set smartcase			    " Don't ignore case when search-term contains capitals
 
 set history=200			    " Keep 200 lines of command line history
 set ttimeout			    " Time out for key codes
 set ttimeoutlen=100		    " Wait up to 100ms after Esc for special key
-set mouse=a			    " Enable mouse for all activities
+set mouse=a			    " Enable mouse
 
 " }}}1
 " =============================================================================
