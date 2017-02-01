@@ -66,18 +66,6 @@ git rm -r <path-to-plugin>
 rm -rf .git/modules/pack/myplugins/start/plugin-name
 ```
 
-## Current plugins
-
-* [Commentary](https://github.com/tpope/vim-commentary)
-* [Fugitive](https://github.com/tpope/vim-fugitive)
-* [Vinegar](https://github.com/manasthakur/vim-vinegar)
-* [CtrlP](https://github.com/ctrlpvim/ctrlp.vim)
-* [UltiSnips](https://github.com/SirVer/ultisnips)
-* [Tagbar](https://github.com/majutsushi/tagbar)
-* [Sessionist](https://github.com/manasthakur/vim-sessionist)
-* [Scratchpad](https://github.com/manasthakur/vim-scratchpad)
-* [Seoul](https://github.com/manasthakur/vim-seoul)
-
 ## License
 
 [MIT](LICENSE)
