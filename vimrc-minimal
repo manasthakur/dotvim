@@ -14,7 +14,7 @@ set hidden			    " Enable opening other file while keeping the previous one in b
 set confirm			    " Confirm when closing vim with unsaved buffers
 
 set laststatus=2		    " Display statusline all the time
-set scrolloff=1			    " Keep one extra line while scrolling for context
+set scrolloff=1			    " Keep one extra line while scrolling
 set display=lastline		    " Don't show '@'s when a line doesn't fit the screen
 set wildmenu			    " Visual autocomplete for command menu
 

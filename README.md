@@ -53,8 +53,8 @@ update` to change the state of the submodules.
 
 Go to `.vim` and run `git submodule add <plugin-url> pack/myplugins/start/plugin-name`.
 
-If a plugin needs to be installed just for testing, it can be installed inside
-`pack/myplugins/opt/` and loaded using `:packadd plugin-name`.
+A plugin can be loaded on-demand by installing it into
+`pack/myplugins/opt/`, and using `:packadd plugin-name` when it is needed.
 
 ### Removing a plugin
 
