@@ -24,7 +24,7 @@ set hidden			    " Enable opening other file while keeping the previous one in b
 set confirm			    " Confirm when closing vim with unsaved buffers
 
 set laststatus=2		    " Display statusline all the time
-set scrolloff=1			    " Keep one extra line while scrolling for context
+set scrolloff=1			    " Keep one extra line while scrolling
 set display=lastline		    " Don't show '@'s when a line doesn't fit the screen
 set wildmenu			    " Visual autocomplete for command menu
 set wildignorecase		    " Ignore case in wildmenu (like zsh; not needed on macOS)
@@ -33,14 +33,14 @@ set ruler			    " Show ruler with line and column numbers at bottom-right
 set number			    " Show line numbers on the left hand side
 set relativenumber		    " Show relative line numbers
 
-set nohlsearch			    " Don't highlight matches (not needed in some Vim versions)
-set incsearch			    " Show search matches as you type
+set nohlsearch			    " Don't highlight matches (enabled by default on some Vim versions)
+set incsearch			    " Show matches while typing the search-term
 set ignorecase			    " Ignore case while searching
 set smartcase			    " Don't ignore case when search-term contains capitals
 
-set history=200			    " Keep 200 lines of command line history
-set ttimeout			    " Time out for key codes
-set ttimeoutlen=100		    " Wait up to 100ms after Esc for special key
+set history=200			    " Keep 200 lines of command-line history
+set ttimeout			    " Time-out for key codes
+set ttimeoutlen=100		    " Wait up to 100ms after <Esc> for special key
 set mouse=a			    " Enable mouse
 
 " }}}1
