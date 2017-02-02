@@ -62,9 +62,13 @@ nnoremap [b :bprevious<CR>
 nnoremap ]t :tabnext<CR>
 nnoremap [t :tabprevious<CR>
 
+" Quickfix-lists
+nnoremap ]q :cnext<CR>
+nnoremap [q :cprevious<CR>
+
 " Location-lists
-nnoremap ]q :lnext<CR>
-nnoremap [q :lprevious<CR>
+nnoremap ]w :lnext<CR>
+nnoremap [w :lprevious<CR>
 
 " Make 'Y' behave like other capitals
 nnoremap Y y$
