@@ -17,6 +17,7 @@ set autoindent			    " Start next line from where the previous one did
 
 set foldmethod=marker		    " Fold using markers
 set backspace=indent,eol,start	    " Make backspace work everywhere
+set linebreak			    " Break lines visually when they don't fit into the screen
 set formatoptions+=j		    " Remove comment-leader when joining commented lines
 set sessionoptions-=options	    " Don't save options while saving sessions
 
@@ -28,6 +29,7 @@ set scrolloff=1			    " Keep one extra line while scrolling
 set display=lastline		    " Don't show '@'s when a line doesn't fit the screen
 set wildmenu			    " Visual autocomplete for command menu
 set wildignorecase		    " Ignore case in wildmenu (like zsh; not needed on macOS)
+set suffixes+=.class		    " Decrease the priority of listed file-types during expansion
 
 set ruler			    " Show ruler with line and column numbers at bottom-right
 set number			    " Show line numbers on the left hand side
@@ -155,6 +157,22 @@ inoremap <S-Tab> <Space><Tab>
 
 " }}}1
 " =============================================================================
+" SCRATCHPAD {{{1
+" =============================================================================
+
+" Toggle a scratch window
+function! ToggleScratch()
+    let scr_winnr = bufwinnr('.scratchpad')
+    if scr_winnr != -1
+	execute scr_winnr . 'close'
+    else
+	execute 'rightbelow ' . float2nr(0.2 * winwidth(0)) . 'vsplit +setlocal\ filetype=markdown\ nobuflisted .scratchpad'
+    endif
+endfunction
+nnoremap <silent> <leader>x :call ToggleScratch()<CR>
+
+" }}}1
+" =============================================================================
 " APPEARANCE {{{1
 " =============================================================================
 
@@ -178,6 +196,11 @@ function! ResetColors()
 endfunction
 nnoremap <leader>r :call ResetColors()<CR>
 
+" Different cursor shapes in different modes
+let &t_SI = "\<Esc>[6 q"
+let &t_SR = "\<Esc>[4 q"
+let &t_EI = "\<Esc>[2 q"
+
 " }}}1
 " =============================================================================
 " CSCOPE {{{1
@@ -188,6 +211,9 @@ if filereadable('cscope.out')
     cs add cscope.out
 endif
 
+" Prefer cscope over ctags for <C-]>
+set cscopetag
+
 " Find the callers of the function under cursor
 nmap <C-\>c :cs find c <C-R>=expand('<cword>')<CR><CR>
 
@@ -196,14 +222,6 @@ nmap <C-\>c :cs find c <C-R>=expand('<cword>')<CR><CR>
 " PLUGINS {{{1
 " =============================================================================
 
-" -------------------------------------
-" Scratchpad {{{2
-" -------------------------------------
-
-" Toggle scratchpad
-nnoremap <leader>x :ScratchpadToggle<CR>
-
-" }}}2
 " -------------------------------------
 " CtrlP {{{2
 " -------------------------------------
