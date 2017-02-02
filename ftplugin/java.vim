@@ -5,7 +5,7 @@ compiler ant
 
 " Function to handle job-exit
 function! ExitHandler(job, exit_status) abort
-    execute 'lgetfile ' . g:async_outfile
+    execute 'cgetfile ' . g:async_outfile
     echo ""
     if a:exit_status == 0
 	echo "No errors!"
@@ -28,6 +28,6 @@ endfunction
 if v:version >= 800
     nnoremap <buffer> <silent> <leader>\ :call RunAsync('ant')<CR>
 else
-    nnoremap <buffer> <leader>\ :silent lmake! \| lwindow \| redraw!<CR>
+    nnoremap <buffer> <leader>\ :silent cmake! \| cwindow \| redraw!<CR>
 endif
 
