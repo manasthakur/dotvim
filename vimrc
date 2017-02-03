@@ -256,18 +256,6 @@ nnoremap <silent><C-K> :CtrlPLine<CR>
 
 " }}}2
 " -------------------------------------
-" UltiSnips {{{2
-" -------------------------------------
-
-" Use custom snippet-diretory
-let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/mysnippets']
-
-" Maps
-let g:UltiSnipsExpandTrigger='<C-J>'
-let g:UltiSnipsListSnippets='<C-K>'
-
-" }}}2
-" -------------------------------------
 " Tagbar {{{2
 " -------------------------------------
 
@@ -277,6 +265,18 @@ let g:tagbar_sort = 0
 " Maps
 nnoremap <silent><leader>d :TagbarToggle<CR>
 nnoremap <silent><leader>f :TagbarCurrentTag<CR>
+
+" }}}2
+" -------------------------------------
+" UltiSnips {{{2
+" -------------------------------------
+
+" Use custom snippet-diretory
+let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/mysnippets']
+
+" Maps
+let g:UltiSnipsExpandTrigger='<C-J>'
+let g:UltiSnipsListSnippets='<C-K>'
 
 " }}}2
 " -------------------------------------
