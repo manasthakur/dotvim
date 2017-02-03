@@ -129,15 +129,17 @@ nnoremap <leader>c :Grep <C-R><C-W><CR>
 " COMPLETION {{{
 " =============================================================================
 
-" Don't complete from include files
+" Don't complete from included files
 set complete-=i
 
-" Complete filenames and keywords with <Tab>
+" Use <Tab> for completion
 function! CleverTab() abort
-    let str = strpart(getline('.'), 0, col('.')-1)
     if pumvisible()
         return "\<C-E>"
-    elseif empty(matchstr(str, '[^ \t]*$'))
+    endif
+
+    let str = matchstr(strpart(getline('.'), 0, col('.')-1), '[^ \t]*$')
+    if empty(str)
         return "\<Tab>"
     else
         if match(str, '\/') != -1
@@ -152,7 +154,7 @@ inoremap <Tab> <C-R>=CleverTab()<CR>
 " Make <CR> select an entry from completion-menu
 inoremap <expr> <CR> pumvisible() ? "\<C-Y>" : "\<C-G>u\<CR>"
 
-" Insert <Tab> at end-of-lines using <Shift-Tab>
+" Insert <Tab> at end of lines using <Shift-Tab>
 inoremap <S-Tab> <Space><Tab>
 
 " }}}
