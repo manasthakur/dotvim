@@ -3,7 +3,7 @@
 " Filetype-specific settings are in '.vim/ftplugin'
 " Toggle folds using 'za'
 " =============================================================================
-" SETTINGS {{{1
+" SETTINGS {{{
 " =============================================================================
 
 filetype plugin indent on	    " Enable filetype-based plugins and indentation
@@ -45,9 +45,9 @@ set ttimeout			    " Time-out for key codes
 set ttimeoutlen=100		    " Wait up to 100ms after <Esc> for special key
 set mouse=a			    " Enable mouse
 
-" }}}1
+" }}}
 " =============================================================================
-" MAPPINGS {{{1
+" MAPPINGS {{{
 " =============================================================================
 
 " Scroll using Ctrl-Dn and Ctrl-Up (won't work on macOS)
@@ -87,9 +87,9 @@ nnoremap cos :setlocal spell!<CR>:setlocal spell?<CR>
 nnoremap coh :setlocal hlsearch!<CR>:setlocal hlsearch?<CR>
 nnoremap cob :set background=<C-R>=&background == 'dark' ? 'light' : 'dark'<CR><CR>
 
-" }}}1
+" }}}
 " =============================================================================
-" AUTOCOMMANDS {{{1
+" AUTOCOMMANDS {{{
 " =============================================================================
 
 augroup vimrc
@@ -106,9 +106,9 @@ augroup vimrc
     autocmd QuickFixCmdPost l*    lwindow
 augroup END
 
-" }}}1
+" }}}
 " =============================================================================
-" SEARCHING {{{1
+" SEARCHING {{{
 " =============================================================================
 
 if executable('ag')
@@ -124,9 +124,9 @@ command! -nargs=+ -bar Grep silent lgrep! <args> | redraw!
 nnoremap <leader>a :Grep<Space>
 nnoremap <leader>c :Grep <C-R><C-W><CR>
 
-" }}}1
+" }}}
 " =============================================================================
-" COMPLETION {{{1
+" COMPLETION {{{
 " =============================================================================
 
 " Don't complete from include files
@@ -155,9 +155,9 @@ inoremap <expr> <CR> pumvisible() ? "\<C-Y>" : "\<C-G>u\<CR>"
 " Insert <Tab> at end-of-lines using <Shift-Tab>
 inoremap <S-Tab> <Space><Tab>
 
-" }}}1
+" }}}
 " =============================================================================
-" SCRATCHPAD {{{1
+" SCRATCHPAD {{{
 " =============================================================================
 
 " Toggle a scratch window
@@ -171,9 +171,9 @@ function! ToggleScratch()
 endfunction
 nnoremap <silent> <leader>x :call ToggleScratch()<CR>
 
-" }}}1
+" }}}
 " =============================================================================
-" APPEARANCE {{{1
+" APPEARANCE {{{
 " =============================================================================
 
 " Custom statusline with ruler and fugitive
@@ -201,9 +201,9 @@ let &t_SI = "\<Esc>[6 q"
 let &t_SR = "\<Esc>[4 q"
 let &t_EI = "\<Esc>[2 q"
 
-" }}}1
+" }}}
 " =============================================================================
-" CSCOPE {{{1
+" CSCOPE {{{
 " =============================================================================
 
 " Add cscope database, if present in current directory
@@ -217,11 +217,10 @@ set cscopetag
 " Find the callers of the function under cursor
 nmap <C-\>c :cs find c <C-R>=expand('<cword>')<CR><CR>
 
-" }}}1
+" }}}
 " =============================================================================
-" PLUGINS {{{1
+" PLUGINS {{{
 " =============================================================================
-
 " -------------------------------------
 " CtrlP {{{2
 " -------------------------------------
@@ -281,6 +280,5 @@ nnoremap <silent><leader>f :TagbarCurrentTag<CR>
 
 " }}}2
 " -------------------------------------
-
-" }}}1
+" }}}
 " =============================================================================
