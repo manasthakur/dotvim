@@ -181,27 +181,13 @@ nnoremap <silent> <leader>x :call ToggleScratch()<CR>
 " Custom statusline with ruler and fugitive
 set statusline=%<%f\ %h%m%r\ %{exists('g:loaded_fugitive')?fugitive#statusline():''}%=%-14.(%l,%c%V%)\ %P
 
-" Use 24-bit true colors, if available
-if has('termguicolors')
-    set termguicolors
-endif
-
-" Use seoul colorscheme
-colorscheme seoul
-
-" Reset guicolors and colorscheme for incompatible environments
-function! ResetColors()
-    if has('termguicolors')
-        set notermguicolors
-    endif
-    colorscheme default
-endfunction
-nnoremap <leader>r :call ResetColors()<CR>
-
 " Different cursor shapes in different modes
 let &t_SI = "\<Esc>[6 q"
 let &t_SR = "\<Esc>[4 q"
 let &t_EI = "\<Esc>[2 q"
+
+" Use seoul colorscheme
+colorscheme seoul
 
 " }}}
 " =============================================================================
