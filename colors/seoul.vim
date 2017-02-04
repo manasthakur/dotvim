@@ -51,7 +51,7 @@ let s:style_idx = s:style == 'light'
 
 " Background colors
 if s:style == 'dark'
-  let s:dark_bg  = get(s:, 'seoul_background', 237)
+  let s:dark_bg  = get(s:, 'seoul_background', 238)
   let s:light_bg = 253
 else
   let s:dark_bg  = 237
