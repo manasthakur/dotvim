@@ -120,7 +120,7 @@ else
 endif
 
 " Maps
-command! -nargs=+ -bar Grep silent lgrep! <args> | redraw!
+command! -nargs=+ Grep silent lgrep! <args> | redraw!
 nnoremap <leader>a :Grep<Space>
 nnoremap <leader>c :Grep <C-R><C-W><CR>
 
@@ -238,9 +238,9 @@ let g:ctrlp_working_path_mode = 'a'
 let g:ctrlp_open_multiple_files = 'i'
 
 " Maps
-nnoremap <silent>, :CtrlPBuffer<CR>
-nnoremap <silent>; :CtrlPBufTag<CR>
-nnoremap <silent><C-K> :CtrlPLine<CR>
+nnoremap <silent> , :CtrlPBuffer<CR>
+nnoremap <silent> ; :CtrlPBufTag<CR>
+nnoremap <silent> <C-K> :CtrlPLine<CR>
 
 " }}}2
 " -------------------------------------
@@ -251,8 +251,8 @@ nnoremap <silent><C-K> :CtrlPLine<CR>
 let g:tagbar_sort = 0
 
 " Maps
-nnoremap <silent><leader>d :TagbarToggle<CR>
-nnoremap <silent><leader>f :TagbarCurrentTag<CR>
+nnoremap <silent> <leader>d :TagbarToggle<CR>
+nnoremap <silent> <leader>f :TagbarCurrentTag<CR>
 
 " }}}2
 " -------------------------------------
