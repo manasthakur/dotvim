@@ -33,7 +33,7 @@ repository](https://github.com/honza/vim-snippets).
     ```
 
 Plugins installed in `.vim/pack/myplugins/start/` get loaded automatically, and
-those in `.vim/pack/myplugins/opt/` can be added on-demand using `:packadd
+those in `.vim/pack/myplugins/opt/` can be loaded on-demand using `:packadd
 <plugin-name>`.
 The last section of [this
 article](https://gist.github.com/manasthakur/ab4cf8d32a28ea38271ac0d07373bb53)
