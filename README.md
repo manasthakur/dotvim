@@ -32,39 +32,14 @@ repository](https://github.com/honza/vim-snippets).
     :helptags ALL
     ```
 
-Plugins get installed into `.vim/pack/myplugins/start/`, which is the default
-`packpath` to load plugins by Vim 8's builtin package manager. See `:h packages`.
-
-### Updating plugins
-
-To update all the plugins, go to `.vim` and run `git submodule foreach git pull origin master`.
-
-To update a particular one, go to the plugin's directory inside `pack` and run
-`git pull origin master`.
-
-A better workflow:
-First `git fetch origin master` a plugin, review changes, and then `git merge`.
-
-On another machine, if a `git pull` for the main repository leads to uncommitted
-changes in the submodules (as a few plugins got updated), perform `git submodule
-update` to change the state of the submodules.
-
-### Adding a plugin
-
-Go to `.vim` and run `git submodule add <plugin-url> pack/myplugins/start/plugin-name`.
-
-A plugin can be loaded on-demand by installing it into
-`pack/myplugins/opt/`, and using `:packadd plugin-name` when it is needed.
-
-### Removing a plugin
-
-Go to `.vim` and run:
-
-```
-git submodule deinit <path-to-plugin>
-git rm -r <path-to-plugin>
-rm -rf .git/modules/pack/myplugins/start/plugin-name
-```
+Plugins installed in `.vim/pack/myplugins/start/` get loaded automatically, and
+those in `.vim/pack/myplugins/opt/` can be added on-demand using `:packadd
+<plugin-name>`.
+The last section of [this
+article](https://gist.github.com/manasthakur/ab4cf8d32a28ea38271ac0d07373bb53)
+describes Vim 8's package feature in detail, and [this
+article](https://gist.github.com/manasthakur/d4dc9a610884c60d944a4dd97f0b3560)
+provides help on managing plugins using git submodules.
 
 ## License
 
