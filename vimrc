@@ -29,7 +29,6 @@ set scrolloff=1			    " Keep one extra line while scrolling
 set display=lastline		    " Don't show '@'s when a line doesn't fit the screen
 set wildmenu			    " Visual autocomplete for command menu
 set wildignorecase		    " Ignore case in wildmenu (like zsh; not needed on macOS)
-set suffixes+=.class		    " Decrease the priority of listed file-types during expansion
 
 set ruler			    " Show ruler with line and column numbers at bottom-right
 set number			    " Show line numbers on the left hand side
@@ -108,6 +107,29 @@ augroup END
 
 " }}}
 " =============================================================================
+" NAVIGATION {{{
+" =============================================================================
+
+" Recurse
+set path=.,,**
+
+" Ignore-list
+set wildignore=.git,.hg,.svn,*.class,*.o,.*.swp,*.out,tags,.DS_Store
+
+" Files
+nnoremap <C-P> :find<SPACE>
+
+" Buffers
+nnoremap , :ls<CR>:b<SPACE>
+
+" Alternate buffer
+nnoremap <C-K> :b#<CR>
+
+" Tags
+nnoremap ; :tag /
+
+" }}}
+" =============================================================================
 " SEARCHING {{{
 " =============================================================================
 
@@ -178,15 +200,15 @@ nnoremap <silent> <leader>x :call ToggleScratch()<CR>
 " APPEARANCE {{{
 " =============================================================================
 
-" Custom statusline with ruler and fugitive
-set statusline=%<%f\ %h%m%r\ %{exists('g:loaded_fugitive')?fugitive#statusline():''}%=%-14.(%l,%c%V%)\ %P
+" Custom statusline with buffer-number, fugitive, and ruler
+set statusline=%<[%n]\ %f\ %h%m%r\ %{exists('g:loaded_fugitive')?fugitive#statusline():''}%=%-14.(%l,%c%V%)\ %P
 
 " Different cursor shapes in different modes
 let &t_SI = "\<Esc>[6 q"
 let &t_SR = "\<Esc>[4 q"
 let &t_EI = "\<Esc>[2 q"
 
-" Use seoul colorscheme
+" Seoul colorscheme
 colorscheme seoul
 
 " }}}
@@ -199,65 +221,13 @@ if filereadable('cscope.out')
     cs add cscope.out
 endif
 
-" Prefer cscope over ctags for <C-]>
-set cscopetag
-
 " Find the callers of the function under cursor
 nmap <C-\>c :cs find c <C-R>=expand('<cword>')<CR><CR>
 
 " }}}
 " =============================================================================
-" PLUGINS {{{
+" ULTISNIPS {{{
 " =============================================================================
-" -------------------------------------
-" CtrlP {{{2
-" -------------------------------------
-
-" No statusline for CtrlP
-function! DisableStatus()
-    set laststatus=0
-endfunction
-function! EnableStatus()
-    set laststatus=2
-endfunction
-let g:ctrlp_buffer_func = {
-            \ 'enter': 'DisableStatus',
-            \ 'exit':  'EnableStatus',
-            \ }
-
-" Ignore list
-let g:ctrlp_custom_ignore = {
-            \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-            \ 'file': '\v\.(class|o|so)$',
-            \ }
-
-" Search only from the current directory
-let g:ctrlp_working_path_mode = 'a'
-
-" Open multiple marked files in hidden buffers
-let g:ctrlp_open_multiple_files = 'i'
-
-" Maps
-nnoremap <silent> , :CtrlPBuffer<CR>
-nnoremap <silent> ; :CtrlPBufTag<CR>
-nnoremap <silent> <C-K> :CtrlPLine<CR>
-
-" }}}2
-" -------------------------------------
-" Tagbar {{{2
-" -------------------------------------
-
-" Don't sort the tags
-let g:tagbar_sort = 0
-
-" Maps
-nnoremap <silent> <leader>d :TagbarToggle<CR>
-nnoremap <silent> <leader>f :TagbarCurrentTag<CR>
-
-" }}}2
-" -------------------------------------
-" UltiSnips {{{2
-" -------------------------------------
 
 " Use custom snippet-diretory
 let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/mysnippets']
@@ -266,7 +236,5 @@ let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/mysnippets']
 let g:UltiSnipsExpandTrigger='<C-J>'
 let g:UltiSnipsListSnippets='<C-K>'
 
-" }}}2
-" -------------------------------------
 " }}}
 " =============================================================================

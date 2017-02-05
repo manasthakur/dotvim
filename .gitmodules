@@ -1,6 +1,3 @@
-[submodule "pack/myplugins/start/ctrlp.vim"]
-	path = pack/myplugins/start/ctrlp.vim
-	url = https://github.com/ctrlpvim/ctrlp.vim.git
 [submodule "pack/myplugins/start/vim-commentary"]
 	path = pack/myplugins/start/vim-commentary
 	url = https://github.com/tpope/vim-commentary.git
@@ -10,12 +7,15 @@
 [submodule "pack/myplugins/start/ultisnips"]
 	path = pack/myplugins/start/ultisnips
 	url = https://github.com/SirVer/ultisnips.git
-[submodule "pack/myplugins/start/tagbar"]
-	path = pack/myplugins/start/tagbar
-	url = https://github.com/majutsushi/tagbar.git
 [submodule "pack/myplugins/start/vim-sessionist"]
 	path = pack/myplugins/start/vim-sessionist
 	url = https://github.com/manasthakur/vim-sessionist.git
 [submodule "pack/myplugins/start/vim-vinegar"]
 	path = pack/myplugins/start/vim-vinegar
 	url = https://github.com/manasthakur/vim-vinegar.git
+[submodule "pack/myplugins/opt/ctrlp.vim"]
+	path = pack/myplugins/opt/ctrlp.vim
+	url = https://github.com/ctrlpvim/ctrlp.vim.git
+[submodule "pack/myplugins/opt/tagbar"]
+	path = pack/myplugins/opt/tagbar
+	url = https://github.com/majutsushi/tagbar.git
