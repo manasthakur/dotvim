@@ -1,7 +1,7 @@
 " Java specific settings
 
 " Echo name of current method (works only for well-structured programs)
-nnoremap <leader>f [m:echom getline('.')<CR><C-O>:1messages<CR>
+nnoremap <leader>f mxHmy[m:echom getline('.')<CR>`yzt`x:1messages<CR>
 
 " Use 'ant' as the compiler (sets 'makeprg' and 'errorformat')
 compiler ant
