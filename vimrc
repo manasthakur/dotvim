@@ -200,8 +200,8 @@ nnoremap <silent> <leader>x :call ToggleScratch()<CR>
 " APPEARANCE {{{
 " =============================================================================
 
-" Custom statusline with buffer-number, fugitive, and ruler
-set statusline=%<[%n]\ %f\ %h%m%r\ %{exists('g:loaded_fugitive')?fugitive#statusline():''}%=%-14.(%l,%c%V%)\ %P
+" Custom statusline with fugitive and ruler
+set statusline=%<\ %f\ %h%m%r\ %{exists('g:loaded_fugitive')?fugitive#statusline():''}%=%-14.(%l,%c%V%)\ %P
 
 " Different cursor shapes in different modes
 let &t_SI = "\<Esc>[6 q"
