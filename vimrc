@@ -111,13 +111,13 @@ augroup END
 " =============================================================================
 
 " Recurse
-set path=.,,**
+set path=.,**
 
 " Ignore-list
 set wildignore=.git,.hg,.svn,*.class,*.o,.*.swp,*.out,tags,.DS_Store
 
 " Files
-nnoremap <C-P> :find<SPACE>
+nnoremap <C-P> :find *
 
 " Buffers
 nnoremap , :ls<CR>:b<SPACE>
