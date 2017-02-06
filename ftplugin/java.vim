@@ -1,5 +1,8 @@
 " Java specific settings
 
+" Echo name of current method (works only for well-structured programs)
+nnoremap <leader>f [m:echom getline('.')<CR><C-O>:1messages<CR>
+
 " Use 'ant' as the compiler (sets 'makeprg' and 'errorformat')
 compiler ant
 
