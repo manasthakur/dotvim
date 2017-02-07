@@ -114,9 +114,11 @@ augroup END
 set path=.,**
 
 " Ignore-list
-set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,.*.swp,tags,.DS_Store
+set wildignore+=*/.git/*,*/.hg/*,*/.svn/*
+set wildignore+=.*.swp,tags,.DS_Store
 set wildignore+=*.class,*.o,*.out,*.aux,*.bbl,*.blg,*.cls
-set wildignore+=*.tar.*,*.zip,*.jar,*.pdf,*.ps,*.dvi,*.mp3,*.mp4,*.avi
+set wildignore+=*.tar.*,*.zip,*.jar
+set wildignore+=*.pdf,*.ps,*.dvi,*.gif,*.jpg,*.png,*.mp3,*.mp4,*.avi
 
 " Files
 nnoremap <C-P> :find *
