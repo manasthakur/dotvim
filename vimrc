@@ -63,11 +63,11 @@ nnoremap [b :bprevious<CR>
 nnoremap ]t :tabnext<CR>
 nnoremap [t :tabprevious<CR>
 
-" Quickfix-lists
+" Quickfix lists
 nnoremap ]q :cnext<CR>
 nnoremap [q :cprevious<CR>
 
-" Location-lists
+" Location lists
 nnoremap ]w :lnext<CR>
 nnoremap [w :lprevious<CR>
 
@@ -77,8 +77,14 @@ nnoremap Y y$
 " Run macro from register 'q' with 'Q'
 nnoremap Q @q
 
-" Auto-insert ending brace and a new line to write above
-inoremap {<CR> {<CR>}<C-O>O
+" Create block
+inoremap {<CR> {<CR>}<Esc>O
+
+" Tabularize selected text
+xnoremap <leader>t :'<,'>!column -t<CR>
+
+" Write a file with sudo when it was opened without
+cnoremap w!! w !sudo tee % > /dev/null
 
 " Toggles
 nnoremap cop :setlocal paste!<CR>:setlocal paste?<CR>
