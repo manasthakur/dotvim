@@ -1,7 +1,10 @@
 " Java specific settings
 
-" Echo name of current method (works only for well-structured programs)
-nnoremap <leader>f mxHmy[m:echom getline('.')<CR>`yzt`x:1messages<CR>
+" List all classes and public/private/protected methods
+nnoremap <buffer> <leader>d :g/\(\Cclass\\|public\\|private\\|protected\).*{/#<CR>:
+
+" Echo current method's header (works only for well-structured programs)
+nnoremap <buffer> <leader>f mxHmy`x[m:echom getline('.')<CR>`yzt`x:1messages<CR>
 
 " Use 'ant' as the compiler (sets 'makeprg' and 'errorformat')
 compiler ant
