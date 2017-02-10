@@ -3,8 +3,8 @@
 " List all classes and public/private/protected methods
 nnoremap <buffer> <leader>d :ilist /\(\Cclass\\|public\\|private\\|protected\).*{<CR>:
 
-" Echo current method's header (works only for well-structured programs)
-nnoremap <buffer> <leader>f mxHmy`x[m:echom getline('.')<CR>`yzt`x:1messages<CR>
+" Echo current method's header (works if explicit access-modifiers have been used)
+nnoremap <buffer> <leader>f mxHmy`x:?\(public\\|private\\|protected\).*{<CR>:echom getline('.')<CR>`yzt`x:1messages<CR>
 
 " Use 'ant' as the compiler (sets 'makeprg' and 'errorformat')
 compiler ant
