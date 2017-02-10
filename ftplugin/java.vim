@@ -1,7 +1,7 @@
 " Java specific settings
 
 " List all classes and public/private/protected methods
-nnoremap <buffer> <leader>d :g/\(\Cclass\\|public\\|private\\|protected\).*{/#<CR>:
+nnoremap <buffer> <leader>d :ilist /\(\Cclass\\|public\\|private\\|protected\).*{<CR>:
 
 " Echo current method's header (works only for well-structured programs)
 nnoremap <buffer> <leader>f mxHmy`x[m:echom getline('.')<CR>`yzt`x:1messages<CR>
