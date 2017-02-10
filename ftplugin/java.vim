@@ -1,10 +1,10 @@
 " Java specific settings
 
 " List all classes and public/private/protected methods
-nnoremap <buffer> <leader>d :ilist /\(\Cclass\\|public\\|private\\|protected\).*{<CR>:
+nnoremap <buffer> <leader>d :ilist /\s\(\Cclass\\|public\\|private\\|protected\).*{<CR>:
 
 " Echo current method's header (works if explicit access-modifiers have been used)
-nnoremap <buffer> <leader>f mxHmy`x:?\(public\\|private\\|protected\).*{<CR>:echom getline('.')<CR>`yzt`x:1messages<CR>
+nnoremap <buffer> <leader>f mxHmy`x:?\s\(public\\|private\\|protected\).*{<CR>:echom getline('.')<CR>`yzt`x:1messages<CR>
 
 " Use 'ant' as the compiler (sets 'makeprg' and 'errorformat')
 compiler ant
