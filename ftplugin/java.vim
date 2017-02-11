@@ -6,6 +6,9 @@ nnoremap <buffer> <leader>d :ilist /\s\(\Cclass\\|public\\|private\\|protected\)
 " Echo current method's header (works if explicit access-modifiers have been used)
 nnoremap <buffer> <leader>f mxHmy`x:?\s\(public\\|private\\|protected\).*{<CR>:echom getline('.')<CR>`yzt`x:1messages<CR>
 
+" Search among visit methods
+nnoremap <leader>v /visit.*
+
 " Use 'ant' as the compiler (sets 'makeprg' and 'errorformat')
 compiler ant
 
