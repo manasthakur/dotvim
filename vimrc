@@ -7,13 +7,13 @@
 " =============================================================================
 
 filetype plugin indent on	    " Enable filetype-based plugins and indentation
-syntax enable			    " Enable syntax-coloring
-packadd! matchit		    " Load vim's builtin matchit plugin
+syntax enable			    " Enable syntax-highlights
+packadd! matchit		    " Load the builtin matchit plugin
 set showmatch			    " Highlight matching parenthesis
 
 set softtabstop=4		    " Number of spaces a <Tab> counts for
 set shiftwidth=4		    " Number of spaces for indentation
-set autoindent			    " Start next line from where the previous one did
+set autoindent			    " Start next line from where the current one does
 set listchars=tab:»\ ,trail:·	    " Unicode characters for list mode
 
 set foldmethod=marker		    " Fold using markers
@@ -21,21 +21,21 @@ set backspace=indent,eol,start	    " Make backspace work everywhere
 set linebreak			    " Break lines visually when they don't fit into the screen
 set formatoptions+=j		    " Remove comment-leader when joining commented lines
 set display=lastline		    " Don't show '@'s when a line doesn't fit the screen
+set virtualedit=block		    " Allow virtual-editing in visual-block mode
 
 set hidden			    " Enable opening other file while keeping the previous one in buffer
 set confirm			    " Confirm when closing vim with unsaved buffers
 
 set laststatus=2		    " Display statusline all the time
-set showcmd			    " Show (partial) command below statusline
 set scrolloff=1			    " Keep one extra line while scrolling
 set wildmenu			    " Visual autocomplete for command menu
-set wildignorecase		    " Ignore case in wildmenu (like zsh; not needed on macOS)
+set wildignorecase		    " Ignore case in wildmenu (not needed on macOS)
 
-set ruler			    " Show ruler with line and column numbers at bottom-right
-set number			    " Show line numbers on the left hand side
+set ruler			    " Show line and column numbers at bottom-right
+set number			    " Show line number in front of each line
 set relativenumber		    " Show relative line numbers
 
-set nohlsearch			    " Don't highlight matches (enabled by default on some Vim versions)
+set nohlsearch			    " Don't highlight previously matched items
 set incsearch			    " Show matches while typing the search-term
 set ignorecase			    " Ignore case while searching
 set smartcase			    " Don't ignore case when search-term contains capitals
@@ -45,7 +45,8 @@ set ttimeoutlen=100		    " Wait up to 100ms after <Esc> for special key
 
 set history=200			    " Keep 200 lines of command-line history
 set sessionoptions-=options	    " Don't save options while saving sessions
-set mouse=a			    " Enable mouse
+set mouse=a			    " Enable mouse in all the modes
+set pastetoggle=<F2>		    " Toggle paste using <F2>
 
 " }}}
 " =============================================================================
@@ -90,11 +91,10 @@ xnoremap <leader>t :'<,'>!column -t<CR>
 cnoremap w!! w !sudo tee % > /dev/null
 
 " Toggles
-nnoremap cop :setlocal paste!<CR>:setlocal paste?<CR>
 nnoremap cos :setlocal spell!<CR>:setlocal spell?<CR>
 nnoremap col :setlocal list!<CR>:setlocal list?<CR>
 nnoremap coh :setlocal hlsearch!<CR>:setlocal hlsearch?<CR>
-nnoremap cob :set background=<C-R>=&background == 'dark' ? 'light' : 'dark'<CR><CR>
+nnoremap cob :set background=<C-R>=&background=='dark'?'light':'dark'<CR><CR>
 
 " }}}
 " =============================================================================
@@ -107,12 +107,16 @@ augroup vimrc
 
     " Highlight current line in the active window
     autocmd VimEnter * set cursorline
-    autocmd WinEnter * if &filetype != "tagbar" | set cursorline | endif
+    autocmd WinEnter * if &filetype != "tagbar" && !&diff | set cursorline | endif
     autocmd WinLeave * set nocursorline
 
     " Automatically open quickfix/location lists when populated
     autocmd QuickFixCmdPost [^l]* cwindow
     autocmd QuickFixCmdPost l*    lwindow
+
+    " Don't move cursor to start of line when switching buffers
+    autocmd BufLeave * set nostartofline |
+		\ autocmd CursorMoved,CursorMovedI * set startofline |autocmd! vimrc CursorMoved,CursorMovedI
 augroup END
 
 " }}}
