@@ -14,19 +14,20 @@ set showmatch			    " Highlight matching parenthesis
 set softtabstop=4		    " Number of spaces a <Tab> counts for
 set shiftwidth=4		    " Number of spaces for indentation
 set autoindent			    " Start next line from where the previous one did
+set listchars=tab:»\ ,trail:·	    " Unicode characters for list mode
 
 set foldmethod=marker		    " Fold using markers
 set backspace=indent,eol,start	    " Make backspace work everywhere
 set linebreak			    " Break lines visually when they don't fit into the screen
 set formatoptions+=j		    " Remove comment-leader when joining commented lines
-set sessionoptions-=options	    " Don't save options while saving sessions
+set display=lastline		    " Don't show '@'s when a line doesn't fit the screen
 
 set hidden			    " Enable opening other file while keeping the previous one in buffer
 set confirm			    " Confirm when closing vim with unsaved buffers
 
 set laststatus=2		    " Display statusline all the time
+set showcmd			    " Show (partial) command below statusline
 set scrolloff=1			    " Keep one extra line while scrolling
-set display=lastline		    " Don't show '@'s when a line doesn't fit the screen
 set wildmenu			    " Visual autocomplete for command menu
 set wildignorecase		    " Ignore case in wildmenu (like zsh; not needed on macOS)
 
@@ -39,9 +40,11 @@ set incsearch			    " Show matches while typing the search-term
 set ignorecase			    " Ignore case while searching
 set smartcase			    " Don't ignore case when search-term contains capitals
 
-set history=200			    " Keep 200 lines of command-line history
 set ttimeout			    " Time-out for key codes
 set ttimeoutlen=100		    " Wait up to 100ms after <Esc> for special key
+
+set history=200			    " Keep 200 lines of command-line history
+set sessionoptions-=options	    " Don't save options while saving sessions
 set mouse=a			    " Enable mouse
 
 " }}}
@@ -89,6 +92,7 @@ cnoremap w!! w !sudo tee % > /dev/null
 " Toggles
 nnoremap cop :setlocal paste!<CR>:setlocal paste?<CR>
 nnoremap cos :setlocal spell!<CR>:setlocal spell?<CR>
+nnoremap col :setlocal list!<CR>:setlocal list?<CR>
 nnoremap coh :setlocal hlsearch!<CR>:setlocal hlsearch?<CR>
 nnoremap cob :set background=<C-R>=&background == 'dark' ? 'light' : 'dark'<CR><CR>
 
