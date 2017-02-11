@@ -107,12 +107,12 @@ augroup vimrc
 
     " Highlight current line in the active window
     autocmd VimEnter * set cursorline
-    autocmd WinEnter * if &filetype != "tagbar" && !&diff | set cursorline | endif
+    autocmd WinEnter * if !&diff | set cursorline | endif
     autocmd WinLeave * set nocursorline
 
     " Automatically open quickfix/location lists when populated
     autocmd QuickFixCmdPost [^l]* cwindow
-    autocmd QuickFixCmdPost l*    lwindow
+    autocmd QuickFixCmdPost l* lwindow
 
     " Don't move cursor to start of line when switching buffers
     autocmd BufLeave * set nostartofline |

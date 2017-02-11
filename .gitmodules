@@ -13,9 +13,3 @@
 [submodule "pack/myplugins/start/vim-vinegar"]
 	path = pack/myplugins/start/vim-vinegar
 	url = https://github.com/manasthakur/vim-vinegar.git
-[submodule "pack/myplugins/opt/ctrlp.vim"]
-	path = pack/myplugins/opt/ctrlp.vim
-	url = https://github.com/ctrlpvim/ctrlp.vim.git
-[submodule "pack/myplugins/opt/tagbar"]
-	path = pack/myplugins/opt/tagbar
-	url = https://github.com/majutsushi/tagbar.git
