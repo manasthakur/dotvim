@@ -1,5 +1,8 @@
 " Java specific settings
 
+" Existing tabs should show 4 spaces
+set tabstop=4
+
 " List all classes and public/private/protected methods
 nnoremap <buffer> <leader>d :ilist /\s\(\Cclass\\|public\\|private\\|protected\).*{<CR>:
 

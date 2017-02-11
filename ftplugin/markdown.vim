@@ -1,4 +1,4 @@
-" Textfile specific settings
+" Markdown specific settings
 
 " Fix textwidth
 setlocal textwidth=80
