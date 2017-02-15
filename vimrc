@@ -114,9 +114,11 @@ augroup vimrc
     autocmd QuickFixCmdPost [^l]* cwindow
     autocmd QuickFixCmdPost l* lwindow
 
+    " Restore the last known position on opening a new file
+    autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g'\"" | endif
+
     " Don't move cursor to start of line when switching buffers
-    autocmd BufLeave * set nostartofline |
-		\ autocmd CursorMoved,CursorMovedI * set startofline |autocmd! vimrc CursorMoved,CursorMovedI
+    autocmd BufLeave * set nostartofline | autocmd CursorMoved,CursorMovedI * set startofline | autocmd! vimrc CursorMoved,CursorMovedI
 augroup END
 
 " }}}
