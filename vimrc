@@ -108,9 +108,6 @@ augroup vimrc
     " Clear the autocommands of this group
     autocmd!
 
-    " Clear the autocommands of the 'fedora' group (created by '/etc/vimrc' in Fedora)
-    autocmd! fedora
-
     " Highlight current line in the active window
     autocmd VimEnter * set cursorline
     autocmd WinEnter * if !&diff | set cursorline | endif
