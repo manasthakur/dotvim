@@ -81,6 +81,9 @@ nnoremap Y y$
 " Run macro from register 'q' with 'Q'
 nnoremap Q @q
 
+" Select recently pasted text
+nnoremap gV `[V`]
+
 " Create block
 inoremap {<CR> {<CR>}<Esc>O
 
@@ -105,6 +108,9 @@ augroup vimrc
     " Clear the autocommands of this group
     autocmd!
 
+    " Clear the autocommands of the 'fedora' group (created by '/etc/vimrc' in Fedora)
+    autocmd! fedora
+
     " Highlight current line in the active window
     autocmd VimEnter * set cursorline
     autocmd WinEnter * if !&diff | set cursorline | endif
@@ -112,7 +118,7 @@ augroup vimrc
 
     " Automatically open quickfix/location lists when populated
     autocmd QuickFixCmdPost [^l]* cwindow
-    autocmd QuickFixCmdPost l* lwindow
+    autocmd QuickFixCmdPost l*    lwindow
 
     " Restore the last known position on opening a new file
     autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g'\"" | endif
