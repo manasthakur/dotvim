@@ -54,7 +54,7 @@ if s:style == 'dark'
   let s:dark_bg  = get(s:, 'seoul_background', 238)
   let s:light_bg = 253
 else
-  let s:dark_bg  = 237
+  let s:dark_bg  = 238
   let s:light_bg = get(s:, 'seoul_background', 253)
 endif
 let s:dark_bg_2 = s:dark_bg > 233 ? s:dark_bg - 2 : 16
