@@ -53,10 +53,6 @@ set pastetoggle=<F2>		    " Toggle paste using <F2>
 " MAPPINGS {{{
 " =============================================================================
 
-" Scroll using Ctrl-Dn and Ctrl-Up (won't work on macOS)
-noremap <C-Down> <C-F>
-noremap <C-Up> <C-B>
-
 " Buffers
 nnoremap <leader>w :update<CR>
 nnoremap <leader>q :bdelete<CR>
