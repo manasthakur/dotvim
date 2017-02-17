@@ -6,10 +6,10 @@
 " SETTINGS {{{
 " =============================================================================
 
-filetype plugin indent on	    " Enable filetype-based plugins and indentation
+filetype plugin indent on	    " Enable filetype-based plugins and indents
 syntax enable			    " Enable syntax-highlights
 packadd! matchit		    " Load the builtin matchit plugin
-set showmatch			    " Highlight matching parenthesis
+set showmatch			    " Focus on matching parenthesis
 
 set softtabstop=4		    " Number of spaces a <Tab> counts for
 set shiftwidth=4		    " Number of spaces for indentation
@@ -26,6 +26,7 @@ set virtualedit=block		    " Allow virtual-editing in visual-block mode
 
 set hidden			    " Enable opening other file while keeping the previous one in buffer
 set confirm			    " Confirm when closing vim with unsaved buffers
+
 set laststatus=2		    " Display statusline all the time
 set scrolloff=1			    " Keep one extra line while scrolling
 set wildmenu			    " Visual autocomplete for command menu
@@ -56,10 +57,13 @@ set pastetoggle=<F2>		    " Toggle paste using <F2>
 " <Space> is the leader
 let mapleader="\<Space>"
 
-" Map <C-k> as <Esc>
-noremap <C-k> <Esc>
-inoremap <C-k> <Esc>
-cnoremap <C-k> <C-c>
+" Map <C-K> as <Esc>
+noremap <C-K> <Esc>
+inoremap <C-K> <Esc>
+cnoremap <C-K> <C-C>
+
+" Jump tags using <C-J>
+nnoremap <C-J> <C-]>
 
 " Buffers
 nnoremap <leader>w :update<CR>
