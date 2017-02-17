@@ -1,7 +1,6 @@
 " Manas's vimrc
 " vim: set fen fdm=marker:
 " Filetype-specific settings are in '.vim/ftplugin'
-" Toggle folds using 'za'
 " =============================================================================
 " SETTINGS {{{
 " =============================================================================
@@ -56,11 +55,6 @@ set pastetoggle=<F2>		    " Toggle paste using <F2>
 
 " <Space> is the leader
 let mapleader="\<Space>"
-
-" Map <C-K> as <Esc>
-noremap <C-K> <Esc>
-inoremap <C-K> <Esc>
-cnoremap <C-K> <C-C>
 
 " Jump tags using <C-J>
 nnoremap <C-J> <C-]>
