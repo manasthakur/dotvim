@@ -6,8 +6,8 @@ setlocal textwidth=80
 " Enable spell-check
 setlocal spell
 
-" Use '\\' to make (forced)
-nnoremap <buffer> <leader>\ :!make -B<CR><CR>
+" Use <leader>m to make (forced)
+nnoremap <buffer> <leader>m :!make -B<CR><CR>
 
 " Include completion for words containg ':' and '-'
 setlocal iskeyword+=:,-

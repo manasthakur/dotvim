@@ -4,7 +4,7 @@
 nnoremap <buffer> <leader>d :ilist /\s\(\Cclass\\|public\\|private\\|protected\).*{<CR>:
 
 " Echo current method's header (works if explicit access-modifiers have been used)
-nnoremap <buffer> <leader>f mxHmy`x:?\s\(public\\|private\\|protected\).*{<CR>:echom getline('.')<CR>`yzt`x:1messages<CR>
+nnoremap <buffer> <leader>t mxHmy`x:?\s\(public\\|private\\|protected\).*{<CR>:echom getline('.')<CR>`yzt`x:1messages<CR>
 
 " Search among visit methods
 nnoremap <leader>v /visit.*
@@ -33,10 +33,10 @@ function! RunAsync(command) abort
     endif
 endfunction
 
-" Set <leader>\ to compile using 'ant'
+" Set <leader>m to compile using 'ant'
 if v:version >= 800
-    nnoremap <buffer> <silent> <leader>\ :call RunAsync('ant')<CR>
+    nnoremap <buffer> <silent> <leader>m :call RunAsync('ant')<CR>
 else
-    nnoremap <buffer> <leader>\ :silent cmake! \| cwindow \| redraw!<CR>
+    nnoremap <buffer> <leader>m :silent cmake! \| cwindow \| redraw!<CR>
 endif
 

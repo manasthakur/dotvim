@@ -15,6 +15,7 @@ set softtabstop=4		    " Number of spaces a <Tab> counts for
 set shiftwidth=4		    " Number of spaces for indentation
 set autoindent			    " Start next line from where the current one does
 set listchars=tab:»\ ,trail:·	    " Unicode characters for list mode
+set showcmd			    " Show partially-typed commands below statusline
 
 set foldmethod=marker		    " Fold using markers
 set backspace=indent,eol,start	    " Make backspace work everywhere
@@ -25,11 +26,10 @@ set virtualedit=block		    " Allow virtual-editing in visual-block mode
 
 set hidden			    " Enable opening other file while keeping the previous one in buffer
 set confirm			    " Confirm when closing vim with unsaved buffers
-
 set laststatus=2		    " Display statusline all the time
 set scrolloff=1			    " Keep one extra line while scrolling
 set wildmenu			    " Visual autocomplete for command menu
-set wildignorecase		    " Ignore case in wildmenu (not needed on macOS)
+set wildignorecase		    " Ignore case in wildmenu
 
 set ruler			    " Show line and column numbers at bottom-right
 set number			    " Show line number in front of each line
@@ -53,15 +53,19 @@ set pastetoggle=<F2>		    " Toggle paste using <F2>
 " MAPPINGS {{{
 " =============================================================================
 
+" <Space> is the leader
+let mapleader="\<Space>"
+
+" Map <C-k> as <Esc>
+noremap <C-k> <Esc>
+inoremap <C-k> <Esc>
+cnoremap <C-k> <C-c>
+
 " Buffers
 nnoremap <leader>w :update<CR>
 nnoremap <leader>q :bdelete<CR>
 nnoremap ]b :bnext<CR>
 nnoremap [b :bprevious<CR>
-
-" Tabs
-nnoremap ]t :tabnext<CR>
-nnoremap [t :tabprevious<CR>
 
 " Quickfix lists
 nnoremap ]q :cnext<CR>
@@ -137,16 +141,16 @@ set wildignore+=*.tar.*,*.zip,*.jar
 set wildignore+=*.pdf,*.ps,*.dvi,*.gif,*.jpg,*.png,*.mp3,*.mp4,*.avi
 
 " Files
-nnoremap <C-P> :find *
+nnoremap <leader>f :find *
 
 " Buffers
-nnoremap , :ls<CR>:b<SPACE>
+nnoremap <leader>b :ls<CR>:b<SPACE>
 
 " Alternate buffer
-nnoremap <C-K> :b#<CR>
+nnoremap <leader>l :b#<CR>
 
 " Tags
-nnoremap ; :tag /
+nnoremap <leader>j :tag /
 
 " }}}
 " =============================================================================
@@ -254,7 +258,7 @@ let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/mysnippets']
 
 " Maps
 let g:UltiSnipsExpandTrigger='<C-J>'
-let g:UltiSnipsListSnippets='<C-K>'
+let g:UltiSnipsListSnippets='<C-L>'
 
 " }}}
 " =============================================================================
