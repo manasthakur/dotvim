@@ -1,6 +1,7 @@
 " Manas's vimrc
 " vim: set fen fdm=marker:
 " Filetype-specific settings are in '.vim/ftplugin'
+" Toggle folds using 'za'
 " =============================================================================
 " SETTINGS {{{
 " =============================================================================
@@ -14,7 +15,6 @@ set softtabstop=4		    " Number of spaces a <Tab> counts for
 set shiftwidth=4		    " Number of spaces for indentation
 set autoindent			    " Start next line from where the current one does
 set listchars=tab:»\ ,trail:·	    " Unicode characters for list mode
-set showcmd			    " Show partially-typed commands below statusline
 
 set foldmethod=marker		    " Fold using markers
 set backspace=indent,eol,start	    " Make backspace work everywhere
@@ -53,12 +53,6 @@ set pastetoggle=<F2>		    " Toggle paste using <F2>
 " MAPPINGS {{{
 " =============================================================================
 
-" <Space> is the leader
-let mapleader="\<Space>"
-
-" Jump tags using <C-J>
-nnoremap <C-J> <C-]>
-
 " Buffers
 nnoremap <leader>w :update<CR>
 nnoremap <leader>q :bdelete<CR>
@@ -82,7 +76,7 @@ nnoremap Q @q
 " Select recently pasted text
 nnoremap gV `[V`]
 
-" Create block
+" Close brace
 inoremap {<CR> {<CR>}<Esc>O
 
 " Tabularize selected text
@@ -139,16 +133,16 @@ set wildignore+=*.tar.*,*.zip,*.jar
 set wildignore+=*.pdf,*.ps,*.dvi,*.gif,*.jpg,*.png,*.mp3,*.mp4,*.avi
 
 " Files
-nnoremap <leader>f :find *
+nnoremap <C-P> :find *
 
 " Buffers
-nnoremap <leader>b :ls<CR>:b<SPACE>
+nnoremap , :ls<CR>:b<SPACE>
 
 " Alternate buffer
-nnoremap <leader>l :b#<CR>
+nnoremap <C-K> :b#<CR>
 
 " Tags
-nnoremap <leader>j :tag /
+nnoremap ; :tag /
 
 " }}}
 " =============================================================================
@@ -256,7 +250,7 @@ let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/mysnippets']
 
 " Maps
 let g:UltiSnipsExpandTrigger='<C-J>'
-let g:UltiSnipsListSnippets='<C-L>'
+let g:UltiSnipsListSnippets='<C-K>'
 
 " }}}
 " =============================================================================
