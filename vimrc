@@ -1,71 +1,100 @@
-" Manas's vimrc
-" vim: set fen fdm=marker:
-" Filetype-specific settings are in '.vim/ftplugin'
-" Toggle folds using 'za'
-" =============================================================================
+""""""""""""""""""""""""""""""MANAS'S VIMRC"""""""""""""""""""""""""""""""""""
+" AUTHOR:  Manas Thakur                                                      "
+" EMAIL:   manasthakur17 AT gmail DOT com                                    "
+" LICENSE: MIT                                                               "
+"                                                                            "
+" NOTE:    (a) Filetype-specific settings are in '.vim/ftplugin'             "
+"          (b) Toggle folds using 'za'                                       "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SETTINGS {{{
-" =============================================================================
+"------------------------------------------------------------------------------
 
-filetype plugin indent on	    " Enable filetype-based plugins and indents
-syntax enable			    " Enable syntax-highlights
-packadd! matchit		    " Load the builtin matchit plugin
-set showmatch			    " Focus on matching parenthesis
+" Enable filetype detection, and filetype-based plugins & indents
+filetype plugin indent on
 
-set softtabstop=4		    " Number of spaces a <Tab> counts for
-set shiftwidth=4		    " Number of spaces for indentation
-set autoindent			    " Start next line from where the current one does
-set listchars=tab:»\ ,trail:·	    " Unicode characters for list mode
+" Enable syntax-highlights
+syntax enable
 
-set foldmethod=marker		    " Fold using markers
-set backspace=indent,eol,start	    " Make backspace work everywhere
-set linebreak			    " Break lines visually when they don't fit into the screen
-set formatoptions+=j		    " Remove comment-leader when joining commented lines
-set display=lastline		    " Don't show '@'s when a line doesn't fit the screen
-set virtualedit=block		    " Allow virtual-editing in visual-block mode
+" Load the builtin matchit plugin; allows jumping among matching keywords using '%"
+packadd! matchit
 
-set hidden			    " Enable opening other file while keeping the previous one in buffer
-set confirm			    " Confirm when closing vim with unsaved buffers
+" Copy the indent of previous line
+set autoindent
 
-set laststatus=2		    " Display statusline all the time
-set scrolloff=1			    " Keep one extra line while scrolling
-set wildmenu			    " Visual autocomplete for command menu
-set wildignorecase		    " Ignore case in wildmenu
+" While editing, count a <Tab> as 4 spaces
+set softtabstop=4
 
-set ruler			    " Show line and column numbers at bottom-right
-set number			    " Show line number in front of each line
-set relativenumber		    " Show relative line numbers
+" While indenting with '<' and '>', use 4 spaces
+set shiftwidth=4
 
-set nohlsearch			    " Don't highlight previously matched items
-set incsearch			    " Show matches while typing the search-term
-set ignorecase			    " Ignore case while searching
-set smartcase			    " Don't ignore case when search-term contains capitals
+" Backspace everything
+set backspace=indent,eol,start
 
-set ttimeout			    " Time-out for key codes
-set ttimeoutlen=100		    " Wait up to 100ms after <Esc> for special key
+" Enable switching buffers without saving them
+set hidden
 
-set history=200			    " Keep 200 lines of command-line history
-set sessionoptions-=options	    " Don't save options while saving sessions
-set mouse=a			    " Enable mouse in all the modes
-set pastetoggle=<F2>		    " Toggle paste using <F2>
+" Confirm when quitting vim with unsaved buffers
+set confirm
+
+" Fold using markers
+set foldmethod=marker
+
+" Wrap long lines
+set linebreak
+
+" Remove comment-leader when joining lines using 'J'
+set formatoptions+=j
+
+" Unicode characters for list mode (show up on ':set list')
+set listchars=tab:»\ ,trail:·
+
+" Allow selecting arbitrary regions in visual-block mode
+set virtualedit=block
+
+" Don't show '@'s when a line doesn't fit the screen
+set display=lastline
+
+" Keep one extra line while scrolling (for context)
+set scrolloff=1
+
+" Keep 200 lines of command-line history
+set history=200
+
+" Don't save the values of options while saving sessions
+set sessionoptions-=options
+
+" Enable mouse in all modes
+set mouse=a
+
+" Time-out for key codes
+set ttimeout
+
+" Wait up to 100ms after <Esc> for special key
+set ttimeoutlen=100
 
 " }}}
-" =============================================================================
+"-----------------------------------------------------------------------------
 " MAPPINGS {{{
-" =============================================================================
+"------------------------------------------------------------------------------
 
 " Buffers
-nnoremap <leader>w :update<CR>
-nnoremap <leader>q :bdelete<CR>
-nnoremap ]b :bnext<CR>
+"   - Update : ,w
+"   - Delete : ,q
+"   - Switch : [b and ]b
+nnoremap ,w :update<CR>
+nnoremap ,q :bdelete<CR>
 nnoremap [b :bprevious<CR>
+nnoremap ]b :bnext<CR>
 
 " Quickfix lists
-nnoremap ]q :cnext<CR>
+"   - Switch using [q and ]q
 nnoremap [q :cprevious<CR>
+nnoremap ]q :cnext<CR>
 
 " Location lists
-nnoremap ]w :lnext<CR>
-nnoremap [w :lprevious<CR>
+"   - Switch using [l and ]l
+nnoremap [l :lprevious<CR>
+nnoremap ]l :lnext<CR>
 
 " Make 'Y' behave like other capitals
 nnoremap Y y$
@@ -73,134 +102,168 @@ nnoremap Y y$
 " Run macro from register 'q' with 'Q'
 nnoremap Q @q
 
-" Select recently pasted text
+" Select recently pasted text using 'gV' (capital 'V')
+"   (Note: 'gv' selects recently selected text by default)
 nnoremap gV `[V`]
 
-" Close brace
+" Expand '{<CR>' to a block and place cursor inside
 inoremap {<CR> {<CR>}<Esc>O
 
-" Tabularize selected text
-xnoremap <leader>t :'<,'>!column -t<CR>
+" Tabularize selected text using ,t
+xnoremap ,t :'<,'>!column -t<CR>
 
-" Write a file with sudo when it was opened without
+" Write a file with sudo when it was opened without, using ':w!!'
 cnoremap w!! w !sudo tee % > /dev/null
 
 " Toggles
+"   - Spellcheck        : cos
+"   - Paste             : cop
+"   - List              : col
+"   - Search highlights : coh
+"   - Background        : cob
 nnoremap cos :setlocal spell!<CR>:setlocal spell?<CR>
+nnoremap cos :setlocal paste!<CR>:setlocal paste?<CR>
 nnoremap col :setlocal list!<CR>:setlocal list?<CR>
 nnoremap coh :setlocal hlsearch!<CR>:setlocal hlsearch?<CR>
 nnoremap cob :set background=<C-R>=&background=='dark'?'light':'dark'<CR><CR>
 
 " }}}
-" =============================================================================
-" AUTOCOMMANDS {{{
-" =============================================================================
+"-----------------------------------------------------------------------------
+" NAVIGATION {{{
+"------------------------------------------------------------------------------
 
-augroup vimrc
-    " Clear the autocommands of this group
+" Search for files in the directory of the current file, as well as recursively in the current directory (:pwd)
+set path=.,**
+
+" Reduce priority of following file-types while expanding file-names
+set suffixes+=*.class,*.o,*.out,*.aux,*.bbl,*.blg,*.cls
+set suffixes+=*.tar.*,*.zip,*.jar
+set suffixes+=*.pdf,*.ps,*.dvi,*.gif,*.jpg,*.png,*.mp3,*.mp4,*.avi
+
+" Find files
+"   - edit   :  ,f
+"   - split  : ,sf
+"   - vsplit : ,vf
+nnoremap  ,f :find *
+nnoremap ,sf :sfind *
+nnoremap ,vf :vertical sfind *
+
+" Switch buffers
+"   - current   :  ,b
+"   - split     : ,sb
+"   - vsplit    : ,vb
+"   - alternate :  ,r
+nnoremap  ,b :ls<CR>:b<Space>
+nnoremap ,sb :ls<CR>:sb<Space>
+nnoremap ,vb :ls<CR>:vertical sb<Space>
+nnoremap  ,r :b#<CR>
+
+" Jump tags
+"   - first match :  ,t
+"   - with list   : ,lt
+nnoremap  ,t :tag /
+nnoremap ,lt :tjump /
+
+" Two behavioral changes:
+"   (a) Restore the last-known location on opening a file
+"   (b) Don't move the cursor to start-of-line when switching buffers
+augroup vimrc_position
     autocmd!
-
-    " Highlight current line in the active window
-    autocmd VimEnter * set cursorline
-    autocmd WinEnter * if !&diff | set cursorline | endif
-    autocmd WinLeave * set nocursorline
-
-    " Automatically open quickfix/location lists when populated
-    autocmd QuickFixCmdPost [^l]* cwindow
-    autocmd QuickFixCmdPost l*    lwindow
-
-    " Restore the last known position on opening a new file
     autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") |
 		\ execute "normal! g'\"" | endif
-
-    " Don't move cursor to start of line when switching buffers
     autocmd BufLeave * set nostartofline |
 		\ autocmd CursorMoved,CursorMovedI * set startofline |
 		\ autocmd! vimrc CursorMoved,CursorMovedI
 augroup END
 
-" }}}
-" =============================================================================
-" NAVIGATION {{{
-" =============================================================================
-
-" Recurse
-set path=.,**
-
-" Ignore-list
-set wildignore+=*.class,*.o,*.out,*.aux,*.bbl,*.blg,*.cls
-set wildignore+=*.tar.*,*.zip,*.jar
-set wildignore+=*.pdf,*.ps,*.dvi,*.gif,*.jpg,*.png,*.mp3,*.mp4,*.avi
-
-" Files
-nnoremap <C-P> :find *
-
-" Buffers
-nnoremap , :ls<CR>:b<SPACE>
-
-" Alternate buffer
-nnoremap <C-K> :b#<CR>
-
-" Tags
-nnoremap ; :tag /
+" Automatically open quickfix/location lists when populated
+augroup vimrc_quickfix
+    autocmd!
+    autocmd QuickFixCmdPost [^l]* cwindow
+    autocmd QuickFixCmdPost l*    lwindow
+augroup END
 
 " }}}
-" =============================================================================
-" SEARCHING {{{
-" =============================================================================
-
-if executable('ag')
-    " If available, use 'ag' as the grep-program
-    set grepprg=ag\ --nogroup\ --nocolor\ --vimgrep
-    set grepformat^=%f:%l:%c:%m
-else
-    set grepprg=grep\ -IRn\ --exclude=tags\ $*\ .
-endif
-
-" Maps
-command! -nargs=+ Grep silent lgrep! <args> | redraw!
-nnoremap <leader>a :Grep<Space>
-nnoremap <leader>c :Grep <C-R><C-W><CR>
-
-" }}}
-" =============================================================================
+"-----------------------------------------------------------------------------
 " COMPLETION {{{
-" =============================================================================
+"------------------------------------------------------------------------------
+
+" Visual completion for command-menu
+set wildmenu
+
+" Ignore case in command-line completion
+set wildignorecase
 
 " Don't complete from included files
 set complete-=i
 
-" Use <Tab> for completion
+" Use <Tab> for clever insert-mode completion
 function! CleverTab() abort
+    " If completion-menu is visible, keep scrolling
     if pumvisible()
-        return "\<C-E>"
+        return "\<C-N>"
     endif
 
     let str = matchstr(strpart(getline('.'), 0, col('.')-1), '[^ \t]*$')
     if empty(str)
+	" After spaces, return the <Tab> literal
         return "\<Tab>"
     else
         if match(str, '\/') != -1
+	    " File-completion on seeing a '/'
             return "\<C-X>\<C-F>"
         else
+	    " Complete based on the 'complete' option
             return "\<C-P>"
         endif
     endif
 endfunction
 inoremap <Tab> <C-R>=CleverTab()<CR>
 
-" Make <CR> select an entry from completion-menu
+" Select an entry from the completion-menu using <CR>
 inoremap <expr> <CR> pumvisible() ? "\<C-Y>" : "\<C-G>u\<CR>"
 
-" Insert <Tab> at end of lines using <Shift-Tab>
+" Insert <Tab> after non-space characters using Shift-Tab
 inoremap <S-Tab> <Space><Tab>
 
 " }}}
-" =============================================================================
-" SCRATCHPAD {{{
-" =============================================================================
+"-----------------------------------------------------------------------------
+" SEARCHING {{{
+"------------------------------------------------------------------------------
 
-" Toggle a scratch window
+" Don't highlight matched items
+set nohlsearch
+
+" Show matches while typing the search-term
+set incsearch
+
+" Ignore case while searching, but act smartly with capitals
+set ignorecase
+set smartcase
+
+" If available, use 'ag' as the grep-program
+if executable('ag')
+    set grepprg=ag\ --nogroup\ --nocolor\ --vimgrep
+    set grepformat^=%f:%l:%c:%m
+else
+    set grepprg=grep\ -IRn\ --exclude=tags\ $*\ .
+endif
+
+" Define a 'Grep' command
+command! -nargs=+ Grep silent lgrep! <args> | redraw!
+
+" Grep
+"   - standard     : ,a
+"   - current word : ,c
+nnoremap ,a :Grep<Space>
+nnoremap ,c :Grep <C-R><C-W><CR>
+
+" }}}
+"-----------------------------------------------------------------------------
+" SCRATCHPAD {{{
+"------------------------------------------------------------------------------
+
+" Toggle a scratch window using ,x
 function! ToggleScratch()
     let scr_winnr = bufwinnr('.scratchpad')
     if scr_winnr != -1
@@ -209,12 +272,36 @@ function! ToggleScratch()
 	execute 'rightbelow ' . float2nr(0.2 * winwidth(0)) . 'vsplit +setlocal\ filetype=markdown\ nobuflisted .scratchpad'
     endif
 endfunction
-nnoremap <silent> <leader>x :call ToggleScratch()<CR>
+nnoremap <silent> ,x :call ToggleScratch()<CR>
 
 " }}}
-" =============================================================================
+"-----------------------------------------------------------------------------
+" ULTISNIPS {{{
+"------------------------------------------------------------------------------
+
+" Use custom snippet-diretory
+let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/mysnippets']
+
+" Maps
+let g:UltiSnipsExpandTrigger='<C-J>'
+let g:UltiSnipsListSnippets='<C-K>'
+
+"  }}}
+"-----------------------------------------------------------------------------
 " APPEARANCE {{{
-" =============================================================================
+"------------------------------------------------------------------------------
+
+" Display statusline all the time
+set laststatus=2
+
+" Show a ruler at right-bottom
+set ruler
+
+" Show line numbers
+set number
+
+" Show relative line numbers
+set relativenumber
 
 " Custom statusline with fugitive and ruler
 set statusline=%<\ %f\ %h%m%r\ %{exists('g:loaded_fugitive')?fugitive#statusline():''}%=%-14.(%l,%c%V%)\ %P
@@ -224,33 +311,18 @@ let &t_SI = "\<Esc>[6 q"
 let &t_SR = "\<Esc>[4 q"
 let &t_EI = "\<Esc>[2 q"
 
-" Seoul colorscheme
+" Highlight current line in the active window
+augroup vimrc_cursorline
+    autocmd!
+    autocmd VimEnter * set cursorline
+    autocmd WinEnter * if !&diff | set cursorline | endif
+    autocmd WinLeave * set nocursorline
+augroup END
+
+" Use seoul colorscheme
 colorscheme seoul
 
 " }}}
-" =============================================================================
-" CSCOPE {{{
-" =============================================================================
-
-" Add cscope database, if present in current directory
-if filereadable('cscope.out')
-    cs add cscope.out
-endif
-
-" Find the callers of the function under cursor
-nmap <C-\>c :cs find c <C-R>=expand('<cword>')<CR><CR>
-
-" }}}
-" =============================================================================
-" ULTISNIPS {{{
-" =============================================================================
-
-" Use custom snippet-diretory
-let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/mysnippets']
-
-" Maps
-let g:UltiSnipsExpandTrigger='<C-J>'
-let g:UltiSnipsListSnippets='<C-K>'
-
-" }}}
-" =============================================================================
+"-----------------------------------------------------------------------------
+" vim: set fen fdm=marker:                                                   |
+"-----------------------------------------------------------------------------
