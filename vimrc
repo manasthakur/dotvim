@@ -17,7 +17,7 @@ filetype plugin indent on
 " Enable syntax-highlights
 syntax enable
 
-" Load the builtin matchit plugin; allows jumping among matching keywords using '%"
+" Load the builtin matchit plugin; allows jumping among matching keywords using '%'
 packadd! matchit
 
 " Copy the indent of previous line
@@ -124,7 +124,7 @@ cnoremap w!! w !sudo tee % > /dev/null
 "   - Search highlights : coh
 "   - Background        : cob
 nnoremap cos :setlocal spell!<CR>:setlocal spell?<CR>
-nnoremap cos :setlocal paste!<CR>:setlocal paste?<CR>
+nnoremap cop :setlocal paste!<CR>:setlocal paste?<CR>
 nnoremap col :setlocal list!<CR>:setlocal list?<CR>
 nnoremap coh :setlocal hlsearch!<CR>:setlocal hlsearch?<CR>
 nnoremap cob :set background=<C-R>=&background=='dark'?'light':'dark'<CR><CR>
@@ -175,14 +175,14 @@ augroup vimrc_position
 		\ execute "normal! g'\"" | endif
     autocmd BufLeave * set nostartofline |
 		\ autocmd CursorMoved,CursorMovedI * set startofline |
-		\ autocmd! vimrc CursorMoved,CursorMovedI
+		\ autocmd! vimrc_position CursorMoved,CursorMovedI
 augroup END
 
 " Automatically open quickfix/location lists when populated
-augroup vimrc_quickfix
+augroup vimrc_qf
     autocmd!
     autocmd QuickFixCmdPost [^l]* cwindow
-    autocmd QuickFixCmdPost l*    lwindow
+    autocmd QuickFixCmdPost l* lwindow
 augroup END
 
 " }}}
