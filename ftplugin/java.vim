@@ -1,13 +1,13 @@
 " Java specific settings
 
 " List all classes and public/private/protected methods
-nnoremap <buffer> <leader>d :ilist /\s\(\Cclass\\|public\\|private\\|protected\).*{<CR>:
+nnoremap <buffer> ,d :ilist /\s\(\Cclass\\|public\\|private\\|protected\).*{<CR>:
 
 " Echo current method's header (works if explicit access-modifiers have been used)
-nnoremap <buffer> <leader>f mxHmy`x:?\s\(public\\|private\\|protected\).*{<CR>:echom getline('.')<CR>`yzt`x:1messages<CR>
+nnoremap <buffer> ,m mxHmy`x:?\s\(public\\|private\\|protected\).*{<CR>:echom getline('.')<CR>`yzt`x:1messages<CR>
 
 " Search among visit methods
-nnoremap <leader>v /visit.*
+nnoremap ,v /visit.*
 
 " Use 'ant' as the compiler (sets 'makeprg' and 'errorformat')
 compiler ant
@@ -33,10 +33,10 @@ function! RunAsync(command) abort
     endif
 endfunction
 
-" Set <leader>\ to compile using 'ant'
+" Set ,, to compile using 'ant'
 if v:version >= 800
-    nnoremap <buffer> <silent> <leader>\ :call RunAsync('ant')<CR>
+    nnoremap <buffer> <silent> ,, :call RunAsync('ant')<CR>
 else
-    nnoremap <buffer> <leader>\ :silent cmake! \| cwindow \| redraw!<CR>
+    nnoremap <buffer> ,, :silent cmake! \| cwindow \| redraw!<CR>
 endif
 
