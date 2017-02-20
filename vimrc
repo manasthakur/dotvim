@@ -79,6 +79,9 @@ set ttimeoutlen=100
 " MAPPINGS {{{
 "-----------------------------------------------------------------------------
 
+" Exit insert mode with 'jj'
+inoremap jj <Esc>
+
 " Buffers
 "   - Update : ,w
 "   - Delete : ,q
@@ -142,29 +145,29 @@ set suffixes+=*.class,*.o,*.out,*.aux,*.bbl,*.blg,*.cls
 set suffixes+=*.tar.*,*.zip,*.jar
 set suffixes+=*.pdf,*.ps,*.dvi,*.gif,*.jpg,*.png,*.mp3,*.mp4,*.avi
 
-" Find files
-"   - edit   :  ,f
-"   - split  : ,sf
-"   - vsplit : ,vf
-nnoremap  ,f :find *
-nnoremap ,sf :sfind *
-nnoremap ,vf :vertical sfind *
+" Find file and edit
+"   - in current buffer :  ,e
+"   - in a split        : ,se
+"   - in a vsplit       : ,ve
+nnoremap  ,e :find *
+nnoremap ,se :sfind *
+nnoremap ,ve :vertical sfind *
 
-" Switch buffers
-"   - current   :  ,b
-"   - split     : ,sb
-"   - vsplit    : ,vb
-"   - alternate :  ,r
-nnoremap  ,b :ls<CR>:b<Space>
-nnoremap ,sb :ls<CR>:sb<Space>
-nnoremap ,vb :ls<CR>:vertical sb<Space>
+" List open files and switch
+"   - over current buffer :  ,f
+"   - in a split          : ,sf
+"   - in a vsplit         : ,vf
+"   - to alternate buffer :  ,r
+nnoremap  ,f :ls<CR>:b<Space>
+nnoremap ,sf :ls<CR>:sb<Space>
+nnoremap ,vf :ls<CR>:vertical sb<Space>
 nnoremap  ,r :b#<CR>
 
-" Jump tags
-"   - first match :  ,t
-"   - with list   : ,lt
-nnoremap  ,t :tag /
-nnoremap ,lt :tjump /
+" Goto tag
+"   - first match      :  ,g
+"   - list if multiple : ,lg
+nnoremap  ,g :tag /
+nnoremap ,lg :tjump /
 
 " Two behavioral changes:
 "   (a) Restore the last-known location on opening a file
