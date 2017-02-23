@@ -324,6 +324,9 @@ augroup vimrc_cursorline
     autocmd WinLeave * set nocursorline
 augroup END
 
+" A command for distraction-free vim
+command! DistractionFree set nonumber | set norelativenumber | set laststatus=1 | set noruler | set nospell
+
 " Use seoul colorscheme
 colorscheme seoul
 
