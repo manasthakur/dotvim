@@ -157,11 +157,11 @@ nnoremap ,ve :vertical sfind *
 "   - over current buffer :  ,f
 "   - in a split          : ,sf
 "   - in a vsplit         : ,vf
-"   - to alternate buffer :  ,l
+"   - to alternate buffer :  ,r
 nnoremap  ,f :ls<CR>:b<Space>
 nnoremap ,sf :ls<CR>:sb<Space>
 nnoremap ,vf :ls<CR>:vertical sb<Space>
-nnoremap  ,l :b#<CR>
+nnoremap  ,r :b#<CR>
 
 " Goto tag
 "   - first match      :  ,g
