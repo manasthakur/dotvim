@@ -80,7 +80,7 @@ set ttimeoutlen=100
 "-----------------------------------------------------------------------------
 
 " Exit insert mode with 'jj'
-inoremap jj <Esc>
+inoremap jk <Esc>
 
 " Buffers
 "   - Update : ,w
