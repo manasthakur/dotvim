@@ -13,6 +13,6 @@ else
     nnoremap <buffer><silent> O <CR>:cclose<CR>
 endif
 
-" Disable cursorline (colorscheme takes care of highlighting)
+" Disable cursorline (as colorscheme takes care of highlighting the current entry)
 setlocal nocursorline
 

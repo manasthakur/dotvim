@@ -96,11 +96,6 @@ nnoremap ]b :bnext<CR>
 nnoremap [q :cprevious<CR>
 nnoremap ]q :cnext<CR>
 
-" Location lists
-"   - Switch using [l and ]l
-nnoremap [l :lprevious<CR>
-nnoremap ]l :lnext<CR>
-
 " Make 'Y' behave like other capitals
 nnoremap Y y$
 
@@ -246,16 +241,16 @@ set incsearch
 set ignorecase
 set smartcase
 
-" If available, use 'ag' as the grep-program
-if executable('ag')
-    set grepprg=ag\ --nogroup\ --nocolor\ --vimgrep
+" If available, use 'rg' as the grep-program
+if executable('rg')
+    set grepprg=rg\ -S\ --vimgrep
     set grepformat^=%f:%l:%c:%m
 else
     set grepprg=grep\ -IRn\ --exclude=tags\ $*\ .
 endif
 
 " Define a 'Grep' command
-command! -nargs=+ Grep silent lgrep! <args> | redraw!
+command! -nargs=+ Grep silent grep! <args> | redraw!
 
 " Grep
 "   - standard     : ,a
