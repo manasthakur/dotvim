@@ -1,13 +1,13 @@
 " Java specific settings
 
 " List all classes and public/private/protected methods
-nnoremap <buffer> ,d :ilist /\s\(\Cclass\\|public\\|private\\|protected\).*{<CR>:
+nnoremap <buffer> ,d :keeppatterns ilist /\s\(\Cclass\\|public\\|private\\|protected\).*{<CR>:
 
 " Echo current method's header (works if explicit access-modifiers have been used)
-nnoremap <buffer> ,m mxHmy`x:?\s\(public\\|private\\|protected\).*{<CR>:echom getline('.')<CR>`yzt`x:1messages<CR>
+nnoremap <buffer> ,m mxHmy`x:keeppatterns ?\s\(public\\|private\\|protected\).*{<CR>:echom getline('.')<CR>`yzt`x:1messages<CR>
 
 " Search among visit methods
-nnoremap ,v /visit.*
+nnoremap ,vm :keeppatterns /visit.*{<Left>
 
 " Use 'ant' as the compiler (sets 'makeprg' and 'errorformat')
 compiler ant
