@@ -241,22 +241,22 @@ set incsearch
 set ignorecase
 set smartcase
 
-" If available, use 'rg' as the grep-program
 if executable('rg')
-    set grepprg=rg\ -S\ --vimgrep
+    " If available, use 'ripgrep' as the grep-program
+    set grepprg=rg\ --smart-case\ --vimgrep
+
+    " Display column numbers as well
     set grepformat^=%f:%l:%c:%m
-else
-    set grepprg=grep\ -IRn\ --exclude=tags\ $*\ .
+
+    " Define a 'Grep' command
+    command! -nargs=+ Grep silent grep! <args> | redraw!
+
+    " Grep
+    "   - standard     : ,a
+    "   - current word : ,c
+    nnoremap ,a :Grep<Space>
+    nnoremap ,c :Grep <C-R><C-W><CR>
 endif
-
-" Define a 'Grep' command
-command! -nargs=+ Grep silent grep! <args> | redraw!
-
-" Grep
-"   - standard     : ,a
-"   - current word : ,c
-nnoremap ,a :Grep<Space>
-nnoremap ,c :Grep <C-R><C-W><CR>
 
 " }}}
 "-----------------------------------------------------------------------------
@@ -315,7 +315,7 @@ let &t_EI = "\<Esc>[2 q"
 augroup vimrc_cursorline
     autocmd!
     autocmd VimEnter * set cursorline
-    autocmd WinEnter * if !&diff | set cursorline | endif
+    autocmd WinEnter * if &filetype != "qf" && !&diff | set cursorline | endif
     autocmd WinLeave * set nocursorline
 augroup END
 
