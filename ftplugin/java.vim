@@ -4,7 +4,7 @@
 nnoremap <buffer> ,d :keeppatterns ilist /\s\(\Cclass\\|public\\|private\\|protected\).*{<CR>:
 
 " Echo current method's header (works if explicit access-modifiers have been used)
-nnoremap <buffer> ,m mxHmy`x:keeppatterns ?\s\(public\\|private\\|protected\).*{<CR>:echom getline('.')<CR>`yzt`x:1messages<CR>
+nnoremap <buffer> ,m :echo getline(search("\\(public\\\|private\\\|protected\\).*{", 'bn'))<CR>
 
 " Search among visit methods
 nnoremap ,vm :keeppatterns /visit.*{<Left>
