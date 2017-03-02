@@ -159,10 +159,10 @@ nnoremap ,vf :ls<CR>:vertical sb<Space>
 nnoremap  ,r :b#<CR>
 
 " Goto tag
-"   - first match      :  ,g
-"   - list if multiple : ,lg
-nnoremap  ,g :tag /
-nnoremap ,lg :tjump /
+"   - first match      :  ,t
+"   - list if multiple : ,lt
+nnoremap  ,t :tag /
+nnoremap ,lt :tjump /
 
 " Two behavioral changes:
 "   (a) Restore the last-known location on opening a file
