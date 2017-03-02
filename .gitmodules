@@ -1,15 +1,15 @@
-[submodule "pack/myplugins/start/vim-commentary"]
-	path = pack/myplugins/start/vim-commentary
+[submodule "pack/bundle/start/vim-commentary"]
+	path = pack/bundle/start/vim-commentary
 	url = https://github.com/tpope/vim-commentary.git
-[submodule "pack/myplugins/start/vim-fugitive"]
-	path = pack/myplugins/start/vim-fugitive
+[submodule "pack/bundle/start/vim-fugitive"]
+	path = pack/bundle/start/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive.git
-[submodule "pack/myplugins/start/ultisnips"]
-	path = pack/myplugins/start/ultisnips
+[submodule "pack/bundle/start/ultisnips"]
+	path = pack/bundle/start/ultisnips
 	url = https://github.com/SirVer/ultisnips.git
-[submodule "pack/myplugins/start/vim-sessionist"]
-	path = pack/myplugins/start/vim-sessionist
+[submodule "pack/bundle/start/vim-sessionist"]
+	path = pack/bundle/start/vim-sessionist
 	url = https://github.com/manasthakur/vim-sessionist.git
-[submodule "pack/myplugins/start/vim-vinegar"]
-	path = pack/myplugins/start/vim-vinegar
+[submodule "pack/bundle/start/vim-vinegar"]
+	path = pack/bundle/start/vim-vinegar
 	url = https://github.com/manasthakur/vim-vinegar.git
