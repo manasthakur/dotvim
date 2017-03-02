@@ -50,8 +50,8 @@ set formatoptions+=j
 " Unicode characters for list mode (show up on ':set list')
 set listchars=tab:»\ ,trail:·
 
-" Allow selecting arbitrary regions in visual-block mode
-set virtualedit=block
+" Set height of preview-windows to 5 (default: 12)
+set previewheight=5
 
 " Don't show '@'s when a line doesn't fit the screen
 set display=lastline
@@ -96,7 +96,7 @@ nnoremap ]b :bnext<CR>
 nnoremap [q :cprevious<CR>
 nnoremap ]q :cnext<CR>
 
-" Make 'Y' behave like other capitals
+" Copy till end of line using 'Y'
 nnoremap Y y$
 
 " Run macro from register 'q' with 'Q'
@@ -108,12 +108,6 @@ nnoremap gV `[V`]
 
 " Expand '{<CR>' to a block and place cursor inside
 inoremap {<CR> {<CR>}<Esc>O
-
-" Tabularize selected text using ,t
-xnoremap ,t :'<,'>!column -t<CR>
-
-" Write a file with sudo when it was opened without, using ':w!!'
-cnoremap w!! w !sudo tee % > /dev/null
 
 " Toggles
 "   - Spellcheck        : cos
@@ -161,8 +155,10 @@ nnoremap  ,r :b#<CR>
 " Goto tag
 "   - first match      :  ,t
 "   - list if multiple : ,lt
+"   - preview the tag  : ,pt
 nnoremap  ,t :tag /
 nnoremap ,lt :tjump /
+nnoremap ,pt :ptag /
 
 " Two behavioral changes:
 "   (a) Restore the last-known location on opening a file
@@ -197,6 +193,9 @@ set wildignorecase
 " Don't complete from included files
 set complete-=i
 
+" Disable messages during completion
+set shortmess+=c
+
 " Use <Tab> for clever insert-mode completion
 function! CleverTab() abort
     " If completion-menu is visible, keep scrolling
@@ -218,7 +217,7 @@ function! CleverTab() abort
         endif
     endif
 endfunction
-inoremap <Tab> <C-R>=CleverTab()<CR>
+inoremap <silent> <Tab> <C-R>=CleverTab()<CR>
 
 " Select an entry from the completion-menu using <CR>
 inoremap <expr> <CR> pumvisible() ? "\<C-Y>" : "\<C-G>u\<CR>"
@@ -260,7 +259,7 @@ endif
 
 " }}}
 "-----------------------------------------------------------------------------
-" SCRATCHPAD {{{
+" UTILITIES {{{
 "-----------------------------------------------------------------------------
 
 " Toggle a scratch window using ,x
@@ -273,6 +272,15 @@ function! ToggleScratch()
     endif
 endfunction
 nnoremap <silent> ,x :call ToggleScratch()<CR>
+
+" Tabularize selected text using ,t
+xnoremap ,t :'<,'>!column -t<CR>
+
+" Write a file with sudo when it was opened without, using :SudoWrite
+command! SudoWrite w !sudo tee % > /dev/null
+
+" Remove clutter using :DistractionFree
+command! DistractionFree set nonumber | set norelativenumber | set laststatus=1 | set noruler | set nospell
 
 " }}}
 "-----------------------------------------------------------------------------
@@ -318,9 +326,6 @@ augroup vimrc_cursorline
     autocmd WinEnter * if &filetype != "qf" && !&diff | set cursorline | endif
     autocmd WinLeave * set nocursorline
 augroup END
-
-" A command for distraction-free vim
-command! DistractionFree set nonumber | set norelativenumber | set laststatus=1 | set noruler | set nospell
 
 " Use seoul colorscheme
 colorscheme seoul
