@@ -26,8 +26,11 @@ set autoindent
 " While editing, count a <Tab> as 4 spaces
 set softtabstop=4
 
-" While indenting with '<' and '>', use 4 spaces
+" While changing indents with '<' and '>', use 4 spaces
 set shiftwidth=4
+
+" Replace tabs with spaces (unless forced using <C-V><Tab>)
+set expandtab
 
 " Backspace everything
 set backspace=indent,eol,start
@@ -37,9 +40,6 @@ set hidden
 
 " Confirm when quitting vim with unsaved buffers
 set confirm
-
-" Fold using markers
-set foldmethod=marker
 
 " Wrap long lines
 set linebreak
@@ -170,10 +170,10 @@ nnoremap ,lg :tjump /
 augroup vimrc_position
     autocmd!
     autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") |
-		\ execute "normal! g'\"" | endif
+                \ execute "normal! g'\"" | endif
     autocmd BufLeave * set nostartofline |
-		\ autocmd CursorMoved,CursorMovedI * set startofline |
-		\ autocmd! vimrc_position CursorMoved,CursorMovedI
+                \ autocmd CursorMoved,CursorMovedI * set startofline |
+                \ autocmd! vimrc_position CursorMoved,CursorMovedI
 augroup END
 
 " Automatically open quickfix/location lists when populated
@@ -206,14 +206,14 @@ function! CleverTab() abort
 
     let str = matchstr(strpart(getline('.'), 0, col('.')-1), '[^ \t]*$')
     if empty(str)
-	" After spaces, return the <Tab> literal
+        " After spaces, return the <Tab> literal
         return "\<Tab>"
     else
         if match(str, '\/') != -1
-	    " File-completion on seeing a '/'
+            " File-completion on seeing a '/'
             return "\<C-X>\<C-F>"
         else
-	    " Complete based on the 'complete' option
+            " Complete based on the 'complete' option
             return "\<C-P>"
         endif
     endif
@@ -267,9 +267,9 @@ endif
 function! ToggleScratch()
     let scr_winnr = bufwinnr('.scratchpad')
     if scr_winnr != -1
-	execute scr_winnr . 'close'
+        execute scr_winnr . 'close'
     else
-	execute 'rightbelow ' . float2nr(0.2 * winwidth(0)) . 'vsplit +setlocal\ filetype=markdown\ nobuflisted .scratchpad'
+        execute 'rightbelow ' . float2nr(0.2 * winwidth(0)) . 'vsplit +setlocal\ filetype=markdown\ nobuflisted .scratchpad'
     endif
 endfunction
 nnoremap <silent> ,x :call ToggleScratch()<CR>

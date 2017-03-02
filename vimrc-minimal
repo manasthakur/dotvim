@@ -1,36 +1,30 @@
 " A minimal vimrc that should work on most Vim versions
 
-filetype plugin indent on	    " Enable filetype-based plugins and indentation
-syntax enable			    " Enable syntax-coloring
-runtime macros/matchit.vim	    " Load vim's builtin matchit plugin
-set showmatch			    " Highlight matching parenthesis
+filetype plugin indent on           " Enable filetype-based plugins and indentation
+syntax enable                       " Enable syntax-coloring
+runtime macros/matchit.vim          " Load vim's builtin matchit plugin
+set showmatch                       " Highlight matching parenthesis
 
-set softtabstop=4		    " Number of spaces a <Tab> counts for
-set shiftwidth=4		    " Number of spaces for indentation
-set autoindent			    " Start next line from where the previous one did
-set backspace=indent,eol,start	    " Make backspace work everywhere
+set softtabstop=4                   " Number of spaces a <Tab> counts for
+set shiftwidth=4                    " Number of spaces for indentation
+set autoindent                      " Start next line from where the previous one did
+set backspace=indent,eol,start      " Make backspace work everywhere
 
-set hidden			    " Enable opening other file while keeping the previous one in buffer
-set confirm			    " Confirm when closing vim with unsaved buffers
+set hidden                          " Enable opening other file while keeping the previous one in buffer
+set confirm                         " Confirm when closing vim with unsaved buffers
 
-set laststatus=2		    " Display statusline all the time
-set scrolloff=1			    " Keep one extra line while scrolling
-set display=lastline		    " Don't show '@'s when a line doesn't fit the screen
-set wildmenu			    " Visual autocomplete for command menu
+set laststatus=2                    " Display statusline all the time
+set scrolloff=1                     " Keep one extra line while scrolling
+set display=lastline                " Don't show '@'s when a line doesn't fit the screen
+set wildmenu                        " Visual autocomplete for command menu
 
-set ruler			    " Show ruler with line and column numbers at bottom-right
-set number			    " Show line numbers on the left hand side
+set ruler                           " Show ruler with line and column numbers at bottom-right
+set number                          " Show line numbers on the left hand side
 
-set incsearch			    " Show matches while typing the search-term
-set ignorecase			    " Ignore case while searching
-set smartcase			    " Don't ignore case when search-term contains capitals
+set incsearch                       " Show matches while typing the search-term
+set ignorecase                      " Ignore case while searching
+set smartcase                       " Don't ignore case when search-term contains capitals
 
-set ttimeout			    " Time-out for key codes
-set ttimeoutlen=100		    " Wait up to 100ms after <Esc> for special key
-set mouse=a			    " Enable mouse
-
-" Buffer maps
-nnoremap <leader>w :update<CR>
-nnoremap <leader>q :bdelete<CR>
-nnoremap ]b :bnext<CR>
-nnoremap [b :bprevious<CR>
+set ttimeout                        " Time-out for key codes
+set ttimeoutlen=100                 " Wait up to 100ms after <Esc> for special key
+set mouse=a                         " Enable mouse

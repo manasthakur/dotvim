@@ -20,14 +20,14 @@ function! CurrentFunction()
     let startline = getline(search("^[^ \s\t].*[^:]$", 'nb'))
     " Check if the line contains 'class' or 'struct'
     if startline =~ ".*\\(class\\|struct\\).*"
-	" If yes, then print the value of the motion '[m'
-	execute "normal! mxHmy`x[m"
-	let startline = getline('.')
-	execute "normal! `yzt`x"
-	echo startline
+        " If yes, then print the value of the motion '[m'
+        execute "normal! mxHmy`x[m"
+        let startline = getline('.')
+        execute "normal! `yzt`x"
+        echo startline
     else
-	" Else print the line itself
-	echo startline
+        " Else print the line itself
+        echo startline
     endif
 endfunction
 nnoremap ,m :call CurrentFunction()<CR>

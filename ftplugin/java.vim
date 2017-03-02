@@ -1,5 +1,8 @@
 " Java specific settings
 
+" Fold using markers
+setlocal foldmethod=marker
+
 " List all classes and public/private/protected methods
 nnoremap <buffer> ,d :keeppatterns ilist /\s\(\Cclass\\|public\\|private\\|protected\).*{<CR>:
 
@@ -17,7 +20,7 @@ function! ExitHandler(job, exit_status) abort
     execute 'cgetfile ' . g:async_outfile
     echo ""
     if a:exit_status == 0
-	echo "No errors!"
+        echo "No errors!"
     endif
     unlet g:async_outfile
 endfunction
@@ -25,11 +28,11 @@ endfunction
 " Function to run 'ant' asynchronously (Vim 8 only)
 function! RunAsync(command) abort
     if !filereadable(expand("build.xml"))
-	echo "Buildfile: build.xml does not exist!"
+        echo "Buildfile: build.xml does not exist!"
     else
-	echo "Compiling..."
-	let g:async_outfile = tempname()
-	call job_start(a:command, {'exit_cb': 'ExitHandler', 'out_io': 'file', 'out_name': g:async_outfile})
+        echo "Compiling..."
+        let g:async_outfile = tempname()
+        call job_start(a:command, {'exit_cb': 'ExitHandler', 'out_io': 'file', 'out_name': g:async_outfile})
     endif
 endfunction
 
