@@ -2,13 +2,13 @@
 " AUTHOR:  Manas Thakur                                                      "
 " EMAIL:   manasthakur17 AT gmail DOT com                                    "
 " LICENSE: MIT                                                               "
-"                                                                            "
 " NOTE:    (a) Filetype-specific settings are in '.vim/ftplugin'             "
-"          (b) Toggle folds using 'za'                                       "
+"          (b) Plugin-specific settings are in '.vim/plugin'                 "
+"          (c) Toggle folds using 'za'                                       "
 "                                                                            "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "-----------------------------------------------------------------------------
-" SETTINGS {{{
+" INITIALIZATION {{{
 "-----------------------------------------------------------------------------
 
 " Enable filetype detection, and filetype-based plugins and indents
@@ -19,6 +19,11 @@ syntax enable
 
 " Load the builtin matchit plugin; allows jumping among matching keywords using '%'
 packadd! matchit
+
+" }}}
+"-----------------------------------------------------------------------------
+" FORMATTING {{{
+"-----------------------------------------------------------------------------
 
 " Copy the indent of previous line
 set autoindent
@@ -35,20 +40,19 @@ set expandtab
 " Backspace everything
 set backspace=indent,eol,start
 
-" Enable switching buffers without saving them
-set hidden
-
-" Confirm when quitting vim with unsaved buffers
-set confirm
-
-" Wrap long lines
-set linebreak
-
 " Remove comment-leader when joining lines using 'J'
 set formatoptions+=j
 
 " Unicode characters for list mode (show up on ':set list')
 set listchars=tab:»\ ,trail:·
+
+" }}}
+"-----------------------------------------------------------------------------
+" BEHAVIOUR {{{
+"-----------------------------------------------------------------------------
+
+" Wrap long lines
+set linebreak
 
 " Set height of preview-windows to 5 (default: 12)
 set previewheight=5
@@ -68,33 +72,39 @@ set sessionoptions-=options
 " Enable mouse in all modes
 set mouse=a
 
-" Time-out for key codes
+" Time-out for key codes up to 100ms
 set ttimeout
-
-" Wait up to 100ms after <Esc> for special key
 set ttimeoutlen=100
+
+" Two behavioral changes:
+"   (a) Restore the last-known location on opening a file
+"   (b) Don't move the cursor to start-of-line when switching buffers
+augroup vimrc_position
+    autocmd!
+    autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") |
+                \ execute "normal! g'\"" | endif
+    autocmd BufLeave * set nostartofline |
+                \ autocmd CursorMoved,CursorMovedI * set startofline |
+                \ autocmd! vimrc_position CursorMoved,CursorMovedI
+augroup END
+
+" Automatically open quickfix/location windows when populated
+augroup vimrc_qf
+    autocmd!
+    autocmd QuickFixCmdPost [^l]* cwindow
+    autocmd QuickFixCmdPost l* lwindow
+augroup END
 
 " }}}
 "-----------------------------------------------------------------------------
-" MAPPINGS {{{
+" SHORTHANDS {{{
 "-----------------------------------------------------------------------------
 
 " Exit insert mode with 'jj'
 inoremap jk <Esc>
 
-" Buffers
-"   - Update : ,w
-"   - Delete : ,q
-"   - Switch : [b and ]b
-nnoremap ,w :update<CR>
-nnoremap ,q :bdelete<CR>
-nnoremap [b :bprevious<CR>
-nnoremap ]b :bnext<CR>
-
-" Quickfix lists
-"   - Switch using [q and ]q
-nnoremap [q :cprevious<CR>
-nnoremap ]q :cnext<CR>
+" Expand '{<CR>' to a block and place cursor inside
+inoremap {<CR> {<CR>}<Esc>O
 
 " Copy till end of line using 'Y'
 nnoremap Y y$
@@ -105,9 +115,6 @@ nnoremap Q @q
 " Select recently pasted text using 'gV' (capital 'V')
 "   (Note: 'gv' selects recently selected text by default)
 nnoremap gV `[V`]
-
-" Expand '{<CR>' to a block and place cursor inside
-inoremap {<CR> {<CR>}<Esc>O
 
 " Toggles
 "   - Spellcheck        : cos
@@ -126,6 +133,12 @@ nnoremap cob :set background=<C-R>=&background=='dark'?'light':'dark'<CR><CR>
 " NAVIGATION {{{
 "-----------------------------------------------------------------------------
 
+" Enable switching buffers without saving them
+set hidden
+
+" Confirm when quitting vim with unsaved buffers
+set confirm
+
 " Search for files in the directory of the current file, as well as recursively in the current directory (:pwd)
 set path=.,**
 
@@ -134,23 +147,31 @@ set suffixes+=*.class,*.o,*.out,*.aux,*.bbl,*.blg,*.cls
 set suffixes+=*.tar.*,*.zip,*.jar
 set suffixes+=*.pdf,*.ps,*.dvi,*.gif,*.jpg,*.png,*.mp3,*.mp4,*.avi
 
-" Find file and edit
-"   - in current buffer :  ,e
-"   - in a split        : ,se
-"   - in a vsplit       : ,ve
+" Files
+"   - Find and edit   :  ,e
+"       - in a split  : ,se
+"       - in a vsplit : ,ve
 nnoremap  ,e :find *
 nnoremap ,se :sfind *
 nnoremap ,ve :vertical sfind *
 
-" List open files and switch
-"   - over current buffer :  ,f
-"   - in a split          : ,sf
-"   - in a vsplit         : ,vf
-"   - to alternate buffer :  ,r
+" Buffers
+"   - list and switch  :  ,f
+"       - in a split   : ,sf
+"       - in a vsplit  : ,vf
+"   - alternate buffer :  ,r
+"   - previous buffer  :  [b
+"   - next buffer      :  ]b
+"   - update buffer    :  ,w
+"   - delete buffer    :  ,q
 nnoremap  ,f :ls<CR>:b<Space>
 nnoremap ,sf :ls<CR>:sb<Space>
 nnoremap ,vf :ls<CR>:vertical sb<Space>
 nnoremap  ,r :b#<CR>
+nnoremap  [b :bprevious<CR>
+nnoremap  ]b :bnext<CR>
+nnoremap ,w :update<CR>
+nnoremap ,q :bdelete<CR>
 
 " Goto tag
 "   - first match      :  ,t
@@ -160,24 +181,10 @@ nnoremap  ,t :tag /
 nnoremap ,lt :tjump /
 nnoremap ,pt :ptag /
 
-" Two behavioral changes:
-"   (a) Restore the last-known location on opening a file
-"   (b) Don't move the cursor to start-of-line when switching buffers
-augroup vimrc_position
-    autocmd!
-    autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") |
-                \ execute "normal! g'\"" | endif
-    autocmd BufLeave * set nostartofline |
-                \ autocmd CursorMoved,CursorMovedI * set startofline |
-                \ autocmd! vimrc_position CursorMoved,CursorMovedI
-augroup END
-
-" Automatically open quickfix/location lists when populated
-augroup vimrc_qf
-    autocmd!
-    autocmd QuickFixCmdPost [^l]* cwindow
-    autocmd QuickFixCmdPost l* lwindow
-augroup END
+" Quickfix lists
+"   - Switch using [q and ]q
+nnoremap [q :cprevious<CR>
+nnoremap ]q :cnext<CR>
 
 " }}}
 "-----------------------------------------------------------------------------
@@ -262,16 +269,16 @@ endif
 " UTILITIES {{{
 "-----------------------------------------------------------------------------
 
-" Toggle a scratch window using ,x
-function! ToggleScratch()
-    let scr_winnr = bufwinnr('.scratchpad')
+" Toggle a notepad window using ,x
+function! ToggleNotepad()
+    let scr_winnr = bufwinnr('.notepad')
     if scr_winnr != -1
         execute scr_winnr . 'close'
     else
-        execute 'rightbelow ' . float2nr(0.2 * winwidth(0)) . 'vsplit +setlocal\ filetype=markdown\ nobuflisted .scratchpad'
+        execute 'rightbelow ' . float2nr(0.2 * winwidth(0)) . 'vsplit +setlocal\ filetype=markdown\ nobuflisted .notepad'
     endif
 endfunction
-nnoremap <silent> ,x :call ToggleScratch()<CR>
+nnoremap <silent> ,x :call ToggleNotepad()<CR>
 
 " Tabularize selected text using ,t
 xnoremap ,t :'<,'>!column -t<CR>
@@ -283,18 +290,6 @@ command! SudoWrite w !sudo tee % > /dev/null
 command! DistractionFree set nonumber | set norelativenumber | set laststatus=1 | set noruler | set nospell
 
 " }}}
-"-----------------------------------------------------------------------------
-" ULTISNIPS {{{
-"-----------------------------------------------------------------------------
-
-" Use custom snippet-diretory
-let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/mysnippets']
-
-" Maps
-let g:UltiSnipsExpandTrigger='<C-J>'
-let g:UltiSnipsListSnippets='<C-K>'
-
-"  }}}
 "-----------------------------------------------------------------------------
 " APPEARANCE {{{
 "-----------------------------------------------------------------------------
@@ -332,5 +327,5 @@ colorscheme seoul
 
 " }}}
 "-----------------------------------------------------------------------------
-" vim: set fen fdm=marker:                                                   |
+" vim: set fen fdm=marker:
 "-----------------------------------------------------------------------------

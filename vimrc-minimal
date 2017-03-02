@@ -3,10 +3,10 @@
 filetype plugin indent on           " Enable filetype-based plugins and indentation
 syntax enable                       " Enable syntax-coloring
 runtime macros/matchit.vim          " Load vim's builtin matchit plugin
-set showmatch                       " Highlight matching parenthesis
 
 set softtabstop=4                   " Number of spaces a <Tab> counts for
 set shiftwidth=4                    " Number of spaces for indentation
+set expandtab                       " Replace tabs with spaces
 set autoindent                      " Start next line from where the previous one did
 set backspace=indent,eol,start      " Make backspace work everywhere
 
