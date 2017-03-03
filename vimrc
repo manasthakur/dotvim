@@ -88,7 +88,7 @@ augroup vimrc_behavior
     " Don't move the cursor to start-of-line when switching buffers
     autocmd BufLeave * set nostartofline |
                 \ autocmd CursorMoved,CursorMovedI * set startofline |
-                \ autocmd! vimrc_position CursorMoved,CursorMovedI
+                \ autocmd! vimrc_behavior CursorMoved,CursorMovedI
 
     " Automatically open quickfix/location windows when populated
     autocmd QuickFixCmdPost [^l]* cwindow
