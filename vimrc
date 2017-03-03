@@ -48,13 +48,13 @@ set listchars=tab:»\ ,trail:·
 
 " }}}
 "-----------------------------------------------------------------------------
-" BEHAVIOUR {{{
+" BEHAVIOR {{{
 "-----------------------------------------------------------------------------
 
 " Wrap long lines
 set linebreak
 
-" Set height of preview-windows to 5 (default: 12)
+" Set height of preview-windows to 5
 set previewheight=5
 
 " Don't show '@'s when a line doesn't fit the screen
@@ -76,21 +76,21 @@ set mouse=a
 set ttimeout
 set ttimeoutlen=100
 
-" Two behavioral changes:
-"   (a) Restore the last-known location on opening a file
-"   (b) Don't move the cursor to start-of-line when switching buffers
-augroup vimrc_position
+" Behavioral autocommands
+augroup vimrc_behavior
+    " Clear the autocommands of this group
     autocmd!
+
+    " Restore the last-known location on opening a file
     autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") |
                 \ execute "normal! g'\"" | endif
+
+    " Don't move the cursor to start-of-line when switching buffers
     autocmd BufLeave * set nostartofline |
                 \ autocmd CursorMoved,CursorMovedI * set startofline |
                 \ autocmd! vimrc_position CursorMoved,CursorMovedI
-augroup END
 
-" Automatically open quickfix/location windows when populated
-augroup vimrc_qf
-    autocmd!
+    " Automatically open quickfix/location windows when populated
     autocmd QuickFixCmdPost [^l]* cwindow
     autocmd QuickFixCmdPost l* lwindow
 augroup END
@@ -100,7 +100,7 @@ augroup END
 " SHORTHANDS {{{
 "-----------------------------------------------------------------------------
 
-" Exit insert mode with 'jj'
+" Exit insert mode with 'jk'
 inoremap jk <Esc>
 
 " Expand '{<CR>' to a block and place cursor inside
