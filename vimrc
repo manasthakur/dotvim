@@ -14,10 +14,10 @@
 " Enable filetype detection, and filetype-based plugins and indents
 filetype plugin indent on
 
-" Enable syntax-highlights
+" Enable syntax highlights
 syntax enable
 
-" Load the builtin matchit plugin; allows jumping among matching keywords using '%'
+" Load the builtin matchit plugin (allows jumping among matching keywords using '%')
 packadd! matchit
 
 " }}}
@@ -54,9 +54,6 @@ set listchars=tab:»\ ,trail:·
 " Wrap long lines
 set linebreak
 
-" Set height of preview-windows to 5
-set previewheight=5
-
 " Don't show '@'s when a line doesn't fit the screen
 set display=lastline
 
@@ -66,10 +63,10 @@ set scrolloff=1
 " Keep 200 lines of command-line history
 set history=200
 
-" Don't save the values of options while saving sessions
+" Don't save options while saving sessions
 set sessionoptions-=options
 
-" Enable mouse in all modes
+" Enable mouse in all the modes
 set mouse=a
 
 " Time-out for key codes up to 100ms
@@ -181,10 +178,13 @@ nnoremap  ,t :tag /
 nnoremap ,lt :tjump /
 nnoremap ,pt :ptag /
 
-" Quickfix lists
-"   - Switch using [q and ]q
+" Switching among list entries
+"   Quickfix : [q and ]q
+"   Location : [l and ]l
 nnoremap [q :cprevious<CR>
 nnoremap ]q :cnext<CR>
+nnoremap [l :lprevious<CR>
+nnoremap ]l :lnext<CR>
 
 " }}}
 "-----------------------------------------------------------------------------
