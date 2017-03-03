@@ -1,6 +1,3 @@
-[submodule "pack/bundle/start/vim-commentary"]
-	path = pack/bundle/start/vim-commentary
-	url = https://github.com/tpope/vim-commentary.git
 [submodule "pack/bundle/start/vim-fugitive"]
 	path = pack/bundle/start/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive.git

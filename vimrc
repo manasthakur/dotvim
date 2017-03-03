@@ -178,13 +178,9 @@ nnoremap  ,t :tag /
 nnoremap ,lt :tjump /
 nnoremap ,pt :ptag /
 
-" Switching among list entries
-"   Quickfix : [q and ]q
-"   Location : [l and ]l
+" Switch among quickfix entries using [q and ]q
 nnoremap [q :cprevious<CR>
 nnoremap ]q :cnext<CR>
-nnoremap [l :lprevious<CR>
-nnoremap ]l :lnext<CR>
 
 " }}}
 "-----------------------------------------------------------------------------
@@ -199,9 +195,6 @@ set wildignorecase
 
 " Don't complete from included files
 set complete-=i
-
-" Disable messages during completion
-set shortmess+=c
 
 " Use <Tab> for clever insert-mode completion
 function! CleverTab() abort
@@ -263,6 +256,32 @@ if executable('rg')
     nnoremap ,a :Grep<Space>
     nnoremap ,c :Grep <C-R><C-W><CR>
 endif
+
+" }}}
+"-----------------------------------------------------------------------------
+" COMMENT/UNCOMMENT {{{
+"-----------------------------------------------------------------------------
+
+" Toggle comments
+"   - normal mode : ,cc
+"   - visual mode :  ,c
+function! ToggleComments() range
+    " Get a space-trimmed commenstring
+    let comment_str = substitute(split(substitute(substitute(&commentstring, '\S\zs%s',' %s','') ,'%s\ze\S', '%s ', ''), '%s', 1)[0], ' ', '', '')
+
+    " Check if the first line is already commented
+    if match(getline('.'), comment_str) == 0
+        " Yes ==> uncomment mode
+        execute a:firstline.",".a:lastline . "s#^" . comment_str . "#"
+    else
+        " No ==> comment mode
+        execute "ks"
+        execute a:firstline.","a:lastline . "s#^#" . comment_str
+        execute "normal! `s"
+    endif
+endfunction
+nnoremap ,cc :call ToggleComments()<CR>
+xnoremap  ,c :call ToggleComments()<CR>
 
 " }}}
 "-----------------------------------------------------------------------------
