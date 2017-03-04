@@ -2,6 +2,7 @@
 " AUTHOR:  Manas Thakur                                                      "
 " EMAIL:   manasthakur17 AT gmail DOT com                                    "
 " LICENSE: MIT                                                               "
+"                                                                            "
 " NOTE:    (a) Filetype-specific settings are in '.vim/ftplugin'             "
 "          (b) Plugin-specific settings are in '.vim/plugin'                 "
 "          (c) Toggle folds using 'za'                                       "
@@ -167,8 +168,8 @@ nnoremap ,vf :ls<CR>:vertical sb<Space>
 nnoremap  ,r :b#<CR>
 nnoremap  [b :bprevious<CR>
 nnoremap  ]b :bnext<CR>
-nnoremap ,w :update<CR>
-nnoremap ,q :bdelete<CR>
+nnoremap  ,w :update<CR>
+nnoremap  ,q :bdelete<CR>
 
 " Goto tag
 "   - first match      :  ,t
@@ -259,7 +260,7 @@ endif
 
 " }}}
 "-----------------------------------------------------------------------------
-" COMMENT/UNCOMMENT {{{
+" COMMENTING {{{
 "-----------------------------------------------------------------------------
 
 " Toggle comments
@@ -267,17 +268,17 @@ endif
 "   - visual mode :  ,c
 function! ToggleComments() range
     " Get a space-trimmed commenstring
-    let comment_str = substitute(split(substitute(substitute(&commentstring, '\S\zs%s',' %s','') ,'%s\ze\S', '%s ', ''), '%s', 1)[0], ' ', '', '')
+    let cmt_str = substitute(split(substitute(substitute(&commentstring, '\S\zs%s', ' %s', ''), '%s\ze\S', '%s ', ''), '%s', 1)[0], ' ', '', '')
 
     " Check if the first line is already commented
-    if match(getline('.'), comment_str) == 0
+    if match(getline('.'), cmt_str) == 0
         " Yes ==> uncomment mode
-        execute a:firstline.",".a:lastline . "s]^" . comment_str . "]"
+        execute a:firstline.",".a:lastline . "s]^" . cmt_str . "]"
+        execute "normal! ``"
     else
         " No ==> comment mode
-        execute "ks"
-        execute a:firstline.","a:lastline . "s]^]" . comment_str
-        execute "normal! `s"
+        execute a:firstline.","a:lastline . "s]^]" . cmt_str
+        execute "normal! ``"
     endif
 endfunction
 nnoremap ,cc :call ToggleComments()<CR>
