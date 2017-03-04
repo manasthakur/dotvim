@@ -40,6 +40,6 @@ endfunction
 if v:version >= 800
     nnoremap <buffer> <silent> ,, :call RunAsync('ant')<CR>
 else
-    nnoremap <buffer> ,, :silent cmake! \| cwindow \| redraw!<CR>
+    nnoremap <buffer> ,, :silent make! \| cwindow \| redraw!<CR>
 endif
 
