@@ -272,11 +272,11 @@ function! ToggleComments() range
     " Check if the first line is already commented
     if match(getline('.'), comment_str) == 0
         " Yes ==> uncomment mode
-        execute a:firstline.",".a:lastline . "s#^" . comment_str . "#"
+        execute a:firstline.",".a:lastline . "s]^" . comment_str . "]"
     else
         " No ==> comment mode
         execute "ks"
-        execute a:firstline.","a:lastline . "s#^#" . comment_str
+        execute a:firstline.","a:lastline . "s]^]" . comment_str
         execute "normal! `s"
     endif
 endfunction
