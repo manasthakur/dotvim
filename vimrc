@@ -251,10 +251,10 @@ if executable('rg')
     command! -nargs=+ Grep silent grep! <args> | redraw!
 
     " Grep
-    "   - standard     : ,a
-    "   - current word : ,c
-    nnoremap ,a :Grep<Space>
-    nnoremap ,c :Grep <C-R><C-W><CR>
+    "   - standard     :  ,a
+    "   - current word : ,ca
+    nnoremap  ,a :Grep<Space>
+    nnoremap ,ca :Grep <C-R><C-W><CR>
 endif
 
 " }}}
