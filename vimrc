@@ -298,21 +298,21 @@ xnoremap  ,c :call ToggleComments()<CR>
 " Don't save options while saving sessions
 set sessionoptions-=options
 
-" Save a session with ,ss
+" Save a session using ,ss
 nnoremap ,ss :mksession! ~/.vim/.sessions/<C-Z><S-Tab>
 
-" Open a session with ,so
+" Open a session using ,so
 nnoremap ,so :source ~/.vim/.sessions/<C-Z><S-Tab>
 
-" Automatically save session on before quitting
+" Automatically save session before leaving vim
 augroup vimrc_session
     autocmd!
     autocmd VimLeavePre * if !empty(v:this_session) |
-                \ execute "mksession! " .fnameescape(v:this_session) |
+                \ execute "mksession! " . fnameescape(v:this_session) |
                 \ else | mksession! ~/.vim/.sessions/previous.vim | endif
 augroup END
 
-" Restore the previous session with ,sp
+" Restore previous session using ,sp
 nnoremap <silent> ,sp :source ~/.vim/.sessions/previous.vim<CR>
 
 " }}}
