@@ -101,14 +101,14 @@ inoremap jk <Esc>
 " Expand '{<CR>' to a block and place cursor inside
 inoremap {<CR> {<CR>}<Esc>O
 
-" Auto-insert closing parenthesis and place cursor to the left
+" Auto-insert closing parenthesis
 inoremap ( ()<Left>
 
 " Skip over closing parenthesis
 inoremap <expr> ) getline('.')[col('.')-1] == ")" ? "\<Right>" : ")"
 
 " Surround selected text with parentheses using 'csb'
-xnoremap csb c(<C-R>")
+xnoremap csb c(<C-R>")<Esc>
 
 " Copy till end of line using 'Y'
 nnoremap Y y$
