@@ -64,9 +64,6 @@ set scrolloff=1
 " Keep 200 lines of command-line history
 set history=200
 
-" Don't save options while saving sessions
-set sessionoptions-=options
-
 " Enable mouse in all the modes
 set mouse=a
 
@@ -104,6 +101,15 @@ inoremap jk <Esc>
 " Expand '{<CR>' to a block and place cursor inside
 inoremap {<CR> {<CR>}<Esc>O
 
+" Auto-insert closing parenthesis and place cursor to the left
+inoremap ( ()<Left>
+
+" Skip over closing parenthesis
+inoremap <expr> ) getline('.')[col('.')-1] == ")" ? "\<Right>" : ")"
+
+" Surround selected text with parentheses using 'csb'
+xnoremap csb c(<C-R>")
+
 " Copy till end of line using 'Y'
 nnoremap Y y$
 
@@ -137,34 +143,34 @@ set hidden
 " Confirm when quitting vim with unsaved buffers
 set confirm
 
-" Search for files in the directory of the current file, as well as recursively in the current directory (:pwd)
-set path=.,**
+" Use <C-Z> to start wildcard-expansion in command-line mappings
+set wildcharm=<C-Z>
 
-" Reduce priority of following file-types while expanding file-names
-set suffixes+=*.class,*.o,*.out,*.aux,*.bbl,*.blg,*.cls
-set suffixes+=*.tar.*,*.zip,*.jar
-set suffixes+=*.pdf,*.ps,*.dvi,*.gif,*.jpg,*.png,*.mp3,*.mp4,*.avi
+" Ignore following file-types while expanding file-names
+set wildignore+=*.class,*.o,*.out,*.aux,*.bbl,*.blg,*.cls
 
-" Files
-"   - Find and edit   :  ,e
-"       - in a split  : ,se
-"       - in a vsplit : ,ve
-nnoremap  ,e :find *
-nnoremap ,se :sfind *
-nnoremap ,ve :vertical sfind *
+" Edit file
+"   - in current window :  ,e
+"   - in a split        : ,se
+"   - in a vsplit       : ,ve
+nnoremap  ,e :e **/*
+nnoremap ,se :split **/*
+nnoremap ,ve :vsplit **/*
 
 " Buffers
-"   - list and switch  :  ,f
+"   - switch           :  ,f
 "       - in a split   : ,sf
 "       - in a vsplit  : ,vf
+"   - list and switch  : ,lf
 "   - alternate buffer :  ,r
 "   - previous buffer  :  [b
 "   - next buffer      :  ]b
 "   - update buffer    :  ,w
 "   - delete buffer    :  ,q
-nnoremap  ,f :ls<CR>:b<Space>
-nnoremap ,sf :ls<CR>:sb<Space>
-nnoremap ,vf :ls<CR>:vertical sb<Space>
+nnoremap  ,f :b <C-Z><S-Tab>
+nnoremap ,sf :sb <C-Z><S-Tab>
+nnoremap ,vf :vert sb <C-Z><S-Tab>
+nnoremap ,lf :ls<CR>:b<Space>
 nnoremap  ,r :b#<CR>
 nnoremap  [b :bprevious<CR>
 nnoremap  ]b :bnext<CR>
@@ -283,6 +289,31 @@ function! ToggleComments() range
 endfunction
 nnoremap ,cc :call ToggleComments()<CR>
 xnoremap  ,c :call ToggleComments()<CR>
+
+" }}}
+"-----------------------------------------------------------------------------
+" SESSIONS {{{
+"-----------------------------------------------------------------------------
+
+" Don't save options while saving sessions
+set sessionoptions-=options
+
+" Save a session with ,ss
+nnoremap ,ss :mksession! ~/.vim/.sessions/<C-Z><S-Tab>
+
+" Open a session with ,so
+nnoremap ,so :source ~/.vim/.sessions/<C-Z><S-Tab>
+
+" Automatically save session on before quitting
+augroup vimrc_session
+    autocmd!
+    autocmd VimLeavePre * if !empty(v:this_session) |
+                \ execute "mksession! " .fnameescape(v:this_session) |
+                \ else | mksession! ~/.vim/.sessions/previous.vim | endif
+augroup END
+
+" Restore the previous session with ,sp
+nnoremap <silent> ,sp :source ~/.vim/.sessions/previous.vim<CR>
 
 " }}}
 "-----------------------------------------------------------------------------
