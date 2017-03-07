@@ -4,9 +4,6 @@
 [submodule "pack/bundle/start/ultisnips"]
 	path = pack/bundle/start/ultisnips
 	url = https://github.com/SirVer/ultisnips.git
-[submodule "pack/bundle/start/vim-sessionist"]
-	path = pack/bundle/start/vim-sessionist
-	url = https://github.com/manasthakur/vim-sessionist.git
 [submodule "pack/bundle/start/vim-vinegar"]
 	path = pack/bundle/start/vim-vinegar
 	url = https://github.com/manasthakur/vim-vinegar.git
