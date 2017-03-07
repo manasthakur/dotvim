@@ -107,8 +107,8 @@ inoremap ( ()<Left>
 " Skip over closing parenthesis
 inoremap <expr> ) getline('.')[col('.')-1] == ")" ? "\<Right>" : ")"
 
-" Surround selected text with parentheses using 'csb'
-xnoremap csb c(<C-R>")<Esc>
+" Surround selected text with parentheses using 'gsb'
+xnoremap gsb c(<C-R>")<Esc>
 
 " Copy till end of line using 'Y'
 nnoremap Y y$
@@ -158,19 +158,19 @@ nnoremap ,se :split **/*
 nnoremap ,ve :vsplit **/*
 
 " Buffers
-"   - switch           :  ,f
-"       - in a split   : ,sf
-"       - in a vsplit  : ,vf
-"   - list and switch  : ,lf
+"   - switch           :  ,b
+"       - in a split   : ,sb
+"       - in a vsplit  : ,vb
+"   - list and switch  : ,lb
 "   - alternate buffer :  ,r
 "   - previous buffer  :  [b
 "   - next buffer      :  ]b
 "   - update buffer    :  ,w
 "   - delete buffer    :  ,q
-nnoremap  ,f :b <C-Z><S-Tab>
-nnoremap ,sf :sb <C-Z><S-Tab>
-nnoremap ,vf :vert sb <C-Z><S-Tab>
-nnoremap ,lf :ls<CR>:b<Space>
+nnoremap  ,b :b <C-Z><S-Tab>
+nnoremap ,sb :sb <C-Z><S-Tab>
+nnoremap ,vb :vert sb <C-Z><S-Tab>
+nnoremap ,lb :ls<CR>:b<Space>
 nnoremap  ,r :b#<CR>
 nnoremap  [b :bprevious<CR>
 nnoremap  ]b :bnext<CR>
