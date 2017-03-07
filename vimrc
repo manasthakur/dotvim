@@ -143,19 +143,22 @@ set hidden
 " Confirm when quitting vim with unsaved buffers
 set confirm
 
-" Use <C-Z> to start wildcard-expansion in command-line mappings
-set wildcharm=<C-Z>
+" Search for files in the directory of the current file, as well as recursively in the current directory (:pwd)
+set path=.,**
 
 " Ignore following file-types while expanding file-names
 set wildignore+=*.class,*.o,*.out,*.aux,*.bbl,*.blg,*.cls
 
-" Edit file
-"   - in current window :  ,e
-"   - in a split        : ,se
-"   - in a vsplit       : ,ve
-nnoremap  ,e :e **/*
-nnoremap ,se :split **/*
-nnoremap ,ve :vsplit **/*
+" Use <C-Z> to start wildcard-expansion in command-line mappings
+set wildcharm=<C-Z>
+
+" Find file and edit
+"   - in current window :  ,f
+"   - in a split        : ,sf
+"   - in a vsplit       : ,vf
+nnoremap  ,f :find *
+nnoremap ,sf :sfind *
+nnoremap ,vf :vert sfind *
 
 " Buffers
 "   - switch           :  ,b
