@@ -21,6 +21,9 @@ syntax enable
 " Load the builtin matchit plugin (allows jumping among matching keywords using '%')
 packadd! matchit
 
+" Put all the swap files (with full path as name) at '~/.vim/.swap/'
+set directory=~/.vim/.swap//
+
 " }}}
 "-----------------------------------------------------------------------------
 " FORMATTING {{{
@@ -110,14 +113,16 @@ inoremap <expr> ) getline('.')[col('.')-1] == ")" ? "\<Right>" : ")"
 " Surround selected text with parentheses using 'gsb'
 xnoremap gsb c(<C-R>")<Esc>
 
+" Delete surrounding parentheses using 'dsb'
+nnoremap dsb msf)%x<C-O>x`s
+
 " Copy till end of line using 'Y'
 nnoremap Y y$
 
 " Run macro from register 'q' with 'Q'
 nnoremap Q @q
 
-" Select recently pasted text using 'gV' (capital 'V')
-"   (Note: 'gv' selects recently selected text by default)
+" Select previously changed/yanked text using 'gV'
 nnoremap gV `[V`]
 
 " Toggles
@@ -323,16 +328,16 @@ nnoremap <silent> ,sp :source ~/.vim/.sessions/previous.vim<CR>
 " UTILITIES {{{
 "-----------------------------------------------------------------------------
 
-" Toggle a notepad window using ,x
-function! ToggleNotepad()
-    let scr_winnr = bufwinnr('.notepad')
-    if scr_winnr != -1
-        execute scr_winnr . 'close'
-    else
-        execute 'rightbelow ' . float2nr(0.2 * winwidth(0)) . 'vsplit +setlocal\ filetype=markdown\ nobuflisted .notepad'
-    endif
-endfunction
-nnoremap <silent> ,x :call ToggleNotepad()<CR>
+" Netrw (Vim's builtin file manager)
+"   - Open using '-'
+"   - Disable the banner
+"   - Hide './' and '../' entries
+nnoremap - :Explore<CR>
+let g:netrw_banner = 0
+let g:netrw_list_hide = '^\.\.\=/$'
+
+" Toggle a notepad window on the right using :Npad
+command! Npad execute 'rightbelow ' . float2nr(0.2 * winwidth(0)) . 'vsplit +setlocal\ filetype=markdown\ nobuflisted .npad'
 
 " Tabularize selected text using ,t
 xnoremap ,t :'<,'>!column -t<CR>
