@@ -1,5 +1,4 @@
 " Name:     vim-seoul
-" URL:	    https://github.com/manasthakur/vim-seoul
 " Forked from: https://github.com/junegunn/seoul256.vim
 
 if !exists('s:rgb_map')
@@ -151,10 +150,6 @@ call s:hi('Underlined', [181, 168], ['', ''])
 " set textwidth=80
 " set colorcolumn=+1
 call s:hi('ColorColumn', ['', ''], [s:dark_bg - 1, s:light_bg - 2])
-
-" GVIM only
-" hi Cursor ctermfg=
-" hi CursorIM ctermfg=
 
 " set cursorline cursorcolumn
 call s:hi('CursorLine', ['', ''], [s:dark_bg - 1, s:light_bg - 1])
