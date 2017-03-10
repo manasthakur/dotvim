@@ -114,7 +114,7 @@ inoremap <expr> ) getline('.')[col('.')-1] == ")" ? "\<Right>" : ")"
 xnoremap gsb c(<C-R>")<Esc>
 
 " Delete surrounding parentheses using 'dsb'
-nnoremap dsb mbf(%x<C-O>x`b
+nnoremap dsb mbF(%x<C-O>x`b
 
 " Copy till end of line using 'Y'
 nnoremap Y y$
