@@ -119,11 +119,26 @@ nnoremap dsb mbF(%x<C-O>x`b
 " Copy till end of line using 'Y'
 nnoremap Y y$
 
-" Run macro from register 'q' with 'Q'
+" Run macro from register 'q' using 'Q'
 nnoremap Q @q
 
 " Select previously changed/yanked text using 'gV'
 nnoremap gV `[V`]
+
+" Update buffer using ,w
+nnoremap ,w :update<CR>
+
+" Multipurpose ,q
+"   - If multiple windows are open, closes the current window
+"   - Else deletes the current buffer
+function! MultiClose()
+    if winnr('$') > 1
+        close
+    else
+        bdelete
+    endif
+endfunction
+nnoremap ,q :silent call MultiClose()<CR>
 
 " Toggles
 "   - Spellcheck        : cos
@@ -152,38 +167,36 @@ set confirm
 set path=.,**
 
 " Ignore following file-types while expanding file-names
-set wildignore+=*.class,*.o,*.out,*.aux,*.bbl,*.blg,*.cls
+set wildignore+=tags,*.class,*.o,*.out,*.aux,*.bbl,*.blg,*.cls
+
+" Reduce the priority of following file-types while expanding file-names
+set suffixes+=*.bib,*.log,*.jpg,*.png,*.dvi,*.pdf
 
 " Use <C-Z> to start wildcard-expansion in command-line mappings
 set wildcharm=<C-Z>
 
-" Find file and edit
-"   - in current window :  ,f
-"   - in a split        : ,sf
-"   - in a vsplit       : ,vf
-nnoremap  ,f :find *
-nnoremap ,sf :sfind *
-nnoremap ,vf :vert sfind *
+" Find file in path using ,E
+nnoremap ,E :find *
 
-" Buffers
-"   - switch           :  ,b
-"       - in a split   : ,sb
-"       - in a vsplit  : ,vb
-"   - list and switch  : ,lb
-"   - alternate buffer :  ,r
-"   - previous buffer  :  [b
-"   - next buffer      :  ]b
-"   - update buffer    :  ,w
-"   - delete buffer    :  ,q
-nnoremap  ,b :b <C-Z><S-Tab>
-nnoremap ,sb :sb <C-Z><S-Tab>
-nnoremap ,vb :vert sb <C-Z><S-Tab>
-nnoremap ,lb :ls<CR>:b<Space>
-nnoremap  ,r :b#<CR>
-nnoremap  [b :bprevious<CR>
-nnoremap  ]b :bnext<CR>
-nnoremap  ,w :update<CR>
-nnoremap  ,q :bdelete<CR>
+" Open (possibly multiple) files using ,e
+nnoremap ,e :n **/*
+
+" Switch buffer using ,f
+nnoremap ,f :b <C-Z><S-Tab>
+
+" Split buffer vertically using :vsb (:sb splits horizontallly)
+cnoremap vsb vertical sb
+
+" Switch to alternate buffer (previous file) using ,r
+nnoremap ,r :b#<CR>
+
+" Bracket maps
+"   - Buffers  : [b and ]b
+"   - Quickfix : [q and ]q
+nnoremap [b :bprevious<CR>
+nnoremap ]b :bnext<CR>
+nnoremap [q :cprevious<CR>
+nnoremap ]q :cnext<CR>
 
 " Goto tag
 "   - first match      :  ,t
@@ -192,10 +205,6 @@ nnoremap  ,q :bdelete<CR>
 nnoremap  ,t :tag /
 nnoremap ,lt :tjump /
 nnoremap ,pt :ptag /
-
-" Switch among quickfix entries using [q and ]q
-nnoremap [q :cprevious<CR>
-nnoremap ]q :cnext<CR>
 
 " }}}
 "-----------------------------------------------------------------------------
@@ -255,6 +264,9 @@ set incsearch
 set ignorecase
 set smartcase
 
+" Grep
+"   - standard     :  ,a
+"   - current word : ,ca
 if executable('rg')
     " If available, use 'ripgrep' as the grep-program
     set grepprg=rg\ --smart-case\ --vimgrep
@@ -262,15 +274,14 @@ if executable('rg')
     " Display column numbers as well
     set grepformat^=%f:%l:%c:%m
 
-    " Define a 'Grep' command
+    " Define a 'Grep' command to use grep
     command! -nargs=+ Grep silent grep! <args> | redraw!
-
-    " Grep
-    "   - standard     :  ,a
-    "   - current word : ,ca
-    nnoremap  ,a :Grep<Space>
-    nnoremap ,ca :Grep <C-R><C-W><CR>
+else
+    " Define a 'Grep' command to use vimgrep
+    command! -nargs=+ Grep silent vimgrep /<args>/gj ** | redraw!
 endif
+nnoremap  ,a :Grep<Space>
+nnoremap ,ca :Grep <C-R><C-W><CR>
 
 " }}}
 "-----------------------------------------------------------------------------
