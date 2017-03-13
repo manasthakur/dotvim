@@ -3,8 +3,8 @@
 " EMAIL:   manasthakur17 AT gmail DOT com                                    "
 " LICENSE: MIT                                                               "
 "                                                                            "
-" NOTE:    (a) Filetype-specific settings are in '.vim/ftplugin'             "
-"          (b) Plugin-specific settings are in '.vim/plugin'                 "
+" NOTE:    (a) Filetype settings are in '.vim/ftplugin'                      "
+"          (b) Plugin settings are in '.vim/plugin'                          "
 "          (c) Toggle folds using 'za'                                       "
 "                                                                            "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -35,19 +35,19 @@ set autoindent
 " While editing, count a <Tab> as 4 spaces
 set softtabstop=4
 
-" While changing indents with '<' and '>', use 4 spaces
+" Use 4 spaces for each step of (auto)indent
 set shiftwidth=4
 
 " Replace tabs with spaces (unless forced using <C-V><Tab>)
 set expandtab
 
-" Backspace everything
+" Allow backspacing over everything
 set backspace=indent,eol,start
 
 " Remove comment-leader when joining lines using 'J'
 set formatoptions+=j
 
-" Unicode characters for list mode (show up on ':set list')
+" Unicode characters for list mode (show-up on ':set list')
 set listchars=tab:»\ ,trail:·
 
 " }}}
@@ -58,7 +58,7 @@ set listchars=tab:»\ ,trail:·
 " Wrap long lines
 set linebreak
 
-" Don't show '@'s when a line doesn't fit the screen
+" When a line doesn't fit the screen, show 's@'s only at the end
 set display=lastline
 
 " Keep one extra line while scrolling (for context)
@@ -70,7 +70,7 @@ set history=200
 " Enable mouse in all the modes
 set mouse=a
 
-" Timeout for key codes in 50ms (leads to a faster <Esc>)
+" Time-out for key codes in 50ms (leads to a faster <Esc>)
 set ttimeoutlen=50
 
 " Behavioral autocommands
@@ -143,13 +143,13 @@ nnoremap ,q :silent call MultiClose()<CR>
 "   - Spellcheck        : cos
 "   - Paste             : cop
 "   - List              : col
-"   - Search highlights : coh
+"   - Highlight matches : coh
 "   - Background        : cob
 nnoremap cos :setlocal spell!<CR>:setlocal spell?<CR>
 nnoremap cop :setlocal paste!<CR>:setlocal paste?<CR>
 nnoremap col :setlocal list!<CR>:setlocal list?<CR>
 nnoremap coh :setlocal hlsearch!<CR>:setlocal hlsearch?<CR>
-nnoremap cob :set background=<C-R>=&background=='dark'?'light':'dark'<CR><CR>
+nnoremap cob :set background=<C-R>=(&background=='dark'?'light':'dark')<CR><CR>
 
 " }}}
 "-----------------------------------------------------------------------------
@@ -159,35 +159,35 @@ nnoremap cob :set background=<C-R>=&background=='dark'?'light':'dark'<CR><CR>
 " Enable switching buffers without saving them
 set hidden
 
-" Confirm when quitting vim with unsaved buffers
+" Confirm before quitting vim with unsaved buffers
 set confirm
 
 " Search for files in the directory of the current file, as well as recursively in the current directory (:pwd)
 set path=.,**
 
-" Ignore following file-types while expanding file-names
+" Ignore following patterns while expanding file-names
 set wildignore+=tags,*.class,*.o,*.out,*.aux,*.bbl,*.blg,*.cls
 
-" Reduce the priority of following file-types while expanding file-names
-set suffixes+=*.bib,*.log,*.jpg,*.png,*.dvi,*.pdf
+" Reduce the priority of following patterns while expanding file-names
+set suffixes+=*.bib,*.log,*.jpg,*.png,*.dvi,*.ps,*.pdf
 
 " Use <C-Z> to start wildcard-expansion in command-line mappings
 set wildcharm=<C-Z>
 
-" Find file in path using ,E
+" Find files in path using ,E
 nnoremap ,E :find *
 
 " Open (possibly multiple) files using ,e
 nnoremap ,e :n **/*
 
-" Switch buffer using ,f
+" Switch buffers using ,f
 nnoremap ,f :b <C-Z><S-Tab>
+
+" Switch to alternate buffer using ,r
+nnoremap ,r :b#<CR>
 
 " Split buffer vertically using :vsb (:sb splits horizontallly)
 cnoremap vsb vertical sb
-
-" Switch to alternate buffer (previous file) using ,r
-nnoremap ,r :b#<CR>
 
 " Bracket maps
 "   - Buffers  : [b and ]b
@@ -197,10 +197,10 @@ nnoremap ]b :bnext<CR>
 nnoremap [q :cprevious<CR>
 nnoremap ]q :cnext<CR>
 
-" Goto tag
-"   - first match      :  ,t
+" Tags
+"   - goto first match :  ,t
 "   - list if multiple : ,lt
-"   - preview the tag  : ,pt
+"   - show preview     : ,pt
 nnoremap  ,t :tag /
 nnoremap ,lt :tjump /
 nnoremap ,pt :ptag /
@@ -242,10 +242,10 @@ function! CleverTab() abort
 endfunction
 inoremap <silent> <Tab> <C-R>=CleverTab()<CR>
 
-" Select an entry from the completion-menu using <CR>
+" Select entry from completion-menu using <CR>
 inoremap <expr> <CR> pumvisible() ? "\<C-Y>" : "\<C-G>u\<CR>"
 
-" Insert <Tab> after non-space characters using Shift-Tab
+" Insert <Tab> after non-space characters using <S-Tab>
 inoremap <S-Tab> <Space><Tab>
 
 " }}}
@@ -273,10 +273,10 @@ if executable('rg')
     " Display column numbers as well
     set grepformat^=%f:%l:%c:%m
 
-    " Define a 'Grep' command to use grep
+    " Define a 'Grep' command
     command! -nargs=+ Grep silent grep! <args> | redraw!
 else
-    " Define a 'Grep' command to use vimgrep
+    " Use vimgrep
     command! -nargs=+ Grep silent vimgrep /<args>/gj ** | redraw!
 endif
 nnoremap  ,a :Grep<Space>
@@ -288,25 +288,25 @@ nnoremap ,ca :Grep <C-R><C-W><CR>
 "-----------------------------------------------------------------------------
 
 " Toggle comments
-"   - normal mode : ,cc
 "   - visual mode :  ,c
+"   - normal mode : ,cc
 function! ToggleComments() range
     " Get a space-trimmed commenstring
     let cmt_str = substitute(split(substitute(substitute(&commentstring, '\S\zs%s', ' %s', ''), '%s\ze\S', '%s ', ''), '%s', 1)[0], ' ', '', '')
 
     " Check if the first line is already commented
     if match(getline('.'), cmt_str) == 0
-        " Yes ==> uncomment mode
+        " Yes ==> uncomment
         execute a:firstline.",".a:lastline . "s]^" . cmt_str . "]"
         execute "normal! ``"
     else
-        " No ==> comment mode
+        " No ==> comment
         execute a:firstline.","a:lastline . "s]^]" . cmt_str
         execute "normal! ``"
     endif
 endfunction
-nnoremap ,cc :call ToggleComments()<CR>
 xnoremap  ,c :call ToggleComments()<CR>
+nnoremap ,cc :call ToggleComments()<CR>
 
 " }}}
 "-----------------------------------------------------------------------------
@@ -316,10 +316,10 @@ xnoremap  ,c :call ToggleComments()<CR>
 " Don't save options while saving sessions
 set sessionoptions-=options
 
-" Save a session using ,ss
+" Save session using ,ss
 nnoremap ,ss :mksession! ~/.vim/.sessions/<C-Z><S-Tab>
 
-" Open a session using ,so
+" Open session using ,so
 nnoremap ,so :source ~/.vim/.sessions/<C-Z><S-Tab>
 
 " Automatically save session before leaving vim
@@ -363,10 +363,10 @@ command! DistractionFree set nonumber | set norelativenumber | set laststatus=1 
 " APPEARANCE {{{
 "-----------------------------------------------------------------------------
 
-" Display statusline all the time
+" Always display the statusline
 set laststatus=2
 
-" Show a ruler at right-bottom
+" Show a ruler at bottom-right
 set ruler
 
 " Show line numbers
