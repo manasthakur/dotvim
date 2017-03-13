@@ -70,16 +70,15 @@ set history=200
 " Enable mouse in all the modes
 set mouse=a
 
-" Time-out for key codes up to 100ms
-set ttimeout
-set ttimeoutlen=100
+" Timeout for key codes in 50ms (leads to a faster <Esc>)
+set ttimeoutlen=50
 
 " Behavioral autocommands
 augroup vimrc_behavior
     " Clear the autocommands of this group
     autocmd!
 
-    " Restore the last-known location on opening a file
+    " Restore the last-known position on opening a file
     autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") |
                 \ execute "normal! g'\"" | endif
 
