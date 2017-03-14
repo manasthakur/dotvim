@@ -137,7 +137,7 @@ function! MultiClose()
         bdelete
     endif
 endfunction
-nnoremap ,q :silent call MultiClose()<CR>
+nnoremap <silent> ,q :call MultiClose()<CR>
 
 " Toggles
 "   - Spellcheck        : cos
@@ -174,13 +174,13 @@ set suffixes+=*.bib,*.log,*.jpg,*.png,*.dvi,*.ps,*.pdf
 " Use <C-Z> to start wildcard-expansion in command-line mappings
 set wildcharm=<C-Z>
 
-" Find files in path using ,E
+" Find file in path using ,E
 nnoremap ,E :find *
 
 " Open (possibly multiple) files using ,e
 nnoremap ,e :n **/*
 
-" Switch buffers using ,f
+" Switch buffer using ,f
 nnoremap ,f :b <C-Z><S-Tab>
 
 " Switch to alternate buffer using ,r
