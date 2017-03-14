@@ -29,7 +29,7 @@ set directory=~/.vim/.swap//
 " FORMATTING {{{
 "-----------------------------------------------------------------------------
 
-" Copy the indent of previous line
+" Copy indent from current line when starting a new line
 set autoindent
 
 " While editing, count a <Tab> as 4 spaces
@@ -110,10 +110,10 @@ inoremap ( ()<Left>
 inoremap <expr> ) getline('.')[col('.')-1] == ")" ? "\<Right>" : ")"
 
 " Surround selected text with parentheses using 'gsb'
-xnoremap gsb c(<C-R>")<Esc>
+xnoremap gsb di()<Esc>P
 
 " Delete surrounding parentheses using 'dsb'
-nnoremap dsb mbF(%x<C-O>x`b
+nnoremap dsb dibvabp
 
 " Copy till end of line using 'Y'
 nnoremap Y y$
@@ -291,17 +291,17 @@ nnoremap ,ca :Grep <C-R><C-W><CR>
 "   - visual mode :  ,c
 "   - normal mode : ,cc
 function! ToggleComments() range
-    " Get a space-trimmed commenstring
+    " Get space-trimmed LHS-only commenstring
     let cmt_str = substitute(split(substitute(substitute(&commentstring, '\S\zs%s', ' %s', ''), '%s\ze\S', '%s ', ''), '%s', 1)[0], ' ', '', '')
 
-    " Check if the first line is already commented
+    " Check if the first line is commented
     if match(getline('.'), cmt_str) == 0
         " Yes ==> uncomment
-        execute a:firstline.",".a:lastline . "s]^" . cmt_str . "]"
+        execute a:firstline.",".a:lastline."s]^".cmt_str."]"
         execute "normal! ``"
     else
         " No ==> comment
-        execute a:firstline.","a:lastline . "s]^]" . cmt_str
+        execute a:firstline.","a:lastline."s]^]".cmt_str
         execute "normal! ``"
     endif
 endfunction
