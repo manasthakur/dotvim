@@ -4,7 +4,7 @@
 setlocal foldmethod=marker
 
 " List all classes and public/private/protected methods
-nnoremap <buffer> ,d :keeppatterns ilist /\s\(\Cclass\\|public\\|private\\|protected\).*{<CR>:
+nnoremap <buffer> ,d :keeppatterns ilist /\s\(class\\|public\\|private\\|protected\).*{<CR>:
 
 " Echo current method's header (works if explicit access-modifiers have been used)
 nnoremap <buffer> ,m :echo getline(search("\\(public\\\|private\\\|protected\\).*{", 'bn'))<CR>

@@ -139,6 +139,9 @@ function! MultiClose()
 endfunction
 nnoremap <silent> ,q :call MultiClose()<CR>
 
+" Clear search highlights using \\ (handy with 'hlsearch')
+nnoremap \\ :noh<CR>
+
 " Toggles
 "   - Spellcheck        : cos
 "   - Paste             : cop
@@ -189,13 +192,22 @@ nnoremap ,r :b#<CR>
 " Split buffer vertically using :vsb (:sb splits horizontallly)
 cnoremap vsb vertical sb
 
-" Bracket maps
-"   - Buffers  : [b and ]b
-"   - Quickfix : [q and ]q
+" Switch among windows
+"   - Previous window     : <C-P>
+"   - Next window (cycle) : <C-N>
+nnoremap <C-P> <C-W><C-P>
+nnoremap <C-N> <C-W>w
+
+" Bracket maps for cycling back-and-forth
+"   - Buffers        : [b and ]b
+"   - Quickfix lists : [q and ]q
+"   - Location lists : [w and ]w
 nnoremap [b :bprevious<CR>
 nnoremap ]b :bnext<CR>
 nnoremap [q :cprevious<CR>
 nnoremap ]q :cnext<CR>
+nnoremap [w :lprevious<CR>
+nnoremap ]w :lnext<CR>
 
 " Tags
 "   - goto first match :  ,t
@@ -259,25 +271,21 @@ set nohlsearch
 " Show matches while typing the search-term
 set incsearch
 
-" Ignore case while searching, but act smartly with capitals
-set ignorecase
-set smartcase
-
 " Grep
 "   - standard     :  ,a
 "   - current word : ,ca
 if executable('rg')
     " If available, use 'ripgrep' as the grep-program
-    set grepprg=rg\ --smart-case\ --vimgrep
+    set grepprg=rg\ --vimgrep
 
     " Display column numbers as well
     set grepformat^=%f:%l:%c:%m
 
     " Define a 'Grep' command
-    command! -nargs=+ Grep silent grep! <args> | redraw!
+    command! -nargs=+ Grep silent lgrep! <args> | redraw!
 else
     " Use vimgrep
-    command! -nargs=+ Grep silent vimgrep /<args>/gj ** | redraw!
+    command! -nargs=+ Grep silent lvimgrep /<args>/gj ** | redraw!
 endif
 nnoremap  ,a :Grep<Space>
 nnoremap ,ca :Grep <C-R><C-W><CR>
