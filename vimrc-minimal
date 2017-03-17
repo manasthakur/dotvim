@@ -12,19 +12,17 @@ set backspace=indent,eol,start      " Make backspace work everywhere
 
 set hidden                          " Enable opening other file while keeping the previous one in buffer
 set confirm                         " Confirm when closing vim with unsaved buffers
+set incsearch                       " Show matches while typing the search-term
 
-set laststatus=2                    " Display statusline all the time
+set linebreak                       " Wrap long lines
 set scrolloff=1                     " Keep one extra line while scrolling
 set display=lastline                " Don't show '@'s when a line doesn't fit the screen
-set wildmenu                        " Visual autocomplete for command menu
 
 set ruler                           " Show ruler with line and column numbers at bottom-right
 set number                          " Show line numbers on the left hand side
 
-set incsearch                       " Show matches while typing the search-term
-set ignorecase                      " Ignore case while searching
-set smartcase                       " Don't ignore case when search-term contains capitals
+set laststatus=2                    " Display statusline all the time
+set wildmenu                        " Visual autocomplete for command menu
 
-set ttimeout                        " Time-out for key codes
-set ttimeoutlen=100                 " Wait up to 100ms after <Esc> for special key
+set ttimeoutlen=50                  " Time-out for key-codes in 50 ms
 set mouse=a                         " Enable mouse

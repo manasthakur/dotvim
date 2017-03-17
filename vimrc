@@ -8,9 +8,8 @@
 "          (c) Toggle folds using 'za'                                       "
 "                                                                            "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"-----------------------------------------------------------------------------
+
 " INITIALIZATION {{{
-"-----------------------------------------------------------------------------
 
 " Enable filetype detection, and filetype-based plugins and indents
 filetype plugin indent on
@@ -25,9 +24,8 @@ packadd! matchit
 set directory=~/.vim/.swap//
 
 " }}}
-"-----------------------------------------------------------------------------
+
 " FORMATTING {{{
-"-----------------------------------------------------------------------------
 
 " Copy indent from current line when starting a new line
 set autoindent
@@ -44,16 +42,15 @@ set expandtab
 " Allow backspacing over everything
 set backspace=indent,eol,start
 
-" Remove comment-leader when joining lines using 'J'
+" Remove comment-leader when joining lines (using 'J')
 set formatoptions+=j
 
 " Unicode characters for list mode (show-up on ':set list')
 set listchars=tab:»\ ,trail:·
 
 " }}}
-"-----------------------------------------------------------------------------
+
 " BEHAVIOR {{{
-"-----------------------------------------------------------------------------
 
 " Wrap long lines
 set linebreak
@@ -70,7 +67,7 @@ set history=200
 " Enable mouse in all the modes
 set mouse=a
 
-" Time-out for key codes in 50ms (leads to a faster <Esc>)
+" Time-out for key-codes in 50ms (leads to a faster <Esc>)
 set ttimeoutlen=50
 
 " Behavioral autocommands
@@ -93,9 +90,8 @@ augroup vimrc_behavior
 augroup END
 
 " }}}
-"-----------------------------------------------------------------------------
+
 " SHORTHANDS {{{
-"-----------------------------------------------------------------------------
 
 " Exit insert mode with 'jk'
 inoremap jk <Esc>
@@ -155,9 +151,8 @@ nnoremap coh :setlocal hlsearch!<CR>:setlocal hlsearch?<CR>
 nnoremap cob :set background=<C-R>=(&background=='dark'?'light':'dark')<CR><CR>
 
 " }}}
-"-----------------------------------------------------------------------------
+
 " NAVIGATION {{{
-"-----------------------------------------------------------------------------
 
 " Enable switching buffers without saving them
 set hidden
@@ -218,9 +213,8 @@ nnoremap ,lt :tjump /
 nnoremap ,pt :ptag /
 
 " }}}
-"-----------------------------------------------------------------------------
+
 " COMPLETION {{{
-"-----------------------------------------------------------------------------
 
 " Visual completion for command-menu
 set wildmenu
@@ -261,9 +255,8 @@ inoremap <expr> <CR> pumvisible() ? "\<C-Y>" : "\<C-G>u\<CR>"
 inoremap <S-Tab> <Space><Tab>
 
 " }}}
-"-----------------------------------------------------------------------------
+
 " SEARCHING {{{
-"-----------------------------------------------------------------------------
 
 " Don't highlight matched items
 set nohlsearch
@@ -291,9 +284,8 @@ nnoremap  ,a :Grep<Space>
 nnoremap ,ca :Grep <C-R><C-W><CR>
 
 " }}}
-"-----------------------------------------------------------------------------
+
 " COMMENTING {{{
-"-----------------------------------------------------------------------------
 
 " Toggle comments
 "   - visual mode :  ,c
@@ -317,9 +309,8 @@ xnoremap  ,c :call ToggleComments()<CR>
 nnoremap ,cc :call ToggleComments()<CR>
 
 " }}}
-"-----------------------------------------------------------------------------
+
 " SESSIONS {{{
-"-----------------------------------------------------------------------------
 
 " Don't save options while saving sessions
 set sessionoptions-=options
@@ -342,17 +333,18 @@ augroup END
 nnoremap <silent> ,sp :source ~/.vim/.sessions/previous.vim<CR>
 
 " }}}
-"-----------------------------------------------------------------------------
+
 " UTILITIES {{{
-"-----------------------------------------------------------------------------
 
 " Netrw (Vim's builtin file manager)
 "   - Open using '-'
 "   - Disable the banner
 "   - Hide './' and '../' entries
+"   - Keep the alternate buffer
 nnoremap - :Explore<CR>
 let g:netrw_banner = 0
 let g:netrw_list_hide = '^\.\.\=/$'
+let g:netrw_altfile = 1
 
 " Toggle a notepad window on the right using :Npad
 command! Npad execute 'rightbelow ' . float2nr(0.2 * winwidth(0)) . 'vsplit +setlocal\ filetype=markdown\ nobuflisted .npad'
@@ -367,9 +359,8 @@ command! SudoWrite w !sudo tee % > /dev/null
 command! DistractionFree set nonumber | set norelativenumber | set laststatus=1 | set noruler | set nospell
 
 " }}}
-"-----------------------------------------------------------------------------
+
 " APPEARANCE {{{
-"-----------------------------------------------------------------------------
 
 " Always display the statusline
 set laststatus=2
@@ -383,7 +374,7 @@ set number
 " Show relative line numbers
 set relativenumber
 
-" Custom statusline with fugitive and ruler
+" Custom statusline with fugitive (if exists) and ruler
 set statusline=%<\ %f\ %h%m%r\ %{exists('g:loaded_fugitive')?fugitive#statusline():''}%=%-14.(%l,%c%V%)\ %P
 
 " Different cursor shapes in different modes
@@ -403,6 +394,7 @@ augroup END
 colorscheme seoul
 
 " }}}
-"-----------------------------------------------------------------------------
+
+" ========================
 " vim: set fen fdm=marker:
-"-----------------------------------------------------------------------------
+" ========================
