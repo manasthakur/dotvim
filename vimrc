@@ -187,11 +187,8 @@ nnoremap ,r :b#<CR>
 " Split buffer vertically using :vsb (:sb splits horizontallly)
 cnoremap vsb vertical sb
 
-" Switch among windows
-"   - Previous window     : <C-P>
-"   - Next window (cycle) : <C-N>
+" Switch wo previous window using <C-P>
 nnoremap <C-P> <C-W><C-P>
-nnoremap <C-N> <C-W>w
 
 " Bracket maps for cycling back-and-forth
 "   - Buffers        : [b and ]b
@@ -264,12 +261,15 @@ set nohlsearch
 " Show matches while typing the search-term
 set incsearch
 
+" Ignore case while searching, but act smartly with capitals
+set ignorecase smartcase
+
 " Grep
 "   - standard     :  ,a
 "   - current word : ,ca
 if executable('rg')
     " If available, use 'ripgrep' as the grep-program
-    set grepprg=rg\ --vimgrep
+    set grepprg=rg\ --smart-case\ --vimgrep
 
     " Display column numbers as well
     set grepformat^=%f:%l:%c:%m
