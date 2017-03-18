@@ -178,8 +178,11 @@ nnoremap ,E :find *
 " Open (possibly multiple) files using ,e
 nnoremap ,e :n **/*
 
-" Switch buffer using ,f
-nnoremap ,f :b <C-Z><S-Tab>
+" Switch buffer
+"   - silently      : ,b
+"   - after listing : ,f
+nnoremap ,b :b <C-Z><S-Tab>
+nnoremap ,f :ls<CR>:b<Space>
 
 " Switch to alternate buffer using ,r
 nnoremap ,r :b#<CR>
@@ -187,7 +190,7 @@ nnoremap ,r :b#<CR>
 " Split buffer vertically using :vsb (:sb splits horizontallly)
 cnoremap vsb vertical sb
 
-" Switch wo previous window using <C-P>
+" Switch to previous window using <C-P>
 nnoremap <C-P> <C-W><C-P>
 
 " Bracket maps for cycling back-and-forth
@@ -262,7 +265,8 @@ set nohlsearch
 set incsearch
 
 " Ignore case while searching, but act smartly with capitals
-set ignorecase smartcase
+set ignorecase
+set smartcase
 
 " Grep
 "   - standard     :  ,a
