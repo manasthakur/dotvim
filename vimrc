@@ -87,6 +87,10 @@ augroup vimrc_behavior
     " Automatically open quickfix/location windows when populated
     autocmd QuickFixCmdPost [^l]* cwindow
     autocmd QuickFixCmdPost l* lwindow
+
+    " Make completions case-sensitive (assuming `ignorecase` is set)
+    autocmd InsertEnter * set noignorecase
+    autocmd InsertLeave * set ignorecase
 augroup END
 
 " }}}
