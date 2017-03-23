@@ -70,9 +70,6 @@ set mouse=a
 " Time-out for key-codes in 50ms (leads to a faster <Esc>)
 set ttimeoutlen=50
 
-" Don't redraw screen while executing macros
-set lazyredraw
-
 " Behavioral autocommands
 augroup vimrc_behavior
     " Clear the autocommands of this group
@@ -91,7 +88,7 @@ augroup vimrc_behavior
     autocmd QuickFixCmdPost [^l]* cwindow
     autocmd QuickFixCmdPost l* lwindow
 
-    " Make completions case-sensitive (assuming `ignorecase` is set)
+    " Make insert-mode completions case-sensitive
     autocmd InsertEnter * set noignorecase
     autocmd InsertLeave * set ignorecase
 augroup END
