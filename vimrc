@@ -70,6 +70,9 @@ set mouse=a
 " Time-out for key-codes in 50ms (leads to a faster <Esc>)
 set ttimeoutlen=50
 
+" Don't redraw screen while executing macros
+set lazyredraw
+
 " Behavioral autocommands
 augroup vimrc_behavior
     " Clear the autocommands of this group
@@ -109,11 +112,17 @@ inoremap ( ()<Left>
 " Skip over closing parenthesis
 inoremap <expr> ) getline('.')[col('.')-1] == ")" ? "\<Right>" : ")"
 
-" Surround selected text with parentheses using 'gsb'
-xnoremap gsb di()<Esc>P
+" Surround selected text with parentheses using 'gsp'
+xnoremap gsp c()<Esc>P
 
-" Delete surrounding parentheses using 'dsb'
-nnoremap dsb dibvabp
+" Delete surrounding parentheses using 'dsp'
+nnoremap dsp di(vabp
+
+" Surround selected text with a block and re-indent using 'gsb'
+xnoremap gsb c{<CR>}<Esc>P`[V`]=[{i<Space><Left>
+
+" Delete surrounding block and re-indent using 'dsb'
+nnoremap dsb "bdi{ddkdd"bP`[V`]=
 
 " Copy till end of line using 'Y'
 nnoremap Y y$
@@ -164,9 +173,6 @@ set hidden
 " Confirm before quitting vim with unsaved buffers
 set confirm
 
-" Search for files in the directory of the current file, as well as recursively in the current directory (:pwd)
-set path=.,**
-
 " Ignore following patterns while expanding file-names
 set wildignore+=tags,*.class,*.o,*.out,*.aux,*.bbl,*.blg,*.cls
 
@@ -176,11 +182,12 @@ set suffixes+=*.bib,*.log,*.jpg,*.png,*.dvi,*.ps,*.pdf
 " Use <C-Z> to start wildcard-expansion in command-line mappings
 set wildcharm=<C-Z>
 
-" Find file in path using ,E
-nnoremap ,E :find *
-
-" Open (possibly multiple) files using ,e
+" Search and open files recursively
+"   - from current working directory     : ,e
+"   - from the directory of current file : ,E
+"   (press <C-A> to list and open multiple matching files)
 nnoremap ,e :n **/*
+nnoremap ,E :n <C-R>=fnameescape(expand('%:p:h'))<CR>/<C-Z><S-Tab>
 
 " Switch buffer
 "   - silently      : ,b
@@ -193,9 +200,6 @@ nnoremap ,r :b#<CR>
 
 " Split buffer vertically using :vsb (:sb splits horizontallly)
 cnoremap vsb vertical sb
-
-" Switch to previous window using <C-P>
-nnoremap <C-P> <C-W><C-P>
 
 " Bracket maps for cycling back-and-forth
 "   - Buffers        : [b and ]b
@@ -384,6 +388,9 @@ set relativenumber
 
 " Custom statusline with fugitive (if exists) and ruler
 set statusline=%<\ %f\ %h%m%r\ %{exists('g:loaded_fugitive')?fugitive#statusline():''}%=%-14.(%l,%c%V%)\ %P
+
+" Show (partial) command in the last line of the screen
+set showcmd
 
 " Different cursor shapes in different modes
 let &t_SI = "\<Esc>[6 q"
