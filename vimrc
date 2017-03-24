@@ -367,15 +367,12 @@ command! SudoWrite w !sudo tee % > /dev/null
 " Remove clutter using :DistractionFree
 command! DistractionFree set nonumber | set norelativenumber | set laststatus=1 | set noruler | set nospell
 
-" Access system clipboard (either 'pbcopy' or 'xsel' needs to be installed)
-"   - yank selected text   : ,y
-"   - paste from clipboard : ,p
+" Yank selected text to system-clipboard using ,y
+"   (needs 'pbcopy' on macOS and 'xsel' on Linux)
 if executable('pbcopy')
     vnoremap ,y :w !pbcopy<CR><CR>
-    nnoremap ,p :r !pbpaste<CR>
 elseif executable('xsel')
     vnoremap ,y :w !xsel -b<CR><CR>
-    nnoremap ,p :r !xsel -b<CR>
 endif
 
 " }}}
