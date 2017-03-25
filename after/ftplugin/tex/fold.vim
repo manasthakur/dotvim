@@ -1,23 +1,14 @@
-"LaTeX specific settings
-
-" Enable spell-check
-setlocal spell
-
-" Use ',,' to make (forced)
-nnoremap <buffer> ,, :!make -B<CR><CR>
-
-" Include completion for words containg ':' and '-'
-setlocal iskeyword+=:,-
+" LaTeX specific folding
 
 " Fold using expressions 
 setlocal foldmethod=expr
 
 " Get fold-expression using 'MyFoldLevel()'
-setlocal foldexpr=MyFoldLevel(v:lnum)
+setlocal foldexpr=MyFoldLevel()
 
 " Function that returns foldlevel for a line
-function! MyFoldLevel(lnum)
-    let cur_line = getline(a:lnum)
+function! MyFoldLevel()
+    let cur_line = getline(v:lnum)
 
     if cur_line =~ '^\s*\\section'
         return '>1'
@@ -45,4 +36,3 @@ function! MyFoldLevel(lnum)
 
     return '='
 endfunction
-

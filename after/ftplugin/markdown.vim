@@ -2,4 +2,3 @@
 
 " Enable spell-check
 setlocal spell
-

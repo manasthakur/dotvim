@@ -149,11 +149,15 @@ nnoremap <silent> ,q :call MultiClose()<CR>
 nnoremap \\ :noh<CR>
 
 " Toggles
+"   - Number            : con
+"   - Relative number   : cor
 "   - Spellcheck        : cos
 "   - Paste             : cop
 "   - List              : col
 "   - Highlight matches : coh
 "   - Background        : cob
+nnoremap con :setlocal number!<CR>:setlocal number?<CR>
+nnoremap cor :setlocal relativenumber!<CR>:setlocal relativenumber?<CR>
 nnoremap cos :setlocal spell!<CR>:setlocal spell?<CR>
 nnoremap cop :setlocal paste!<CR>:setlocal paste?<CR>
 nnoremap col :setlocal list!<CR>:setlocal list?<CR>
@@ -382,14 +386,8 @@ endif
 " Always display the statusline
 set laststatus=2
 
-" Show a ruler at bottom-right
+" Show cursor-position bottom-right
 set ruler
-
-" Show line numbers
-set number
-
-" Show relative line numbers
-set relativenumber
 
 " Custom statusline with fugitive (if exists) and ruler
 set statusline=%<\ %f\ %h%m%r\ %{exists('g:loaded_fugitive')?fugitive#statusline():''}%=%-14.(%l,%c%V%)\ %P

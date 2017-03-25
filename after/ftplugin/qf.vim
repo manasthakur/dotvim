@@ -18,4 +18,3 @@ setlocal norelativenumber
 
 " Disable cursorline (as colorscheme takes care of highlighting the current entry)
 setlocal nocursorline
-

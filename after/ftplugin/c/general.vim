@@ -31,4 +31,3 @@ function! CurrentFunction()
     endif
 endfunction
 nnoremap ,m :call CurrentFunction()<CR>
-
