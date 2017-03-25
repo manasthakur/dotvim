@@ -36,10 +36,10 @@ set softtabstop=4
 " Use 4 spaces for each step of (auto)indent
 set shiftwidth=4
 
-" Replace tabs with spaces (unless forced using <C-V><Tab>)
+" Replace tabs with spaces
 set expandtab
 
-" Allow backspacing over everything
+" Allow backspacing over all characters
 set backspace=indent,eol,start
 
 " Remove comment-leader when joining lines (using 'J')
@@ -55,14 +55,14 @@ set listchars=tab:»\ ,trail:·
 " Wrap long lines
 set linebreak
 
-" When a line doesn't fit the screen, show 's@'s only at the end
+" When a line does not fit the screen, show '@'s only at the end
 set display=lastline
 
 " Keep one extra line while scrolling (for context)
 set scrolloff=1
 
-" Keep 200 lines of command-line history
-set history=200
+" Keep 1000 lines of command-line history
+set history=1000
 
 " Enable mouse in all the modes
 set mouse=a
@@ -71,7 +71,7 @@ set mouse=a
 set ttimeoutlen=50
 
 " Behavioral autocommands
-augroup vimrc_behavior
+augroup vimrc
     " Clear the autocommands of this group
     autocmd!
 
@@ -335,8 +335,7 @@ nnoremap ,ss :mksession! ~/.vim/.sessions/<C-Z><S-Tab>
 nnoremap ,so :source ~/.vim/.sessions/<C-Z><S-Tab>
 
 " Automatically save session before leaving vim
-augroup vimrc_session
-    autocmd!
+augroup vimrc
     autocmd VimLeavePre * if !empty(v:this_session) |
                 \ execute "mksession! " . fnameescape(v:this_session) |
                 \ else | mksession! ~/.vim/.sessions/previous.vim | endif
@@ -368,11 +367,7 @@ xnoremap ,t :'<,'>!column -t<CR>
 " Write a file with sudo when it was opened without, using :SudoWrite
 command! SudoWrite w !sudo tee % > /dev/null
 
-" Remove clutter using :DistractionFree
-command! DistractionFree set nonumber | set norelativenumber | set laststatus=1 | set noruler | set nospell
-
-" Yank selected text to system-clipboard using ,y
-"   (needs 'pbcopy' on macOS and 'xsel' on Linux)
+" Yank selected text to system-clipboard using ,y (needs 'pbcopy' on macOS and 'xsel' on Linux)
 if executable('pbcopy')
     vnoremap ,y :w !pbcopy<CR><CR>
 elseif executable('xsel')
@@ -386,7 +381,7 @@ endif
 " Always display the statusline
 set laststatus=2
 
-" Show cursor-position bottom-right
+" Show cursor-position at bottom-right
 set ruler
 
 " Custom statusline with fugitive (if exists) and ruler
@@ -395,14 +390,13 @@ set statusline=%<\ %f\ %h%m%r\ %{exists('g:loaded_fugitive')?fugitive#statusline
 " Show (partial) command in the last line of the screen
 set showcmd
 
-" Different cursor shapes in different modes
+" Different cursor-shape in different modes
 let &t_SI = "\<Esc>[6 q"
 let &t_SR = "\<Esc>[4 q"
 let &t_EI = "\<Esc>[2 q"
 
 " Highlight current line in the active window
-augroup vimrc_cursorline
-    autocmd!
+augroup vimrc
     autocmd VimEnter * set cursorline
     autocmd WinEnter * if &filetype != "qf" && !&diff | set cursorline | endif
     autocmd WinLeave * set nocursorline
