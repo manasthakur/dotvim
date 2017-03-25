@@ -19,8 +19,6 @@ set scrolloff=1                     " Keep one extra line while scrolling
 set display=lastline                " Don't show '@'s when a line doesn't fit the screen
 
 set ruler                           " Show ruler with line and column numbers at bottom-right
-set number                          " Show line numbers on the left hand side
-
 set laststatus=2                    " Display statusline all the time
 set wildmenu                        " Visual autocomplete for command menu
 
