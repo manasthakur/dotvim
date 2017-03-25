@@ -23,6 +23,11 @@ packadd! matchit
 " Put all the swap files (with full path as name) at '~/.vim/.swap/'
 set directory=~/.vim/.swap//
 
+" Clear autocommands
+augroup vimrc
+    autocmd!
+augroup END
+
 " }}}
 
 " FORMATTING {{{
@@ -55,7 +60,7 @@ set listchars=tab:»\ ,trail:·
 " Wrap long lines
 set linebreak
 
-" When a line does not fit the screen, show '@'s only at the end
+" When a line doesn't fit the screen, show '@'s only at the end
 set display=lastline
 
 " Keep one extra line while scrolling (for context)
@@ -72,17 +77,14 @@ set ttimeoutlen=50
 
 " Behavioral autocommands
 augroup vimrc
-    " Clear the autocommands of this group
-    autocmd!
-
-    " Restore the last-known position on opening a file
+    " On opening a file, restore the last-known position
     autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") |
                 \ execute "normal! g'\"" | endif
 
     " Don't move the cursor to start-of-line when switching buffers
     autocmd BufLeave * set nostartofline |
                 \ autocmd CursorMoved,CursorMovedI * set startofline |
-                \ autocmd! vimrc_behavior CursorMoved,CursorMovedI
+                \ autocmd! vimrc CursorMoved,CursorMovedI
 
     " Automatically open quickfix/location windows when populated
     autocmd QuickFixCmdPost [^l]* cwindow
@@ -109,17 +111,17 @@ inoremap ( ()<Left>
 " Skip over closing parenthesis
 inoremap <expr> ) getline('.')[col('.')-1] == ")" ? "\<Right>" : ")"
 
-" Surround selected text with parentheses using 'gsp'
-xnoremap gsp c()<Esc>P
+" Surround selected text with parentheses using 'gsb'
+xnoremap gsb c()<Esc>P
 
-" Delete surrounding parentheses using 'dsp'
-nnoremap dsp di(vabp
+" Delete surrounding parentheses using 'dsb'
+nnoremap dsb di(vabp
 
-" Surround selected text with a block and re-indent using 'gsb'
-xnoremap gsb c{<CR>}<Esc>P`[V`]=[{i<Space><Left>
+" Surround selected text with a block and re-indent using 'gs{'
+xnoremap gs{ c{<CR>}<Esc>P`[V`]=[{i<Space><Left>
 
-" Delete surrounding block and re-indent using 'dsb'
-nnoremap dsb "bdi{ddkdd"bP`[V`]=
+" Delete surrounding block and re-indent using 'ds{'
+nnoremap ds{ "bdi{ddkdd"bP`[V`]=
 
 " Copy till end of line using 'Y'
 nnoremap Y y$
@@ -260,7 +262,7 @@ inoremap <silent> <Tab> <C-R>=CleverTab()<CR>
 " Select entry from completion-menu using <CR>
 inoremap <expr> <CR> pumvisible() ? "\<C-Y>" : "\<C-G>u\<CR>"
 
-" Use <S-Tab> for reverse-completion and to insert tabs after non-space characters
+" Use <S-Tab> for reverse-completion, and to insert tabs after non-space characters
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-P>" : "<Space><Tab>"
 
 " }}}
