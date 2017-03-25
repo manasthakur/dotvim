@@ -260,8 +260,8 @@ inoremap <silent> <Tab> <C-R>=CleverTab()<CR>
 " Select entry from completion-menu using <CR>
 inoremap <expr> <CR> pumvisible() ? "\<C-Y>" : "\<C-G>u\<CR>"
 
-" Insert <Tab> after non-space characters using <S-Tab>
-inoremap <S-Tab> <Space><Tab>
+" Use <S-Tab> for reverse-completion and to insert tabs after non-space characters
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-P>" : "<Space><Tab>"
 
 " }}}
 
