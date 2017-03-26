@@ -1,13 +1,7 @@
-" Java specific settings
+" Asynchronous compilation using ant
 
-" List all classes and public/private/protected methods
-nnoremap <buffer> ,d :keeppatterns ilist /\s\(class\\|public\\|private\\|protected\).*{<CR>:
-
-" Echo current method's header (works if explicit access-modifiers have been used)
-nnoremap <buffer> ,m :echo getline(search("\\(public\\\|private\\\|protected\\).*{", 'bn'))<CR>
-
-" Search among visit methods
-nnoremap ,vm :keeppatterns /visit.*{<Left>
+" Use 'ant' as the compiler (sets 'makeprg' and 'errorformat')
+compiler ant
 
 " Function to handle job-exit
 function! ExitHandler(job, exit_status) abort
@@ -18,9 +12,6 @@ function! ExitHandler(job, exit_status) abort
     endif
     unlet g:async_outfile
 endfunction
-
-" Use 'ant' as the compiler (sets 'makeprg' and 'errorformat')
-compiler ant
 
 " Function to run 'ant' asynchronously (Vim 8 only)
 function! RunAsync(command) abort

@@ -298,6 +298,32 @@ endif
 nnoremap  ,a :Grep<Space>
 nnoremap ,ca :Grep <C-R><C-W><CR>
 
+" Better global searches
+function! GlobalSearch(...) abort
+    " If no pattern was supplied, prompt for one
+    if a:0 == 0
+        let pattern = input(':g/')
+    else
+        let pattern = a:1
+    endif
+    if !empty(pattern)
+        " Print lines matching the pattern, with line-numbers
+        execute "g/" . pattern . "/#"
+        " The valid value of 'choice' is a line-number
+        let choice = input(':')
+        if !empty(choice)
+            " Jump to the entered line-number
+            execute choice
+        else
+            " If no choice was entered, restore the cursor position
+            execute "normal! \<C-O>"
+        endif
+    endif
+endfunction
+
+" Call the improved :global command using ,g
+nnoremap <silent> ,g :call GlobalSearch()<CR>
+
 " }}}
 
 " COMMENTING {{{
