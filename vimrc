@@ -35,7 +35,10 @@ augroup END
 " Copy indent from current line when starting a new line
 set autoindent
 
-" While editing, count a <Tab> as 4 spaces
+" Count existing tabs as 4 spaces
+set tabstop=4
+
+" Backspace over 4 characters; further, expand a <Tab> literal to 4 spaces
 set softtabstop=4
 
 " Use 4 spaces for each step of (auto)indent
@@ -146,9 +149,6 @@ function! MultiClose()
     endif
 endfunction
 nnoremap <silent> ,q :call MultiClose()<CR>
-
-" Clear search highlights using \\ (handy with 'hlsearch')
-nnoremap \\ :noh<CR>
 
 " Toggles
 "   - Number            : con
@@ -378,12 +378,12 @@ nnoremap <silent> ,sp :source ~/.vim/.sessions/previous.vim<CR>
 
 " Netrw (Vim's builtin file manager)
 "   - Open using '-'
-"   - Disable the banner
-"   - Hide './' and '../' entries
-"   - Keep the alternate buffer
 nnoremap - :Explore<CR>
+"   - Disable the banner
 let g:netrw_banner = 0
+"   - Hide './' and '../' entries
 let g:netrw_list_hide = '^\.\.\=/$'
+"   - Keep the alternate buffer
 let g:netrw_altfile = 1
 
 " Toggle a notepad window on the right using :Npad
