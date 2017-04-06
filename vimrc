@@ -32,13 +32,13 @@ augroup END
 
 " FORMATTING {{{
 
-" Copy indent from current line when starting a new line
+" Copy the indent of current line when starting a new line
 set autoindent
 
 " Count existing tabs as 4 spaces
 set tabstop=4
 
-" Backspace over 4 characters; further, expand a <Tab> literal to 4 spaces
+" Backspace over 4 characters; further, treat a <Tab> literal as 4 spaces
 set softtabstop=4
 
 " Use 4 spaces for each step of (auto)indent
@@ -418,7 +418,7 @@ set statusline=%<\ %f\ %h%m%r\ %{exists('g:loaded_fugitive')?fugitive#statusline
 " Show (partial) command in the last line of the screen
 set showcmd
 
-" Different cursor-shape in different modes
+" Different cursor-shapes in different modes
 let &t_SI = "\<Esc>[6 q"
 let &t_SR = "\<Esc>[4 q"
 let &t_EI = "\<Esc>[2 q"
@@ -430,7 +430,7 @@ augroup vimrc
     autocmd WinLeave * set nocursorline
 augroup END
 
-" Use seoul colorscheme
+" Default colorscheme
 colorscheme seoul
 
 " }}}
