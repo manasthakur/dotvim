@@ -13,8 +13,8 @@ else
     nnoremap <buffer><silent> O <CR>:cclose<CR>
 endif
 
-" Disable relativenumbers
-setlocal norelativenumber
+" Enable line numbing, but disable relative line-numbers
+setlocal number norelativenumber
 
 " Disable cursorline (as colorscheme takes care of highlighting the current entry)
 setlocal nocursorline
