@@ -16,8 +16,8 @@ set cscopetag
 
 " Echo current method's header (works for simple well-structured programs)
 function! CurrentFunction()
-    " Get the previous line that starts without space and ends with '{'
-    let startline = getline(search("^[^ \s\t].*[^:]$", 'nb'))
+    " Get the previous uncommented line that starts without space and ends with '{'
+    let startline = getline(search("^[^ \s\t\/\/].*[^:]$", 'nb'))
     " Check if the line contains 'class' or 'struct'
     if startline =~ ".*\\(class\\|struct\\).*"
         " If yes, then print the value of the motion '[m'
