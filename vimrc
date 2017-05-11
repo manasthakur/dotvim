@@ -3,9 +3,8 @@
 " EMAIL:   manasthakur17 AT gmail DOT com                                    "
 " LICENSE: MIT                                                               "
 "                                                                            "
-" NOTE:    (a) Filetype settings are in '.vim/ftplugin'                      "
-"          (b) Plugin settings are in '.vim/plugin'                          "
-"          (c) Toggle folds using 'za'                                       "
+" NOTE:    (a) Filetype settings are in 'after/ftplugin'                     "
+"          (b) Toggle folds using 'za'                                       "
 "                                                                            "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -17,16 +16,26 @@ filetype plugin indent on
 " Enable syntax highlights
 syntax enable
 
-" Load the builtin matchit plugin (allows jumping among matching keywords using '%')
-packadd! matchit
-
-" Put all the swap files (with full path as name) at '~/.vim/.swap/'
-set directory=~/.vim/.swap//
+if !has('nvim')
+    " Load the builtin matchit plugin (allows jumping among matching keywords using '%')
+    runtime! matchit
+endif
 
 " Clear autocommands
 augroup vimrc
     autocmd!
 augroup END
+
+" Correct python location for Neovim
+if has('nvim')
+    if has('mac')
+        let g:python_host_prog = '/usr/local/bin/python'
+        let g:python3_host_prog = '/usr/local/bin/python3'
+    else
+        let g:python_host_prog = '/usr/bin/python'
+        let g:python3_host_prog = '/usr/bin/python3'
+    endif
+endif
 
 " }}}
 
@@ -69,8 +78,10 @@ set display=lastline
 " Keep one extra line while scrolling (for context)
 set scrolloff=1
 
-" Keep 1000 lines of command-line history
-set history=1000
+" Show substitution effects while typing
+if has('nvim')
+    set inccommand=nosplit
+endif
 
 " Enable mouse in all the modes
 set mouse=a
@@ -88,10 +99,6 @@ augroup vimrc
     autocmd BufLeave * set nostartofline |
                 \ autocmd CursorMoved,CursorMovedI * set startofline |
                 \ autocmd! vimrc CursorMoved,CursorMovedI
-
-    " Automatically open quickfix/location windows when populated
-    autocmd QuickFixCmdPost [^l]* cwindow
-    autocmd QuickFixCmdPost l* lwindow
 
     " Make insert-mode completions case-sensitive
     autocmd InsertEnter * set noignorecase
@@ -113,18 +120,6 @@ inoremap ( ()<Left>
 
 " Skip over closing parenthesis
 inoremap <expr> ) getline('.')[col('.')-1] == ")" ? "\<Right>" : ")"
-
-" Surround selected text with parentheses using 'gsb'
-xnoremap gsb c()<Esc>P
-
-" Delete surrounding parentheses using 'dsb'
-nnoremap dsb di(vabp
-
-" Surround selected text with a block and re-indent using 'gs{'
-xnoremap gs{ c{<CR>}<Esc>P`[V`]=[{i<Space><Left>
-
-" Delete surrounding block and re-indent using 'ds{'
-nnoremap ds{ "bdi{ddkdd"bP`[V`]=
 
 " Copy till end of line using 'Y'
 nnoremap Y y$
@@ -150,18 +145,25 @@ function! MultiClose()
 endfunction
 nnoremap <silent> ,q :call MultiClose()<CR>
 
+" Toggle a notepad window on the right using :Npad
+command! Npad execute 'rightbelow ' . float2nr(0.2 * winwidth(0)) . 'vsplit +setlocal\ filetype=markdown\ nobuflisted .npad'
+
+" Write a file with sudo when it was opened without, using :SudoWrite
+command! SudoWrite w !sudo tee % > /dev/null
+
+" Tabularize selected text using ,t
+xnoremap ,t :'<,'>!column -t<CR>
+
 " Toggles
 "   - Number            : con
 "   - Relative number   : cor
 "   - Spellcheck        : cos
-"   - Paste             : cop
 "   - List              : col
 "   - Highlight matches : coh
 "   - Background        : cob
 nnoremap con :setlocal number!<CR>:setlocal number?<CR>
 nnoremap cor :setlocal relativenumber!<CR>:setlocal relativenumber?<CR>
 nnoremap cos :setlocal spell!<CR>:setlocal spell?<CR>
-nnoremap cop :setlocal paste!<CR>:setlocal paste?<CR>
 nnoremap col :setlocal list!<CR>:setlocal list?<CR>
 nnoremap coh :setlocal hlsearch!<CR>:setlocal hlsearch?<CR>
 nnoremap cob :set background=<C-R>=(&background=='dark'?'light':'dark')<CR><CR>
@@ -182,20 +184,20 @@ set wildignore+=tags,*.class,*.o,*.out,*.aux,*.bbl,*.blg,*.cls
 " Reduce the priority of following patterns while expanding file-names
 set suffixes+=*.bib,*.log,*.jpg,*.png,*.dvi,*.ps,*.pdf
 
-" Use <C-Z> to start wildcard-expansion in command-line mappings
-set wildcharm=<C-Z>
+" Use <C-z> to start wildcard-expansion in command-line mappings
+set wildcharm=<C-z>
 
 " Search and open files recursively
 "   - from current working directory     : ,e
 "   - from the directory of current file : ,E
 "   (press <C-A> to list and open multiple matching files)
 nnoremap ,e :n **/*
-nnoremap ,E :n <C-R>=fnameescape(expand('%:p:h'))<CR>/<C-Z><S-Tab>
+nnoremap ,E :n <C-R>=fnameescape(expand('%:p:h'))<CR>/<C-z><S-Tab>
 
 " Switch buffer
 "   - silently      : ,b
 "   - after listing : ,f
-nnoremap ,b :b <C-Z><S-Tab>
+nnoremap ,b :b <C-z><S-Tab>
 nnoremap ,f :ls<CR>:b<Space>
 
 " Switch to alternate buffer using ,r
@@ -223,6 +225,33 @@ nnoremap  ,t :tag /
 nnoremap ,lt :tjump /
 nnoremap ,pt :ptag /
 
+" Neovim-specific mappings
+if has('nvim')
+"   - Split a terminal using ALT+s,v; tabedit a terminal using ALT+t
+    nnoremap <A-s> :split <bar> terminal<CR>
+    nnoremap <A-v> :vsplit <bar> terminal<CR>
+    nnoremap <A-t> :tabedit <bar> terminal<CR>
+
+"   - Exit terminal mode using <Esc>
+    tnoremap <Esc> <C-\><C-n>
+
+"   - Switch splits using ALT+h,j,k,l
+    nnoremap <A-h> <C-w>h
+    nnoremap <A-j> <C-w>j
+    nnoremap <A-k> <C-w>k
+    nnoremap <A-l> <C-w>l
+    tnoremap <A-h> <C-\><C-n><C-w>h
+    tnoremap <A-j> <C-\><c-n><C-w>j
+    tnoremap <A-k> <C-\><C-n><C-w>k
+    tnoremap <A-l> <C-\><C-n><C-w>l
+
+"   - Switch tabs using <A-[> and <A-]>
+    nnoremap <A-[> gt
+    nnoremap <A-]> gT
+    tnoremap <A-[> <C-\><C-n>gt
+    tnoremap <A-]> <C-\><C-n>gT
+endif
+
 " }}}
 
 " COMPLETION {{{
@@ -240,7 +269,7 @@ set complete-=i
 function! CleverTab() abort
     " If completion-menu is visible, keep scrolling
     if pumvisible()
-        return "\<C-N>"
+        return "\<C-n>"
     endif
 
     let str = matchstr(strpart(getline('.'), 0, col('.')-1), '[^ \t]*$')
@@ -250,20 +279,20 @@ function! CleverTab() abort
     else
         if match(str, '\/') != -1
             " File-completion on seeing a '/'
-            return "\<C-X>\<C-F>"
+            return "\<C-x>\<C-f>"
         else
             " Complete based on the 'complete' option
-            return "\<C-P>"
+            return "\<C-p>"
         endif
     endif
 endfunction
-inoremap <silent> <Tab> <C-R>=CleverTab()<CR>
+inoremap <silent> <Tab> <C-r>=CleverTab()<CR>
 
 " Select entry from completion-menu using <CR>
-inoremap <expr> <CR> pumvisible() ? "\<C-Y>" : "\<C-G>u\<CR>"
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " Use <S-Tab> for reverse-completion, and to insert tabs after non-space characters
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-P>" : "<Space><Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "<Space><Tab>"
 
 " }}}
 
@@ -290,13 +319,13 @@ if executable('rg')
     set grepformat^=%f:%l:%c:%m
 
     " Define a 'Grep' command
-    command! -nargs=+ Grep silent lgrep! <args> | redraw!
+    command! -nargs=+ Grep silent lgrep! <args> | lwindow | redraw!
 else
     " Use vimgrep
-    command! -nargs=+ Grep silent lvimgrep /<args>/gj ** | redraw!
+    command! -nargs=+ Grep silent lvimgrep /<args>/gj ** | lwindow | redraw!
 endif
 nnoremap  ,a :Grep<Space>
-nnoremap ,ca :Grep <C-R><C-W><CR>
+nnoremap ,ca :Grep <C-r><C-w><CR>
 
 " Better global searches
 function! GlobalSearch(...) abort
@@ -316,7 +345,7 @@ function! GlobalSearch(...) abort
             execute choice
         else
             " If no choice was entered, restore the cursor position
-            execute "normal! \<C-O>"
+            execute "normal! \<C-o>"
         endif
     endif
 endfunction
@@ -357,10 +386,10 @@ nnoremap ,cc :call ToggleComments()<CR>
 set sessionoptions-=options
 
 " Save session using ,ss
-nnoremap ,ss :mksession! ~/.vim/.sessions/<C-Z><S-Tab>
+nnoremap ,ss :mksession! ~/.vim/.sessions/<C-z><S-Tab>
 
 " Open session using ,so
-nnoremap ,so :source ~/.vim/.sessions/<C-Z><S-Tab>
+nnoremap ,so :source ~/.vim/.sessions/<C-z><S-Tab>
 
 " Automatically save session before leaving vim
 augroup vimrc
@@ -374,7 +403,7 @@ nnoremap <silent> ,sp :source ~/.vim/.sessions/previous.vim<CR>
 
 " }}}
 
-" UTILITIES {{{
+" PLUGINS {{{
 
 " Netrw (Vim's builtin file manager)
 "   - Open using '-'
@@ -386,21 +415,13 @@ let g:netrw_list_hide = '^\.\.\=/$'
 "   - Keep the alternate buffer
 let g:netrw_altfile = 1
 
-" Toggle a notepad window on the right using :Npad
-command! Npad execute 'rightbelow ' . float2nr(0.2 * winwidth(0)) . 'vsplit +setlocal\ filetype=markdown\ nobuflisted .npad'
-
-" Tabularize selected text using ,t
-xnoremap ,t :'<,'>!column -t<CR>
-
-" Write a file with sudo when it was opened without, using :SudoWrite
-command! SudoWrite w !sudo tee % > /dev/null
-
-" Yank selected text to system-clipboard using ,y (needs 'pbcopy' on macOS and 'xsel' on Linux)
-if executable('pbcopy')
-    vnoremap ,y :w !pbcopy<CR><CR>
-elseif executable('xsel')
-    vnoremap ,y :w !xsel -b<CR><CR>
-endif
+" UltiSnips (Snippet manager)
+"   - Use custom snippet-diretory
+let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/mysnippets']
+"   - Fire a snippet using <C-j>
+let g:UltiSnipsExpandTrigger='<C-j>'
+"   - List available snippets using <C-k>
+let g:UltiSnipsListSnippets='<C-k>'
 
 " }}}
 
@@ -415,14 +436,6 @@ set ruler
 " Custom statusline with fugitive (if exists) and ruler
 set statusline=%<\ %f\ %h%m%r\ %{exists('g:loaded_fugitive')?fugitive#statusline():''}%=%-14.(%l,%c%V%)\ %P
 
-" Show (partial) command in the last line of the screen
-set showcmd
-
-" Different cursor-shapes in different modes
-let &t_SI = "\<Esc>[6 q"
-let &t_SR = "\<Esc>[4 q"
-let &t_EI = "\<Esc>[2 q"
-
 " Highlight current line in the active window
 augroup vimrc
     autocmd VimEnter * set cursorline
@@ -431,7 +444,8 @@ augroup vimrc
 augroup END
 
 " Default colorscheme
-colorscheme seoul
+colorscheme solarized
+" colorscheme seoul
 
 " }}}
 
