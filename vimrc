@@ -4,7 +4,8 @@
 " LICENSE: MIT                                                               "
 "                                                                            "
 " NOTE:    (a) Filetype settings are in 'after/ftplugin'                     "
-"          (b) Toggle folds using 'za'                                       "
+"          (b) Plugins reside in 'pack/bundle'                               "
+"          (c) Toggle folds using 'za'                                       "
 "                                                                            "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -26,7 +27,7 @@ augroup vimrc
     autocmd!
 augroup END
 
-" Correct python location for Neovim
+" Python location for Neovim
 if has('nvim')
     if has('mac')
         let g:python_host_prog = '/usr/local/bin/python'
@@ -62,7 +63,7 @@ set backspace=indent,eol,start
 " Remove comment-leader when joining lines (using 'J')
 set formatoptions+=j
 
-" Unicode characters for list mode (show-up on ':set list')
+" Unicode characters for list mode (show up on ':set list')
 set listchars=tab:»\ ,trail:·
 
 " }}}
@@ -227,15 +228,15 @@ nnoremap ,pt :ptag /
 
 " Neovim-specific mappings
 if has('nvim')
-"   - Split a terminal using ALT+s,v; tabedit a terminal using ALT+t
+    " Split a terminal using ALT+s,v; tabedit a terminal using ALT+t
     nnoremap <A-s> :split <bar> terminal<CR>
     nnoremap <A-v> :vsplit <bar> terminal<CR>
     nnoremap <A-t> :tabedit <bar> terminal<CR>
 
-"   - Exit terminal mode using <Esc>
+    " Exit terminal mode using <Esc>
     tnoremap <Esc> <C-\><C-n>
 
-"   - Switch splits using ALT+h,j,k,l
+    " Switch splits using ALT+h,j,k,l
     nnoremap <A-h> <C-w>h
     nnoremap <A-j> <C-w>j
     nnoremap <A-k> <C-w>k
@@ -245,11 +246,16 @@ if has('nvim')
     tnoremap <A-k> <C-\><C-n><C-w>k
     tnoremap <A-l> <C-\><C-n><C-w>l
 
-"   - Switch tabs using <A-[> and <A-]>
+    " Switch tabs using <A-[> and <A-]>
     nnoremap <A-[> gt
     nnoremap <A-]> gT
     tnoremap <A-[> <C-\><C-n>gt
     tnoremap <A-]> <C-\><C-n>gT
+
+    " Automatically enter insert mode on switching to a terminal buffer
+    augroup vimrc
+        autocmd BufEnter * if &buftype == 'terminal' | :startinsert | endif
+    augroup END
 endif
 
 " }}}
@@ -427,16 +433,16 @@ let g:UltiSnipsListSnippets='<C-k>'
 
 " APPEARANCE {{{
 
-" Always display the statusline
-set laststatus=2
-
-" Show cursor-position at bottom-right
+" Show position at bottom-right
 set ruler
+
+" Display statusline all the time
+set laststatus=2
 
 " Custom statusline with fugitive (if exists) and ruler
 set statusline=%<\ %f\ %h%m%r\ %{exists('g:loaded_fugitive')?fugitive#statusline():''}%=%-14.(%l,%c%V%)\ %P
 
-" Highlight current line in the active window
+" No cursorline in diff, quickfix, and inactive windows
 augroup vimrc
     autocmd VimEnter * set cursorline
     autocmd WinEnter * if &filetype != "qf" && !&diff | set cursorline | endif
@@ -445,7 +451,7 @@ augroup END
 
 " Default colorscheme
 colorscheme solarized
-" colorscheme seoul
+"colorscheme seoul
 
 " }}}
 

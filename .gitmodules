@@ -7,6 +7,6 @@
 [submodule "pack/bundle/start/ultisnips"]
 	path = pack/bundle/start/ultisnips
 	url = https://github.com/SirVer/ultisnips.git
-[submodule "pack/bundle/start/neomake"]
-	path = pack/bundle/start/neomake
+[submodule "pack/bundle/opt/neomake"]
+	path = pack/bundle/opt/neomake
 	url = https://github.com/neomake/neomake.git

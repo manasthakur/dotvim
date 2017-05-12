@@ -4,6 +4,7 @@
 compiler ant
 
 if has('nvim')
+    packadd neomake
     " Run Neomake! on buffer-write
     augroup neomake-java
         autocmd!
