@@ -135,13 +135,28 @@ nnoremap gV `[V`]
 nnoremap ,w :update<CR>
 
 " Multipurpose ,q
-"   - If multiple windows are open, closes the current window
-"   - Else deletes the current buffer
 function! MultiClose()
+    " If there are multiple windows, close the current one
     if winnr('$') > 1
         close
     else
-        bdelete
+        if tabpagenr('$') > 1
+            " If there are multiple tabs and there is an alternate buffer,
+            " restire the alternate buffer and keep the tab
+            let alt_buf = bufnr('#')
+            if alt_buf > 0 && buflisted(alt_buf)
+                buffer # | bdelete #
+            else
+                bdelete
+            endif
+        else
+            " Force delete a terminal tab (in Neovim)
+            if &buftype == 'terminal'
+                bdelete!
+            else
+                bdelete
+            endif
+        endif
     endif
 endfunction
 nnoremap <silent> ,q :call MultiClose()<CR>
@@ -251,11 +266,6 @@ if has('nvim')
     nnoremap <A-]> gT
     tnoremap <A-[> <C-\><C-n>gt
     tnoremap <A-]> <C-\><C-n>gT
-
-    " Automatically enter insert mode on switching to a terminal buffer
-    augroup vimrc
-        autocmd BufEnter * if &buftype == 'terminal' | :startinsert | endif
-    augroup END
 endif
 
 " }}}
