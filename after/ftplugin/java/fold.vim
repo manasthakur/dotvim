@@ -16,10 +16,3 @@ function! JavaFoldExpr()
     endif
 endfunction
 setlocal foldexpr=JavaFoldExpr()
-
-" Custom foldtext
-function! JavaFoldText()
-    let foldsize = (v:foldend - v:foldstart + 1)
-    return '+' . v:folddashes . ' ' . foldsize . ' lines: IMPORTS '
-endfunction
-setlocal foldtext=JavaFoldText()
