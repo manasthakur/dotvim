@@ -17,8 +17,8 @@ filetype plugin indent on
 " Enable syntax highlights
 syntax enable
 
+" Load the builtin matchit plugin (allows jumping among matching keywords using '%')
 if !has('nvim')
-    " Load the builtin matchit plugin (allows jumping among matching keywords using '%')
     runtime! matchit
 endif
 
@@ -219,8 +219,8 @@ nnoremap ,f :ls<CR>:b<Space>
 " Switch to alternate buffer using ,r
 nnoremap ,r :b#<CR>
 
-" Split buffer vertically using :vsb (:sb splits horizontallly)
-cnoremap vsb vertical sb
+" Split buffer vertically using :vsb (:sb splits horizontally)
+cnoremap vsb vertical sb<Space>
 
 " Bracket maps for cycling back-and-forth
 "   - Buffers        : [b and ]b
@@ -266,6 +266,11 @@ if has('nvim')
     nnoremap <A-]> gT
     tnoremap <A-[> <C-\><C-n>gt
     tnoremap <A-]> <C-\><C-n>gT
+
+    " Automatically switch to insert mode in terminal windows
+    augroup vimrc
+        autocmd WinEnter term://* startinsert
+    augroup END
 endif
 
 " }}}
