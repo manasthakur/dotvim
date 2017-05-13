@@ -249,7 +249,7 @@ if has('nvim')
     nnoremap <A-t> :tabedit <bar> terminal<CR>
 
     " Exit terminal mode using <Esc>
-    tnoremap <Esc> <C-\><C-n>
+    tnoremap <A-\> <C-\><C-n>
 
     " Switch splits using ALT+h,j,k,l
     nnoremap <A-h> <C-w>h
