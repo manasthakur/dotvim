@@ -142,7 +142,7 @@ function! MultiClose()
     else
         if tabpagenr('$') > 1
             " If there are multiple tabs and there is an alternate buffer,
-            " restire the alternate buffer and keep the tab
+            " restore the alternate buffer and keep the tab
             let alt_buf = bufnr('#')
             if alt_buf > 0 && buflisted(alt_buf)
                 buffer # | bdelete #
