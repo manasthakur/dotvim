@@ -11,7 +11,7 @@ if has('nvim')
         autocmd BufWritePost,BufEnter * Neomake!
     augroup END
     " Set ,, to compile using 'ant'
-    nnoremap <buffer> ,, :silent make! \| cwindow \| redraw!<CR>
+    nnoremap <buffer> ,, :silent lmake! \| lwindow \| redraw!<CR>
 else
     if v:version >= 800
         " Function to handle job-exit
