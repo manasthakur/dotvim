@@ -350,6 +350,8 @@ nnoremap  ,a :Grep<Space>
 nnoremap ,ca :Grep <C-r><C-w><CR>
 
 " Better global searches
+"   - standard     :  ,g
+"   - current word : ,cg
 function! GlobalSearch(...) abort
     " If no pattern was supplied, prompt for one
     if a:0 == 0
@@ -371,9 +373,8 @@ function! GlobalSearch(...) abort
         endif
     endif
 endfunction
-
-" Call the improved :global command using ,g
-nnoremap <silent> ,g :call GlobalSearch()<CR>
+nnoremap <silent>  ,g :call GlobalSearch()<CR>
+nnoremap <silent> ,cg :call GlobalSearch("<C-r><C-w>")<CR>
 
 " }}}
 
