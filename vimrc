@@ -331,8 +331,8 @@ set ignorecase
 set smartcase
 
 " Grep
-"   - standard     :  ,a
-"   - current word : ,ca
+"   - standard     : ,a
+"   - current word : ,A
 if executable('rg')
     " If available, use 'ripgrep' as the grep-program
     set grepprg=rg\ --smart-case\ --vimgrep
@@ -346,12 +346,12 @@ else
     " Use vimgrep
     command! -nargs=+ Grep silent lvimgrep /<args>/gj ** | lwindow | redraw!
 endif
-nnoremap  ,a :Grep<Space>
-nnoremap ,ca :Grep <C-r><C-w><CR>
+nnoremap ,a :Grep<Space>
+nnoremap ,A :Grep <C-r><C-w><CR>
 
 " Better global searches
-"   - standard     :  ,g
-"   - current word : ,cg
+"   - standard     : ,g
+"   - current word : ,G
 function! GlobalSearch(...) abort
     " If no pattern was supplied, prompt for one
     if a:0 == 0
@@ -373,8 +373,8 @@ function! GlobalSearch(...) abort
         endif
     endif
 endfunction
-nnoremap <silent>  ,g :call GlobalSearch()<CR>
-nnoremap <silent> ,cg :call GlobalSearch("<C-r><C-w>")<CR>
+nnoremap <silent> ,g :call GlobalSearch()<CR>
+nnoremap <silent> ,G :call GlobalSearch("<C-r><C-w>")<CR>
 
 " }}}
 
