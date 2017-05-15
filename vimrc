@@ -220,7 +220,7 @@ nnoremap ,f :ls<CR>:b<Space>
 nnoremap ,r :b#<CR>
 
 " Split buffer vertically using :vsb (:sb splits horizontally)
-cnoremap vsb vertical sb<Space>
+cnoremap vsb vertical sb
 
 " Bracket maps for cycling back-and-forth
 "   - Buffers        : [b and ]b
