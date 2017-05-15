@@ -455,7 +455,7 @@ set ruler
 " Display statusline all the time
 set laststatus=2
 
-" Custom statusline with fugitive (if exists) and ruler
+" Custom statusline with Fugitive (if exists) and ruler
 set statusline=%<%f\ %h%m%r\%{exists('g:loaded_fugitive')?fugitive#statusline():''}%=%-14.(%l,%c%V%)\ %P
 
 " No cursorline in diff, quickfix, and inactive windows

@@ -5,10 +5,10 @@ compiler ant
 
 if has('nvim')
     packadd neomake
-    " Run Neomake! on buffer-write
+    " Run Neomake! on buffer-write and buffer-open
     augroup neomake-java
         autocmd!
-        autocmd! BufWritePost * Neomake!
+        autocmd BufWritePost,BufEnter * Neomake!
     augroup END
     " Set ,, to compile using 'ant'
     nnoremap <buffer> ,, :silent make! \| cwindow \| redraw!<CR>
