@@ -212,15 +212,16 @@ nnoremap ,E :n <C-R>=fnameescape(expand('%:p:h'))<CR>/<C-z><S-Tab>
 
 " Switch buffer
 "   - silently      : ,b
+"   - in a split    : ,sb
+"   - in a vsplit   : ,vb
 "   - after listing : ,f
-nnoremap ,b :b <C-z><S-Tab>
-nnoremap ,f :ls<CR>:b<Space>
+nnoremap  ,b :b <C-z><S-Tab>
+nnoremap ,sb :sb <C-z><S-Tab>
+nnoremap ,vb :vertical sb <C-z><S-Tab>
+nnoremap  ,f :ls<CR>:b<Space>
 
 " Switch to alternate buffer using ,r
 nnoremap ,r :b#<CR>
-
-" Split buffer vertically using :vsb (:sb splits horizontally)
-cnoremap vsb vertical sb
 
 " Bracket maps for cycling back-and-forth
 "   - Buffers        : [b and ]b
@@ -455,7 +456,7 @@ set ruler
 set laststatus=2
 
 " Custom statusline with fugitive (if exists) and ruler
-set statusline=%<\ %f\ %h%m%r\ %{exists('g:loaded_fugitive')?fugitive#statusline():''}%=%-14.(%l,%c%V%)\ %P
+set statusline=%<%f\ %h%m%r\%{exists('g:loaded_fugitive')?fugitive#statusline():''}%=%-14.(%l,%c%V%)\ %P
 
 " No cursorline in diff, quickfix, and inactive windows
 augroup vimrc
@@ -466,7 +467,6 @@ augroup END
 
 " Default colorscheme
 colorscheme solarized
-"colorscheme seoul
 
 " }}}
 
