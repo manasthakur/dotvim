@@ -17,7 +17,7 @@ filetype plugin indent on
 syntax enable
 
 " Load the builtin matchit plugin (allows jumping among matching keywords using '%')
-runtime! matchit
+runtime matchit
 
 " Clear autocommands
 augroup vimrc
@@ -119,10 +119,10 @@ inoremap ( ()<Left>
 " Skip over closing parenthesis
 inoremap <expr> ) getline('.')[col('.')-1] == ")" ? "\<Right>" : ")"
 
-" Copy till end of line using 'Y'
+" Copy till end-of-line using 'Y'
 nnoremap Y y$
 
-" Run macro from register 'q' using 'Q'
+" Play macro from register 'q' using 'Q'
 nnoremap Q @q
 
 " Select previously changed/yanked text using 'gV'
