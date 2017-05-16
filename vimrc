@@ -141,8 +141,7 @@ function! MultiClose()
         close
     else
         if tabpagenr('$') > 1
-            " If there are multiple tabs and there is an alternate buffer,
-            " restore the alternate buffer and keep the tab
+            " If there are multiple tabs and there is an alternate buffer, restore the alternate buffer and keep the tab
             let alt_buf = bufnr('#')
             if alt_buf > 0 && buflisted(alt_buf)
                 buffer # | bdelete #
@@ -211,14 +210,14 @@ nnoremap ,e :n **/*
 nnoremap ,E :n <C-R>=fnameescape(expand('%:p:h'))<CR>/<C-z><S-Tab>
 
 " Switch buffer
-"   - without listing :  ,b
+"   - without listing : ,b
 "   - in a split      : ,sb
 "   - in a vsplit     : ,vb
-"   - after listing   :  ,f
-nnoremap  ,b :b <C-z><S-Tab>
+"   - after listing   : ,f
+nnoremap ,b  :b <C-z><S-Tab>
 nnoremap ,sb :sb <C-z><S-Tab>
 nnoremap ,vb :vertical sb <C-z><S-Tab>
-nnoremap  ,f :ls<CR>:b<Space>
+nnoremap ,f  :ls<CR>:b<Space>
 
 " Switch to alternate buffer using ,r
 nnoremap ,r :b#<CR>
@@ -234,7 +233,7 @@ nnoremap ]q :cnext<CR>
 nnoremap [w :lprevious<CR>
 nnoremap ]w :lnext<CR>
 
-" Switch splits using ALT+h,j,k,l
+" Switch splits using <A-h,j,k,l>
 nnoremap <A-h> <C-w>h
 nnoremap <A-j> <C-w>j
 nnoremap <A-k> <C-w>k
@@ -245,16 +244,16 @@ nnoremap <A-[> gt
 nnoremap <A-]> gT
 
 " Tags
-"   - goto first match :  ,t
+"   - goto first match : ,t
 "   - list if multiple : ,lt
 "   - show preview     : ,pt
-nnoremap  ,t :tag /
+nnoremap ,t  :tag /
 nnoremap ,lt :tjump /
 nnoremap ,pt :ptag /
 
 " Neovim terminal-specific mappings
 if has('nvim')
-    " Split a terminal using ALT+s,v; tabedit a terminal using ALT+t
+    " Split a terminal using <A-s> and <A-v>; tabedit a terminal using <A-t>
     nnoremap <A-s> :split   <bar> terminal<CR>
     nnoremap <A-v> :vsplit  <bar> terminal<CR>
     nnoremap <A-t> :tabedit <bar> terminal<CR>
@@ -262,7 +261,7 @@ if has('nvim')
     " Exit terminal mode using <Esc>
     tnoremap <A-\> <C-\><C-n>
 
-    " Switch splits using ALT+h,j,k,l
+    " Switch splits using <A-h,j,k,l>
     tnoremap <A-h> <C-\><C-n><C-w>h
     tnoremap <A-j> <C-\><c-n><C-w>j
     tnoremap <A-k> <C-\><C-n><C-w>k
@@ -364,7 +363,7 @@ function! GlobalSearch(...) abort
         let pattern = a:1
     endif
     if !empty(pattern)
-        " Print lines matching the pattern, with line-numbers
+        " Print lines matching the pattern, along with line-numbers
         execute "g/" . pattern . "/#"
         " The valid value of 'choice' is a line-number
         let choice = input(':')
@@ -385,25 +384,36 @@ nnoremap <silent> ,G :call GlobalSearch("<C-r><C-w>")<CR>
 " COMMENTING {{{
 
 " Toggle comments
-"   - visual mode :  ,c
-"   - normal mode : ,cc
-function! ToggleComments() range
-    " Get space-trimmed LHS-only commenstring
+"   - operator : ,c
+"   - linewise : ,cc
+function! CommentToggle(type, ...)
+    " Get space-trimmed LHS-only commentstring
     let cmt_str = substitute(split(substitute(substitute(&commentstring, '\S\zs%s', ' %s', ''), '%s\ze\S', '%s ', ''), '%s', 1)[0], ' ', '', '')
 
     " Check if the first line is commented
     if match(getline('.'), cmt_str) == 0
         " Yes ==> uncomment
-        execute a:firstline.",".a:lastline."s]^".cmt_str."]"
-        execute "normal! ``"
+        if a:0
+            " Visual mode
+            silent execute "normal! :'<,'>s]^" . cmt_str . "]\<CR>`<"
+        else
+            " Normal mode
+            silent execute "normal! :'[,']s]^" . cmt_str . "]\<CR>`["
+        endif
     else
         " No ==> comment
-        execute a:firstline.","a:lastline."s]^]".cmt_str
-        execute "normal! ``"
+        if a:0
+            " Visual mode
+            silent execute "normal! :'<,'>s]^]" . cmt_str . "\<CR>`<"
+        else
+            " Normal mode
+            silent execute "normal! :'[,']s]^]" . cmt_str . "\<CR>`["
+        endif
     endif
 endfunction
-xnoremap  ,c :call ToggleComments()<CR>
-nnoremap ,cc :call ToggleComments()<CR>
+nnoremap <silent> ,c  :set opfunc=CommentToggle<CR>g@
+xnoremap <silent> ,c  :<C-u>call CommentToggle(visualmode(), 1)<CR>
+nnoremap <silent> ,cc :set opfunc=CommentToggle<bar>execute "normal! "v:count1."g@_"<CR>
 
 " }}}
 
@@ -434,7 +444,7 @@ nnoremap <silent> ,sp :source ~/.vim/.sessions/previous.vim<CR>
 
 " Netrw (Vim's builtin file manager)
 "   - Open using '-'
-nnoremap - :Explore<CR>
+nnoremap <silent> - :Explore<CR>
 "   - Disable the banner
 let g:netrw_banner = 0
 "   - Hide './' and '../' entries
