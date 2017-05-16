@@ -4,8 +4,7 @@
 " LICENSE: MIT                                                               "
 "                                                                            "
 " NOTE:    (a) Filetype settings are in 'after/ftplugin'                     "
-"          (b) Plugins reside in 'pack/bundle'                               "
-"          (c) Toggle folds using 'za'                                       "
+"          (b) Toggle folds using 'za'                                       "
 "                                                                            "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -18,16 +17,14 @@ filetype plugin indent on
 syntax enable
 
 " Load the builtin matchit plugin (allows jumping among matching keywords using '%')
-if !has('nvim')
-    runtime! matchit
-endif
+runtime! matchit
 
 " Clear autocommands
 augroup vimrc
     autocmd!
 augroup END
 
-" Python location for Neovim
+" Python location for speeding up Neovim
 if has('nvim')
     if has('mac')
         let g:python_host_prog = '/usr/local/bin/python'
@@ -131,6 +128,9 @@ nnoremap Q @q
 " Select previously changed/yanked text using 'gV'
 nnoremap gV `[V`]
 
+" Delete surrounding brace-construct using 'dsc'
+nnoremap dsc diB"_ddk"_ddP=`]
+
 " Update buffer using ,w
 nnoremap ,w :update<CR>
 
@@ -211,10 +211,10 @@ nnoremap ,e :n **/*
 nnoremap ,E :n <C-R>=fnameescape(expand('%:p:h'))<CR>/<C-z><S-Tab>
 
 " Switch buffer
-"   - silently      : ,b
-"   - in a split    : ,sb
-"   - in a vsplit   : ,vb
-"   - after listing : ,f
+"   - without listing :  ,b
+"   - in a split      : ,sb
+"   - in a vsplit     : ,vb
+"   - after listing   :  ,f
 nnoremap  ,b :b <C-z><S-Tab>
 nnoremap ,sb :sb <C-z><S-Tab>
 nnoremap ,vb :vertical sb <C-z><S-Tab>
@@ -234,6 +234,16 @@ nnoremap ]q :cnext<CR>
 nnoremap [w :lprevious<CR>
 nnoremap ]w :lnext<CR>
 
+" Switch splits using ALT+h,j,k,l
+nnoremap <A-h> <C-w>h
+nnoremap <A-j> <C-w>j
+nnoremap <A-k> <C-w>k
+nnoremap <A-l> <C-w>l
+
+" Switch tabs using <A-[> and <A-]>
+nnoremap <A-[> gt
+nnoremap <A-]> gT
+
 " Tags
 "   - goto first match :  ,t
 "   - list if multiple : ,lt
@@ -242,29 +252,23 @@ nnoremap  ,t :tag /
 nnoremap ,lt :tjump /
 nnoremap ,pt :ptag /
 
-" Neovim-specific mappings
+" Neovim terminal-specific mappings
 if has('nvim')
     " Split a terminal using ALT+s,v; tabedit a terminal using ALT+t
-    nnoremap <A-s> :split <bar> terminal<CR>
-    nnoremap <A-v> :vsplit <bar> terminal<CR>
+    nnoremap <A-s> :split   <bar> terminal<CR>
+    nnoremap <A-v> :vsplit  <bar> terminal<CR>
     nnoremap <A-t> :tabedit <bar> terminal<CR>
 
     " Exit terminal mode using <Esc>
     tnoremap <A-\> <C-\><C-n>
 
     " Switch splits using ALT+h,j,k,l
-    nnoremap <A-h> <C-w>h
-    nnoremap <A-j> <C-w>j
-    nnoremap <A-k> <C-w>k
-    nnoremap <A-l> <C-w>l
     tnoremap <A-h> <C-\><C-n><C-w>h
     tnoremap <A-j> <C-\><c-n><C-w>j
     tnoremap <A-k> <C-\><C-n><C-w>k
     tnoremap <A-l> <C-\><C-n><C-w>l
 
     " Switch tabs using <A-[> and <A-]>
-    nnoremap <A-[> gt
-    nnoremap <A-]> gT
     tnoremap <A-[> <C-\><C-n>gt
     tnoremap <A-]> <C-\><C-n>gT
 
@@ -313,7 +317,7 @@ inoremap <silent> <Tab> <C-r>=CleverTab()<CR>
 " Select entry from completion-menu using <CR>
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
-" Use <S-Tab> for reverse-completion, and to insert tabs after non-space characters
+" Use <S-Tab> for traversing the completion-menu in reverse, and to insert tabs after non-space characters
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "<Space><Tab>"
 
 " }}}
@@ -343,7 +347,7 @@ if executable('rg')
     " Define a 'Grep' command
     command! -nargs=+ Grep silent lgrep! <args> | lwindow | redraw!
 else
-    " Use vimgrep
+    " Use vimgrep in the 'Grep' command
     command! -nargs=+ Grep silent lvimgrep /<args>/gj ** | lwindow | redraw!
 endif
 nnoremap ,a :Grep<Space>
@@ -405,7 +409,7 @@ nnoremap ,cc :call ToggleComments()<CR>
 
 " SESSIONS {{{
 
-" Don't save options while saving sessions
+" Don't save options and mapings as part of sessions
 set sessionoptions-=options
 
 " Save session using ,ss
@@ -421,7 +425,7 @@ augroup vimrc
                 \ else | mksession! ~/.vim/.sessions/previous.vim | endif
 augroup END
 
-" Restore previous session using ,sp
+" Restore previous (unnamed) session using ,sp
 nnoremap <silent> ,sp :source ~/.vim/.sessions/previous.vim<CR>
 
 " }}}
@@ -466,7 +470,7 @@ augroup vimrc
     autocmd WinLeave * set nocursorline
 augroup END
 
-" Default colorscheme
+" Colorscheme
 colorscheme solarized
 
 " }}}
