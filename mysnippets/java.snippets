@@ -323,6 +323,17 @@ ${1:private} ${2:void} ${3:method}(${4}) {
 }
 endsnippet
 
+snippet eq "equals method" b
+@Override
+public boolean equals(Object o) {
+	if (this == o) {
+		return true;
+	}
+	${1:Object} other = ($1) o;
+	$0
+}
+endsnippet
+
 snippet md "Method With javadoc" b
 /**
  * ${7:Short Description}`!p
