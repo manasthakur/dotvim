@@ -149,7 +149,7 @@ function! MultiClose()
                 bdelete
             endif
         else
-            " Force delete a terminal tab (in Neovim)
+            " Force delete a terminal buffer (in Neovim)
             if &buftype == 'terminal'
                 bdelete!
             else
@@ -159,6 +159,12 @@ function! MultiClose()
     endif
 endfunction
 nnoremap <silent> ,q :call MultiClose()<CR>
+
+" Close current window using <A-c>
+nnoremap <silent> <A-c> :close<CR>
+
+" Close all windows except the current using <A-o>
+nnoremap <silent> <A-o> :only<CR>
 
 " Toggle a notepad window on the right using :Npad
 command! Npad execute 'rightbelow ' . float2nr(0.2 * winwidth(0)) . 'vsplit +setlocal\ filetype=markdown\ nobuflisted .npad'
