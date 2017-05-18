@@ -417,9 +417,9 @@ function! CommentToggle(type, ...)
         endif
     endif
 endfunction
-nnoremap <silent> ,c  :set opfunc=CommentToggle<CR>g@
+nnoremap <silent> ,c  :<C-u>set opfunc=CommentToggle<CR>g@
 xnoremap <silent> ,c  :<C-u>call CommentToggle(visualmode(), 1)<CR>
-nnoremap <silent> ,cc :set opfunc=CommentToggle<bar>execute "normal! " . v:count1 . "g@_"<CR>
+nnoremap <silent> ,cc :<C-u>set opfunc=CommentToggle<bar>execute "normal! " . v:count1 . "g@_"<CR>
 
 " }}}
 
