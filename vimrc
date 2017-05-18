@@ -458,13 +458,9 @@ let g:netrw_list_hide = '^\.\.\=/$'
 "   - Keep the alternate buffer
 let g:netrw_altfile = 1
 
-" UltiSnips (Snippet manager)
-"   - Use custom snippet-diretory
-let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/mysnippets']
+" MiniSnip (Snippet manager)
 "   - Fire a snippet using <C-j>
-let g:UltiSnipsExpandTrigger='<C-j>'
-"   - List available snippets using <C-k>
-let g:UltiSnipsListSnippets='<C-k>'
+let g:minisnip_trigger = '<C-j>'
 
 " }}}
 
