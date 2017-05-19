@@ -1,0 +1,7 @@
+class <+~expand('%:r')+> {
+private:
+    <++>
+
+public:
+    <++>
+};

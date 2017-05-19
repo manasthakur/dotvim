@@ -458,14 +458,6 @@ let g:netrw_list_hide = '^\.\.\=/$'
 "   - Keep the alternate buffer
 let g:netrw_altfile = 1
 
-" MiniSnip (Snippet manager)
-"   - Fire a snippet using <C-j>
-let g:minisnip_trigger = '<C-j>'
-"   - Change start-delimiter to '<+'
-let g:minisnip_startdelim = '<+'
-"   - Change end-delimiter to '+>'
-let g:minisnip_enddelim = '+>'
-
 " }}}
 
 " APPEARANCE {{{
