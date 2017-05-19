@@ -8,9 +8,6 @@ need and usage; `:help option` is the way to go.
 There is also a [minimal vimrc](vimrc-minimal) included that should work on most
 Vim versions (useful for remote machines).
 
-Most of the snippets in [mysnippets](mysnippets) have been taken from [this
-repository](https://github.com/honza/vim-snippets).
-
 ## Usage
 
 - Clone repository into `$HOME/.vim`:
