@@ -131,6 +131,9 @@ nnoremap gV `[V`]
 " Delete surrounding brace-construct using 'dsc'
 nnoremap dsc diB"_ddk"_ddP=`]
 
+" Search selected text using *
+xnoremap * y/\V<C-r>"<CR>
+
 " Toggle a notepad window on the right using :Npad
 command! Npad execute 'rightbelow ' . float2nr(0.2 * winwidth(0)) . 'vsplit +setlocal\ filetype=markdown\ nobuflisted .npad'
 
