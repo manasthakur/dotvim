@@ -122,7 +122,7 @@ inoremap <expr> ) getline('.')[col('.')-1] == ")" ? "\<Right>" : ")"
 " Copy till end-of-line using 'Y'
 nnoremap Y y$
 
-" Play macro from register 'q' using 'Q'
+" Execute macro from register 'q' using 'Q'
 nnoremap Q @q
 
 " Select previously changed/yanked text using 'gV'
@@ -130,41 +130,6 @@ nnoremap gV `[V`]
 
 " Delete surrounding brace-construct using 'dsc'
 nnoremap dsc diB"_ddk"_ddP=`]
-
-" Update buffer using ,w
-nnoremap ,w :update<CR>
-
-" Multipurpose ,q
-function! MultiClose()
-    " If there are multiple windows, close the current one
-    if winnr('$') > 1
-        close
-    else
-        if tabpagenr('$') > 1
-            " If there are multiple tabs and there is an alternate buffer, restore the alternate buffer and keep the tab
-            let alt_buf = bufnr('#')
-            if alt_buf > 0 && buflisted(alt_buf)
-                buffer # | bdelete #
-            else
-                bdelete
-            endif
-        else
-            " Force delete a terminal buffer (in Neovim)
-            if &buftype == 'terminal'
-                bdelete!
-            else
-                bdelete
-            endif
-        endif
-    endif
-endfunction
-nnoremap <silent> ,q :call MultiClose()<CR>
-
-" Close current window using <A-c>
-nnoremap <silent> <A-c> :close<CR>
-
-" Close all windows except the current using <A-o>
-nnoremap <silent> <A-o> :only<CR>
 
 " Toggle a notepad window on the right using :Npad
 command! Npad execute 'rightbelow ' . float2nr(0.2 * winwidth(0)) . 'vsplit +setlocal\ filetype=markdown\ nobuflisted .npad'
@@ -199,6 +164,15 @@ set hidden
 " Confirm before quitting vim with unsaved buffers
 set confirm
 
+" Update buffer using ,w
+nnoremap ,w :update<CR>
+
+" Delete buffer using ,d
+nnoremap ,d :bdelete<CR>
+
+" Close window using ,c
+nnoremap ,c :close<CR>
+
 " Ignore following patterns while expanding file-names
 set wildignore+=tags,*.class,*.o,*.out,*.aux,*.bbl,*.blg,*.cls
 
@@ -208,7 +182,7 @@ set suffixes+=*.bib,*.log,*.jpg,*.png,*.dvi,*.ps,*.pdf
 " Use <C-z> to start wildcard-expansion in command-line mappings
 set wildcharm=<C-z>
 
-" Search and open files recursively
+" Search recursively and open files
 "   - from current working directory     : ,e
 "   - from the directory of current file : ,E
 "   (press <C-A> to list and open multiple matching files)
@@ -217,23 +191,28 @@ nnoremap ,E :n <C-R>=fnameescape(expand('%:p:h'))<CR>/<C-z><S-Tab>
 
 " Switch buffer
 "   - without listing : ,b
+"   - after listing   : ,B
 "   - in a split      : ,sb
 "   - in a vsplit     : ,vb
-"   - after listing   : ,f
+"   - in a new tab    : ,tb
 nnoremap ,b  :b <C-z><S-Tab>
+nnoremap ,B  :ls<CR>:b<Space>
 nnoremap ,sb :sb <C-z><S-Tab>
 nnoremap ,vb :vertical sb <C-z><S-Tab>
-nnoremap ,f  :ls<CR>:b<Space>
+nnoremap ,tb :tabedit <C-z><S-Tab>
 
 " Switch to alternate buffer using ,r
 nnoremap ,r :b#<CR>
 
 " Bracket maps for cycling back-and-forth
 "   - Buffers        : [b and ]b
+"   - Tabs           : [t and ]t
 "   - Quickfix lists : [q and ]q
 "   - Location lists : [w and ]w
 nnoremap [b :bprevious<CR>
 nnoremap ]b :bnext<CR>
+nnoremap [t :tabprevious<CR>
+nnoremap ]t :tabnext<CR>
 nnoremap [q :cprevious<CR>
 nnoremap ]q :cnext<CR>
 nnoremap [w :lprevious<CR>
@@ -245,26 +224,26 @@ nnoremap <A-j> <C-w>j
 nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
 
-" Switch tabs using <A-[> and <A-]>
-nnoremap <A-[> gt
-nnoremap <A-]> gT
-
 " Tags
 "   - goto first match : ,t
-"   - list if multiple : ,lt
-"   - show preview     : ,pt
-nnoremap ,t  :tag /
-nnoremap ,lt :tjump /
-nnoremap ,pt :ptag /
+"       - current word : ,T
+"   - list if multiple : ,l
+"       - current word : ,L
+"   - show preview     : ,p
+"       - current word : ,P
+nnoremap ,t :tag /
+nnoremap ,T :tag <C-r><C-w><CR>
+nnoremap ,l :tjump /
+nnoremap ,L :tjump <C-r><C-w><CR>
+nnoremap ,p :ptag /
+nnoremap ,P :ptag <C-r><C-w><CR>
 
 " Neovim terminal-specific mappings
 if has('nvim')
-    " Split a terminal using <A-s> and <A-v>; tabedit a terminal using <A-t>
-    nnoremap <A-s> :split   <bar> terminal<CR>
-    nnoremap <A-v> :vsplit  <bar> terminal<CR>
+    " Open terminal in a new tab using <A-t>
     nnoremap <A-t> :tabedit <bar> terminal<CR>
 
-    " Exit terminal mode using <Esc>
+    " Exit terminal mode using <A-\>
     tnoremap <A-\> <C-\><C-n>
 
     " Switch splits using <A-h,j,k,l>
@@ -273,11 +252,11 @@ if has('nvim')
     tnoremap <A-k> <C-\><C-n><C-w>k
     tnoremap <A-l> <C-\><C-n><C-w>l
 
-    " Switch tabs using <A-[> and <A-]>
-    tnoremap <A-[> <C-\><C-n>gt
-    tnoremap <A-]> <C-\><C-n>gT
+    " Switch tabs using [t and ]t
+    tnoremap [t <C-\><C-n>:tabprevious<CR>
+    tnoremap ]t <C-\><C-n>:tabnext<CR>
 
-    " Automatically switch to insert mode in terminal windows
+    " Automatically start insert-mode in terminal windows
     augroup vimrc
         autocmd WinEnter term://* startinsert
     augroup END
@@ -302,7 +281,7 @@ function! CleverTab() abort
     if pumvisible()
         return "\<C-n>"
     endif
-
+    " Determine the pattern before the cursor
     let str = matchstr(strpart(getline('.'), 0, col('.')-1), '[^ \t]*$')
     if empty(str)
         " After spaces, return the <Tab> literal
@@ -340,7 +319,7 @@ set ignorecase
 set smartcase
 
 " Grep
-"   - standard     : ,a
+"   - prompt       : ,a
 "   - current word : ,A
 if executable('rg')
     " If available, use 'ripgrep' as the grep-program
@@ -359,7 +338,7 @@ nnoremap ,a :Grep<Space>
 nnoremap ,A :Grep <C-r><C-w><CR>
 
 " Better global searches
-"   - standard     : ,g
+"   - prompt       : ,g
 "   - current word : ,G
 function! GlobalSearch(...) abort
     " If no pattern was supplied, prompt for one
@@ -417,9 +396,9 @@ function! CommentToggle(type, ...)
         endif
     endif
 endfunction
-nnoremap <silent> ,c  :<C-u>set opfunc=CommentToggle<CR>g@
-xnoremap <silent> ,c  :<C-u>call CommentToggle(visualmode(), 1)<CR>
-nnoremap <silent> ,cc :<C-u>set opfunc=CommentToggle<bar>execute "normal! " . v:count1 . "g@_"<CR>
+nnoremap <silent> gc  :<C-u>set opfunc=CommentToggle<CR>g@
+xnoremap <silent> gc  :<C-u>call CommentToggle(visualmode(), 1)<CR>
+nnoremap <silent> gcc :<C-u>set opfunc=CommentToggle<bar>execute "normal! " . v:count1 . "g@_"<CR>
 
 " }}}
 
