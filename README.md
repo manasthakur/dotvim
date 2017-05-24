@@ -5,8 +5,7 @@ It keeps changing based on my requirements and experience.
 Even though well-commented, try not to copy anything without understanding its
 need and usage; `:help option` is the way to go.
 
-There is also a [minimal vimrc](vimrc-minimal) included that should work on most
-Vim versions (useful for remote machines).
+Minimum compatible version: Vim 7.2+.
 
 ## Usage
 

@@ -58,7 +58,9 @@ set expandtab
 set backspace=indent,eol,start
 
 " Remove comment-leader when joining lines (using 'J')
-set formatoptions+=j
+if v:version >= 704
+    set formatoptions+=j
+endif
 
 " Unicode characters for list mode (show up on ':set list')
 set listchars=tab:»\ ,trail:·
@@ -267,11 +269,13 @@ endif
 
 " COMPLETION {{{
 
-" Visual completion for command-menu
+" Visual completion in the command-line
 set wildmenu
 
 " Ignore case in command-line completion
-set wildignorecase
+if exists('&wildignorecase')
+    set wildignorecase
+endif
 
 " Don't complete from included files
 set complete-=i
@@ -459,7 +463,7 @@ augroup vimrc
 augroup END
 
 " Colorscheme
-colorscheme solarized
+silent! colorscheme solarized
 
 " }}}
 
