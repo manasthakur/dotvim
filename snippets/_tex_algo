@@ -1,5 +1,5 @@
 \begin{algorithm}
     <++>
-\caption{<+An algorithm.+>}
+\caption{<+Caption.+>}
 \label{fig:<++>}
 \end{algorithm}
