@@ -230,14 +230,14 @@ nnoremap <A-l> <C-w>l
 " Tags
 "   - goto first match : ,t
 "       - current word : ,T
-"   - list if multiple : ,l
-"       - current word : ,L
+"   - list if multiple : ,j
+"       - current word : ,J
 "   - show preview     : ,p
 "       - current word : ,P
 nnoremap ,t :tag /
 nnoremap ,T :tag <C-r><C-w><CR>
-nnoremap ,l :tjump /
-nnoremap ,L :tjump <C-r><C-w><CR>
+nnoremap ,j :tjump /
+nnoremap ,J :tjump <C-r><C-w><CR>
 nnoremap ,p :ptag /
 nnoremap ,P :ptag <C-r><C-w><CR>
 

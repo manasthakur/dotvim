@@ -1,7 +1,7 @@
 " Java specific maps
 
 " List all classes and public/private/protected methods
-nnoremap <buffer> ,d :call GlobalSearch("^\\s*\\(class\\\|public\\\|private\\\|protected\\).*{")<CR>
+nnoremap <buffer> ,f :call GlobalSearch("^\\s*\\(class\\\|public\\\|private\\\|protected\\).*{")<CR>
 
 " Echo current method's header (works if explicit access-modifiers have been used)
 nnoremap <buffer> ,m :echo getline(search("^\\s*\\(public\\\|private\\\|protected\\).*{", 'bn'))<CR>
