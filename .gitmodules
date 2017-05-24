@@ -9,4 +9,4 @@
 	url = https://github.com/neomake/neomake.git
 [submodule "pack/bundle/start/vim-minisnip"]
 	path = pack/bundle/start/vim-minisnip
-	url = https://bitbucket.org/manasthakur/vim-minisnip.git
+	url = https://github.com/manasthakur/vim-minisnip.git
