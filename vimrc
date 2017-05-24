@@ -195,14 +195,12 @@ nnoremap ,E :n <C-R>=fnameescape(expand('%:p:h'))<CR>/<C-z><S-Tab>
 " Switch buffer
 "   - without listing : ,b
 "   - after listing   : ,B
-"   - in a split      : ,sb
-"   - in a vsplit     : ,vb
-"   - in a new tab    : ,tb
 nnoremap ,b  :b <C-z><S-Tab>
 nnoremap ,B  :ls<CR>:b<Space>
-nnoremap ,sb :sb <C-z><S-Tab>
-nnoremap ,vb :vertical sb <C-z><S-Tab>
-nnoremap ,tb :tabedit <C-z><S-Tab>
+
+" Open a buffer in a vsplit using :vsb
+" (:sb does the same in a split)
+cnoremap vsb vertical sb
 
 " Switch to alternate buffer using ,r
 nnoremap ,r :b#<CR>

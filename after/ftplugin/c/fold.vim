@@ -16,10 +16,10 @@ function! CFoldExpr()
     endif
 endfunction
 setlocal foldexpr=CFoldExpr()
-
-" Custom foldtext
-function! CFoldText()
-    let foldsize = (v:foldend - v:foldstart + 1)
-    return '+' . v:folddashes . ' ' . foldsize . ' lines: INCLUDES '
-endfunction
-setlocal foldtext=CFoldText()
+"
+"" Custom foldtext
+"function! CFoldText()
+"    let foldsize = (v:foldend - v:foldstart + 1)
+"    return '+' . v:folddashes . ' ' . foldsize . ' lines: INCLUDES '
+"endfunction
+"setlocal foldtext=CFoldText()
