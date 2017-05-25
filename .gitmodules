@@ -10,3 +10,6 @@
 [submodule "pack/bundle/start/vim-minisnip"]
 	path = pack/bundle/start/vim-minisnip
 	url = https://github.com/manasthakur/vim-minisnip.git
+[submodule "pack/bundle/start/vim-commentor"]
+	path = pack/bundle/start/vim-commentor
+	url = https://github.com/manasthakur/vim-commentor.git

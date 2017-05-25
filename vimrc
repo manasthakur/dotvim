@@ -316,7 +316,7 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "<Space><Tab>"
 " Don't highlight matched items
 set nohlsearch
 
-" Show matches while typing the search-term
+" Show the next match while typing the search-term
 set incsearch
 
 " Ignore case while searching, but act smartly with capitals
@@ -368,42 +368,6 @@ function! GlobalSearch(...) abort
 endfunction
 nnoremap <silent> ,g :call GlobalSearch()<CR>
 nnoremap <silent> ,G :call GlobalSearch("<C-r><C-w>")<CR>
-
-" }}}
-
-" COMMENTING {{{
-
-" Toggle comments
-"   - operator : ,c
-"   - linewise : ,cc
-function! CommentToggle(type, ...)
-    " Get space-trimmed LHS-only commentstring
-    let cmt_str = substitute(split(substitute(substitute(&commentstring, '\S\zs%s', ' %s', ''), '%s\ze\S', '%s ', ''), '%s', 1)[0], ' ', '', '')
-
-    " Check if the first line is commented
-    if match(getline('.'), cmt_str) == 0
-        " Yes ==> uncomment
-        if a:0
-            " Visual mode
-            silent execute "normal! :'<,'>s]^" . cmt_str . "]\<CR>`<"
-        else
-            " Normal mode
-            silent execute "normal! :'[,']s]^" . cmt_str . "]\<CR>`["
-        endif
-    else
-        " No ==> comment
-        if a:0
-            " Visual mode
-            silent execute "normal! :'<,'>s]^]" . cmt_str . "\<CR>`<"
-        else
-            " Normal mode
-            silent execute "normal! :'[,']s]^]" . cmt_str . "\<CR>`["
-        endif
-    endif
-endfunction
-nnoremap <silent> gc  :<C-u>set opfunc=CommentToggle<CR>g@
-xnoremap <silent> gc  :<C-u>call CommentToggle(visualmode(), 1)<CR>
-nnoremap <silent> gcc :<C-u>set opfunc=CommentToggle<bar>execute "normal! " . v:count1 . "g@_"<CR>
 
 " }}}
 
