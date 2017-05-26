@@ -172,12 +172,6 @@ set confirm
 " Update buffer using ,w
 nnoremap ,w :update<CR>
 
-" Delete buffer using ,d
-nnoremap ,d :bdelete<CR>
-
-" Close window using ,c
-nnoremap ,c :close<CR>
-
 " Ignore following patterns while expanding file-names
 set wildignore+=tags,*.class,*.o,*.out,*.aux,*.bbl,*.blg,*.cls
 
@@ -188,17 +182,17 @@ set suffixes+=*.bib,*.log,*.jpg,*.png,*.dvi,*.ps,*.pdf
 set wildcharm=<C-z>
 
 " Search recursively and open files
-"   - from current working directory     : ,e
+"   - from the current working directory : ,e
 "   - from the directory of current file : ,E
-"   (press <C-A> to list and open multiple matching files)
+"   (press <C-a> to list and open multiple matching files)
 nnoremap ,e :n **/*
 nnoremap ,E :n <C-R>=fnameescape(expand('%:p:h'))<CR>/<C-z><S-Tab>
 
 " Switch buffer
 "   - without listing : ,b
-"   - after listing   : ,B
+"   - after listing   : ,f
 nnoremap ,b  :b <C-z><S-Tab>
-nnoremap ,B  :ls<CR>:b<Space>
+nnoremap ,f  :ls<CR>:b<Space>
 
 " Open a buffer in a vsplit using :vsb
 " (:sb does the same in a split)
@@ -207,7 +201,7 @@ cnoremap vsb vertical sb
 " Switch to alternate buffer using ,r
 nnoremap ,r :b#<CR>
 
-" Bracket maps for cycling back-and-forth
+" Bracket maps to cycle back-and-forth
 "   - Buffers        : [b and ]b
 "   - Tabs           : [t and ]t
 "   - Quickfix lists : [q and ]q
