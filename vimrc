@@ -146,9 +146,6 @@ command! Npad execute 'rightbelow ' . float2nr(0.2 * winwidth(0)) . 'vsplit +set
 " Write a file with sudo when it was opened without, using :SudoWrite
 command! SudoWrite w !sudo tee % > /dev/null
 
-" Tabularize selected text using ,t
-xnoremap ,t :'<,'>!column -t<CR>
-
 " Toggles
 "   - Number            : con
 "   - Relative number   : cor
