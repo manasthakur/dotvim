@@ -4,7 +4,8 @@
 " LICENSE: MIT                                                               "
 "                                                                            "
 " NOTE:    (a) Filetype settings are in 'after/ftplugin'                     "
-"          (b) Toggle folds using 'za'                                       "
+"          (b) Plugins reside in 'pack/bundle'
+"          (c) Toggle folds using 'za'                                       "
 "                                                                            "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -23,6 +24,9 @@ runtime matchit
 augroup vimrc
     autocmd!
 augroup END
+
+" Change the default flavor for LaTeX files (affects 'filetype')
+let g:tex_flavor = "latex"
 
 " Python location for speeding up Neovim
 if has('nvim')
