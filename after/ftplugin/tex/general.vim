@@ -4,7 +4,11 @@
 setlocal spell
 
 " Use ',,' to make (forced)
-nnoremap <buffer> ,, :!make -B<CR><CR>
+if has('nvim')
+    nnoremap <buffer> ,, :terminal make -B<CR>
+else
+    nnoremap <buffer> ,, :!make -B<CR><CR>
+endif
 
 " Complete words containing ':' and '-'
 setlocal iskeyword+=:,-
