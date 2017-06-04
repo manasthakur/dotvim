@@ -107,8 +107,9 @@ augroup END
 
 " SHORTHANDS {{{
 
-" Exit insert mode with 'jk'
+" Escape from insert and select modes using 'jk'
 inoremap jk <Esc>
+snoremap jk <Esc>
 
 " Expand '{<CR>' to a block and place cursor inside
 inoremap {<CR> {<CR>}<Esc>O
