@@ -20,6 +20,9 @@ syntax enable
 " Load the builtin matchit plugin (allows jumping among matching keywords using '%')
 runtime matchit
 
+" Put all the swap files (with full path as name) at '~/.vim/.swap/'
+set directory=~/.vim/.swap//
+
 " Clear autocommands
 augroup vimrc
     autocmd!
@@ -27,17 +30,6 @@ augroup END
 
 " Change the default flavor for LaTeX files (affects 'filetype')
 let g:tex_flavor = "latex"
-
-" Python location for speeding up Neovim
-if has('nvim')
-    if has('mac')
-        let g:python_host_prog = '/usr/local/bin/python'
-        let g:python3_host_prog = '/usr/local/bin/python3'
-    else
-        let g:python_host_prog = '/usr/bin/python'
-        let g:python3_host_prog = '/usr/bin/python3'
-    endif
-endif
 
 " }}}
 
@@ -82,10 +74,8 @@ set display=lastline
 " Keep one extra line while scrolling (for context)
 set scrolloff=1
 
-" Show substitution effects while typing
-if has('nvim')
-    set inccommand=nosplit
-endif
+" Keep 1000 lines of command-line history
+set history=1000
 
 " Enable mouse in all the modes
 set mouse=a
@@ -107,6 +97,10 @@ augroup vimrc
     " Make insert-mode completions case-sensitive
     autocmd InsertEnter * set noignorecase
     autocmd InsertLeave * set ignorecase
+
+    " Automatically open quickfix/location windows when populated
+    autocmd QuickFixCmdPost [^l]* cwindow
+    autocmd QuickFixCmdPost l* lwindow
 augroup END
 
 " }}}
@@ -150,12 +144,14 @@ command! SudoWrite w !sudo tee % > /dev/null
 "   - Number            : con
 "   - Relative number   : cor
 "   - Spellcheck        : cos
+"   - Paste             : cop
 "   - List              : col
 "   - Highlight matches : coh
 "   - Background        : cob
 nnoremap con :setlocal number!<CR>:setlocal number?<CR>
 nnoremap cor :setlocal relativenumber!<CR>:setlocal relativenumber?<CR>
 nnoremap cos :setlocal spell!<CR>:setlocal spell?<CR>
+nnoremap cop :setlocal paste!<CR>:setlocal paste?<CR>
 nnoremap col :setlocal list!<CR>:setlocal list?<CR>
 nnoremap coh :setlocal hlsearch!<CR>:setlocal hlsearch?<CR>
 nnoremap cob :set background=<C-R>=(&background=='dark'?'light':'dark')<CR><CR>
@@ -235,30 +231,6 @@ nnoremap ,j :tjump /
 nnoremap ,J :tjump <C-r><C-w><CR>
 nnoremap ,p :ptag /
 nnoremap ,P :ptag <C-r><C-w><CR>
-
-" Neovim terminal-specific mappings
-if has('nvim')
-    " Open terminal in a new tab using <A-t>
-    nnoremap <A-t> :tabedit <bar> terminal<CR>
-
-    " Exit terminal mode using <A-\>
-    tnoremap <A-\> <C-\><C-n>
-
-    " Switch splits using <A-h,j,k,l>
-    tnoremap <A-h> <C-\><C-n><C-w>h
-    tnoremap <A-j> <C-\><c-n><C-w>j
-    tnoremap <A-k> <C-\><C-n><C-w>k
-    tnoremap <A-l> <C-\><C-n><C-w>l
-
-    " Switch tabs using [t and ]t
-    tnoremap [t <C-\><C-n>:tabprevious<CR>
-    tnoremap ]t <C-\><C-n>:tabnext<CR>
-
-    " Automatically start insert-mode in terminal windows
-    augroup vimrc
-        autocmd WinEnter term://* startinsert
-    augroup END
-endif
 
 " }}}
 
@@ -414,6 +386,14 @@ set laststatus=2
 " Custom statusline with Fugitive (if exists) and ruler
 set statusline=%<%f\ %h%m%r\%{exists('g:loaded_fugitive')?fugitive#statusline():''}%=%-14.(%l,%c%V%)\ %P
 
+" Show (partial) command in the last line of the screen
+set showcmd
+
+" Different cursor-shapes in different modes
+let &t_SI = "\<Esc>[6 q"
+let &t_SR = "\<Esc>[4 q"
+let &t_EI = "\<Esc>[2 q"
+
 " No cursorline in diff, quickfix, and inactive windows
 augroup vimrc
     autocmd VimEnter * set cursorline
@@ -421,7 +401,7 @@ augroup vimrc
     autocmd WinLeave * set nocursorline
 augroup END
 
-" Colorscheme
+" Colorscheme (doesn't complain if the specified colorscheme doesn't exist)
 silent! colorscheme solarized
 
 " }}}
