@@ -213,12 +213,6 @@ nnoremap ]q :cnext<CR>
 nnoremap [w :lprevious<CR>
 nnoremap ]w :lnext<CR>
 
-" Switch splits using <A-h,j,k,l>
-nnoremap <A-h> <C-w>h
-nnoremap <A-j> <C-w>j
-nnoremap <A-k> <C-w>k
-nnoremap <A-l> <C-w>l
-
 " Tags
 "   - goto first match : ,t
 "       - current word : ,T
@@ -321,7 +315,7 @@ function! GlobalSearch(...) abort
         let pattern = a:1
     endif
     if !empty(pattern)
-        " Print lines matching the pattern, along with line-numbers
+        " Print lines matching the pattern (along with line-numbers)
         execute "g/" . pattern . "/#"
         " The valid value of 'choice' is a line-number
         let choice = input(':')
