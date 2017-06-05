@@ -107,18 +107,20 @@ augroup END
 
 " SHORTHANDS {{{
 
-" Escape from insert and select modes using 'jk'
+" Exit insert and select modes using 'jk'
 inoremap jk <Esc>
 snoremap jk <Esc>
 
 " Expand '{<CR>' to a block and place cursor inside
 inoremap {<CR> {<CR>}<Esc>O
 
-" Auto-insert closing parenthesis
+" Auto-insert closing parenthesis/brace
 inoremap ( ()<Left>
+inoremap { {}<Left>
 
-" Skip over closing parenthesis
+" Skip over closing parenthesis/brace
 inoremap <expr> ) getline('.')[col('.')-1] == ")" ? "\<Right>" : ")"
+inoremap <expr> } getline('.')[col('.')-1] == "}" ? "\<Right>" : "}"
 
 " Copy till end-of-line using 'Y'
 nnoremap Y y$
