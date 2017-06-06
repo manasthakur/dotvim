@@ -9,7 +9,7 @@
 "                                                                            "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" INITIALIZATION {{{
+" 1. INITIALIZATION {{{
 
 " Enable filetype detection, and filetype-based plugins and indents
 filetype plugin indent on
@@ -33,7 +33,7 @@ let g:tex_flavor = "latex"
 
 " }}}
 
-" FORMATTING {{{
+" 2. FORMATTING {{{
 
 " Copy the indent of current line when starting a new line
 set autoindent
@@ -63,7 +63,7 @@ set listchars=tab:»\ ,trail:·
 
 " }}}
 
-" BEHAVIOR {{{
+" 3. BEHAVIOR {{{
 
 " Wrap long lines
 set linebreak
@@ -105,7 +105,7 @@ augroup END
 
 " }}}
 
-" SHORTHANDS {{{
+" 4. SHORTHANDS {{{
 
 " Exit insert and select modes using 'jk'
 inoremap jk <Esc>
@@ -161,7 +161,7 @@ nnoremap cob :set background=<C-R>=(&background=='dark'?'light':'dark')<CR><CR>
 
 " }}}
 
-" NAVIGATION {{{
+" 5. NAVIGATION {{{
 
 " Enable switching buffers without saving them
 set hidden
@@ -231,7 +231,7 @@ nnoremap ,P :ptag <C-r><C-w><CR>
 
 " }}}
 
-" COMPLETION {{{
+" 6. COMPLETION {{{
 
 " Visual completion in the command-line
 set wildmenu
@@ -275,7 +275,7 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "<Space><Tab>"
 
 " }}}
 
-" SEARCHING {{{
+" 7. SEARCHING {{{
 
 " Don't highlight matched items
 set nohlsearch
@@ -335,7 +335,7 @@ nnoremap <silent> ,G :call GlobalSearch("<C-r><C-w>")<CR>
 
 " }}}
 
-" SESSIONS {{{
+" 8. SESSIONS {{{
 
 " Don't save options and mapings as part of sessions
 set sessionoptions-=options
@@ -358,7 +358,7 @@ nnoremap <silent> ,sp :source ~/.vim/.sessions/previous.vim<CR>
 
 " }}}
 
-" PLUGINS {{{
+" 9. PLUGINS {{{
 
 " Netrw (Vim's builtin file manager)
 "   - Open using '-'
@@ -372,7 +372,7 @@ let g:netrw_altfile = 1
 
 " }}}
 
-" APPEARANCE {{{
+" 10. APPEARANCE {{{
 
 " Show position at bottom-right
 set ruler
