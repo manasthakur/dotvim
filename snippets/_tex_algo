@@ -1,5 +1,5 @@
 \begin{algorithm}
-    <++>
+
 \caption{<+Caption.+>}
 \label{fig:<++>}
 \end{algorithm}
