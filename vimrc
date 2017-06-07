@@ -122,6 +122,10 @@ inoremap { {}<Left>
 inoremap <expr> ) getline('.')[col('.')-1] == ")" ? "\<Right>" : ")"
 inoremap <expr> } getline('.')[col('.')-1] == "}" ? "\<Right>" : "}"
 
+" Scroll without moving the cursor using '<C-j>' and '<C-k>'
+nnoremap <C-j> 1<C-d>
+nnoremap <C-k> 1<C-u>
+
 " Copy till end-of-line using 'Y'
 nnoremap Y y$
 
