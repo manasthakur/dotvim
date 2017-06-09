@@ -124,7 +124,7 @@ inoremap <expr> } getline('.')[col('.')-1] == "}" ? "\<Right>" : "}"
 
 " Copy selected text using '<C-j>' and replace something else with it using '<C-k>'
 xnoremap <C-j> "xc
-inoremap <C-k> <Esc>"_dd"xP=']`]A
+inoremap <C-k> <Esc>"_dd"xP=']']A
 
 " Scroll without moving the cursor using '<C-j>' and '<C-k>'
 nnoremap <C-j> j<C-e>
