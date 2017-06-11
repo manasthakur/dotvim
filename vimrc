@@ -18,7 +18,7 @@ filetype plugin indent on
 syntax enable
 
 " Load the builtin matchit plugin (allows jumping among matching keywords using '%')
-runtime matchit
+runtime macros/matchit.vim
 
 " Put all the swap files (with full path as name) at '~/.vim/.swap/'
 set directory=~/.vim/.swap//
@@ -30,6 +30,9 @@ augroup END
 
 " Change the default flavor for LaTeX files (affects 'filetype')
 let g:tex_flavor = "latex"
+
+" Disable netrw (use dirvish instead)
+let g:loaded_netrwPlugin = 1
 
 " }}}
 
@@ -212,6 +215,9 @@ cnoremap vsb vertical sb
 " Switch to alternate buffer using ,r
 nnoremap ,r :b#<CR>
 
+" Delete a buffer using ,d
+nnoremap ,d :bd<CR>
+
 " Bracket maps to cycle back-and-forth
 "   - Buffers        : [b and ]b
 "   - Tabs           : [t and ]t
@@ -369,21 +375,7 @@ nnoremap <silent> ,sp :source ~/.vim/.sessions/previous.vim<CR>
 
 " }}}
 
-" 9. PLUGINS {{{
-
-" Netrw (Vim's builtin file manager)
-"   - Open using '-'
-nnoremap <silent> - :Explore<CR>
-"   - Disable the banner
-let g:netrw_banner = 0
-"   - Hide './' and '../' entries
-let g:netrw_list_hide = '^\.\.\=/$'
-"   - Keep the alternate buffer
-let g:netrw_altfile = 1
-
-" }}}
-
-" 10. APPEARANCE {{{
+" 9. APPEARANCE {{{
 
 " Show position at bottom-right
 set ruler
