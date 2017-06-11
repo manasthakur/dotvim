@@ -215,9 +215,6 @@ cnoremap vsb vertical sb
 " Switch to alternate buffer using ,r
 nnoremap ,r :b#<CR>
 
-" Delete a buffer using ,d
-nnoremap ,d :bd<CR>
-
 " Bracket maps to cycle back-and-forth
 "   - Buffers        : [b and ]b
 "   - Tabs           : [t and ]t
