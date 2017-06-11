@@ -142,6 +142,9 @@ nnoremap gV `[V`]
 " Delete surrounding brace-construct using 'dsc'
 nnoremap dsc diB"_ddk"_ddP=`]
 
+" Copy selected text to system-clipboard using 'Y'
+xnoremap Y "+y
+
 " Search selected text using *
 xnoremap * y/\V<C-r>"<CR>
 
