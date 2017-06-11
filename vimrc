@@ -4,20 +4,20 @@
 " LICENSE: MIT                                                               "
 "                                                                            "
 " NOTE:    (a) Filetype settings are in 'after/ftplugin'                     "
-"          (b) Plugins reside in 'pack/bundle'
+"          (b) Plugins reside in 'pack/bundle'                               "
 "          (c) Toggle folds using 'za'                                       "
 "                                                                            "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " 1. INITIALIZATION {{{
 
-" Enable filetype detection, and filetype-based plugins and indents
+" Enable filetype detection, and filetype-based plugins and indentation
 filetype plugin indent on
 
 " Enable syntax highlights
 syntax enable
 
-" Load the builtin matchit plugin (allows jumping among matching keywords using '%')
+" Load the builtin matchit plugin (allows jumping among matching keywords using %)
 runtime macros/matchit.vim
 
 " Put all the swap files (with full path as name) at '~/.vim/.swap/'
@@ -31,7 +31,7 @@ augroup END
 " Change the default flavor for LaTeX files (affects 'filetype')
 let g:tex_flavor = "latex"
 
-" Disable netrw (use dirvish instead)
+" Disable netrw (using dirvish instead)
 let g:loaded_netrwPlugin = 1
 
 " }}}
@@ -44,7 +44,7 @@ set autoindent
 " Count existing tabs as 4 spaces
 set tabstop=4
 
-" Backspace over 4 characters; further, treat a <Tab> literal as 4 spaces
+" Backspace over 4 characters; further, treat a TAB literal as 4 spaces
 set softtabstop=4
 
 " Use 4 spaces for each step of (auto)indent
@@ -56,7 +56,7 @@ set expandtab
 " Allow backspacing over all characters
 set backspace=indent,eol,start
 
-" Remove comment-leader when joining lines (using 'J')
+" Remove comment-leader when joining lines (using J)
 if v:version >= 704
     set formatoptions+=j
 endif
@@ -74,7 +74,7 @@ set linebreak
 " When a line doesn't fit the screen, show '@'s only at the end
 set display=lastline
 
-" Keep one extra line while scrolling (for context)
+" Keep cursor off by a line while scrolling (for context)
 set scrolloff=1
 
 " Keep 1000 lines of command-line history
@@ -83,7 +83,7 @@ set history=1000
 " Enable mouse in all the modes
 set mouse=a
 
-" Time-out for key-codes in 50ms (leads to a faster <Esc>)
+" Time-out for key-codes in 50ms (leads to a faster ESC)
 set ttimeoutlen=50
 
 " Behavioral autocommands
@@ -110,11 +110,11 @@ augroup END
 
 " 4. SHORTHANDS {{{
 
-" Exit insert and select modes using 'jk'
+" Exit insert and select modes using jk
 inoremap jk <Esc>
 snoremap jk <Esc>
 
-" Expand '{<CR>' to a block and place cursor inside
+" Expand opening-brace followed by ENTER to a block and place cursor inside
 inoremap {<CR> {<CR>}<Esc>O
 
 " Auto-insert closing parenthesis/brace
@@ -125,36 +125,36 @@ inoremap { {}<Left>
 inoremap <expr> ) getline('.')[col('.')-1] == ")" ? "\<Right>" : ")"
 inoremap <expr> } getline('.')[col('.')-1] == "}" ? "\<Right>" : "}"
 
-" Copy selected text using '<C-j>' and replace something else with it using '<C-k>'
-xnoremap <C-j> "xc
+" Copy selected text and paste it indented using CTRL-k
+xnoremap <C-k> "xc
 inoremap <C-k> <Esc>"_dd"xP=']']A
 
-" Scroll without moving the cursor using '<C-j>' and '<C-k>'
+" Scroll without moving the cursor using CTRL-j and CTRL-k
 nnoremap <C-j> j<C-e>
 nnoremap <C-k> k<C-y>
 
-" Copy till end-of-line using 'Y'
+" Copy till end-of-line using Y
 nnoremap Y y$
 
-" Execute macro from register 'q' using 'Q'
+" Execute macro from register q using Q
 nnoremap Q @q
 
-" Select previously changed/yanked text using 'gV'
-nnoremap gV `[V`]
+" Select previously changed/yanked text using gV
+nnoremap gV '[V']
 
-" Delete surrounding brace-construct using 'dsc'
+" Delete surrounding brace-construct using dsc
 nnoremap dsc diB"_ddk"_ddP=`]
 
-" Copy selected text to system-clipboard using 'Y'
+" Copy selected text to system-clipboard using Y
 xnoremap Y "+y
 
 " Search selected text using *
-xnoremap * y/\V<C-r>"<CR>
+xnoremap * "xy/\V<C-r>x<CR>
 
-" Toggle a notepad window on the right using :Npad
+" Toggle a .npad window on the right using :Npad
 command! Npad execute 'rightbelow ' . float2nr(0.2 * winwidth(0)) . 'vsplit +setlocal\ filetype=markdown\ nobuflisted .npad'
 
-" Write a file with sudo when it was opened without, using :SudoWrite
+" Write a file with sudo when it was opened without using :SudoWrite
 command! SudoWrite w !sudo tee % > /dev/null
 
 " Toggles
@@ -171,7 +171,7 @@ nnoremap cos :setlocal spell!<CR>:setlocal spell?<CR>
 nnoremap cop :setlocal paste!<CR>:setlocal paste?<CR>
 nnoremap col :setlocal list!<CR>:setlocal list?<CR>
 nnoremap coh :setlocal hlsearch!<CR>:setlocal hlsearch?<CR>
-nnoremap cob :set background=<C-R>=(&background=='dark'?'light':'dark')<CR><CR>
+nnoremap cob :set background=<C-r>=(&background=='dark'?'light':'dark')<CR><CR>
 
 " }}}
 
@@ -192,21 +192,21 @@ set wildignore+=tags,*.class,*.o,*.out,*.aux,*.bbl,*.blg,*.cls
 " Reduce the priority of following patterns while expanding file-names
 set suffixes+=*.bib,*.log,*.jpg,*.png,*.dvi,*.ps,*.pdf
 
-" Use <C-z> to start wildcard-expansion in command-line mappings
+" Use CTRL-z to start wildcard-expansion in command-line mappings
 set wildcharm=<C-z>
 
 " Search recursively and open files
 "   - from the current working directory : ,e
 "   - from the directory of current file : ,E
-"   (press <C-a> to list and open multiple matching files)
+"   (press CTRL-a to list and open multiple matching files)
 nnoremap ,e :n **/*
 nnoremap ,E :n <C-R>=fnameescape(expand('%:p:h'))<CR>/<C-z><S-Tab>
 
 " Switch buffer
 "   - without listing : ,b
 "   - after listing   : ,f
-nnoremap ,b  :b <C-z><S-Tab>
-nnoremap ,f  :ls<CR>:b<Space>
+nnoremap ,b :b <C-z><S-Tab>
+nnoremap ,f :ls<CR>:b<Space>
 
 " Open a buffer in a vsplit using :vsb
 " (:sb does the same in a split)
@@ -258,7 +258,7 @@ endif
 " Don't complete from included files
 set complete-=i
 
-" Use <Tab> for clever insert-mode completion
+" Use TAB for clever insert-mode completion
 function! CleverTab() abort
     " If completion-menu is visible, keep scrolling
     if pumvisible()
@@ -267,7 +267,7 @@ function! CleverTab() abort
     " Determine the pattern before the cursor
     let str = matchstr(strpart(getline('.'), 0, col('.')-1), '[^ \t]*$')
     if empty(str)
-        " After spaces, return the <Tab> literal
+        " After spaces, return the TAB literal
         return "\<Tab>"
     else
         if match(str, '\/') != -1
@@ -281,10 +281,10 @@ function! CleverTab() abort
 endfunction
 inoremap <silent> <Tab> <C-r>=CleverTab()<CR>
 
-" Select entry from completion-menu using <CR>
+" Select entry from completion-menu using ENTER
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
-" Use <S-Tab> for traversing the completion-menu in reverse, and to insert tabs after non-space characters
+" Use SHIFT-TAB for traversing the completion-menu in reverse, and to insert tabs after non-space characters
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "<Space><Tab>"
 
 " }}}
