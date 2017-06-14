@@ -57,7 +57,7 @@ set expandtab
 set backspace=indent,eol,start
 
 " Remove comment-leader when joining lines (using J)
-if v:version >= 704
+if v:version > 703 || v:version == 703 && has("patch541")
     set formatoptions+=j
 endif
 
@@ -388,8 +388,10 @@ set showcmd
 
 " Different cursor-shapes in different modes
 let &t_SI = "\<Esc>[6 q"
-let &t_SR = "\<Esc>[4 q"
 let &t_EI = "\<Esc>[2 q"
+if v:version > 704 || v:version == 704 && has("patch693")
+    let &t_SR = "\<Esc>[4 q"
+endif
 
 " No cursorline in diff, quickfix, and inactive windows
 augroup vimrc
