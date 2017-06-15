@@ -181,14 +181,12 @@ command! SudoWrite w !sudo tee % > /dev/null
 "   - Paste             : cop
 "   - List              : col
 "   - Highlight matches : coh
-"   - Background        : cob
 nnoremap con :setlocal number!<CR>:setlocal number?<CR>
 nnoremap cor :setlocal relativenumber!<CR>:setlocal relativenumber?<CR>
 nnoremap cos :setlocal spell!<CR>:setlocal spell?<CR>
 nnoremap cop :setlocal paste!<CR>:setlocal paste?<CR>
 nnoremap col :setlocal list!<CR>:setlocal list?<CR>
 nnoremap coh :setlocal hlsearch!<CR>:setlocal hlsearch?<CR>
-nnoremap cob :set background=<C-r>=(&background=='dark'?'light':'dark')<CR><CR>
 
 " }}}
 
