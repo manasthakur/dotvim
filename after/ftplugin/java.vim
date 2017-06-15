@@ -35,7 +35,7 @@ if v:version >= 800
     endfunction
 
     " Set <Leader>n to compile using 'ant'
-    nnoremap <buffer> <silent> <Leader> :call RunAsync('ant')<CR>
+    nnoremap <buffer> <silent> <Leader>n :call RunAsync('ant')<CR>
 else
     nnoremap <buffer> <Leader>n :silent make! \| cwindow \| redraw!<CR>
 endif
