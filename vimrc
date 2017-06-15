@@ -6,7 +6,6 @@
 " NOTE:    (a) Filetype settings are in 'after/ftplugin'                     "
 "          (b) Plugins reside in 'pack/bundle'                               "
 "          (c) Toggle folds using 'za'                                       "
-"                                                                            "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " 1. INITIALIZATION {{{
@@ -110,20 +109,38 @@ augroup END
 
 " 4. SHORTHANDS {{{
 
+" Replace further occurrences of <Leader> with <Space>
+let mapleader = "\<Space>"
+
 " Exit insert and select modes using jk
 inoremap jk <Esc>
 snoremap jk <Esc>
-
-" Expand opening-brace followed by ENTER to a block and place cursor inside
-inoremap {<CR> {<CR>}<Esc>O
 
 " Auto-insert closing parenthesis/brace
 inoremap ( ()<Left>
 inoremap { {}<Left>
 
+" Auto-delete closing parenthesis/brace
+function! BetterBackSpace() abort
+    let cur_line = getline('.')
+    let before_char = cur_line[col('.')-2]
+    let after_char = cur_line[col('.')-1]
+    if (before_char == '(' && after_char == ')') || before_char == '{' && after_char == '}'
+        return "\<Del>\<BS>"
+    else
+        return "\<BS>"
+endfunction
+inoremap <BS> <C-r>=BetterBackSpace()<CR>
+
 " Skip over closing parenthesis/brace
 inoremap <expr> ) getline('.')[col('.')-1] == ")" ? "\<Right>" : ")"
 inoremap <expr> } getline('.')[col('.')-1] == "}" ? "\<Right>" : "}"
+
+" Intelligent ENTER
+"   - selects entry in completion menu
+"   - expands block if the next character is '}'
+"   - works normally otherwise
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : ((getline('.')[col('.')-1] == '}') ? "\<CR>\<C-o>O" : "\<C-g>u\<CR>")
 
 " Copy selected text and paste it indented using CTRL-k
 xnoremap <C-k> "xc
@@ -183,8 +200,8 @@ set hidden
 " Confirm before quitting vim with unsaved buffers
 set confirm
 
-" Update buffer using ,w
-nnoremap ,w :update<CR>
+" Update buffer using <Leader>w
+nnoremap <Leader>w :update<CR>
 
 " Ignore following patterns while expanding file-names
 set wildignore+=tags,*.class,*.o,*.out,*.aux,*.bbl,*.blg,*.cls
@@ -196,24 +213,24 @@ set suffixes+=*.bib,*.log,*.jpg,*.png,*.dvi,*.ps,*.pdf
 set wildcharm=<C-z>
 
 " Search recursively and open files
-"   - from the current working directory : ,e
-"   - from the directory of current file : ,E
+"   - from the current working directory : <Leader>e
+"   - from the directory of current file : <Leader>E
 "   (press CTRL-a to list and open multiple matching files)
-nnoremap ,e :n **/*
-nnoremap ,E :n <C-R>=fnameescape(expand('%:p:h'))<CR>/<C-z><S-Tab>
+nnoremap <Leader>e :n **/*
+nnoremap <Leader>E :n <C-R>=fnameescape(expand('%:p:h'))<CR>/<C-z><S-Tab>
 
 " Switch buffer
-"   - without listing : ,b
-"   - after listing   : ,f
-nnoremap ,b :b <C-z><S-Tab>
-nnoremap ,f :ls<CR>:b<Space>
+"   - without listing : <Leader>b
+"   - after listing   : <Leader>f
+nnoremap <Leader>b :b <C-z><S-Tab>
+nnoremap <Leader>f :ls<CR>:b<Space>
 
 " Open a buffer in a vsplit using :vsb
 " (:sb does the same in a split)
 cnoremap vsb vertical sb
 
-" Switch to alternate buffer using ,r
-nnoremap ,r :b#<CR>
+" Switch to alternate buffer using <Leader>r
+nnoremap <Leader>r :b#<CR>
 
 " Bracket maps to cycle back-and-forth
 "   - Buffers        : [b and ]b
@@ -230,18 +247,18 @@ nnoremap [w :lprevious<CR>
 nnoremap ]w :lnext<CR>
 
 " Tags
-"   - goto first match : ,t
-"       - current word : ,T
-"   - list if multiple : ,j
-"       - current word : ,J
-"   - show preview     : ,p
-"       - current word : ,P
-nnoremap ,t :tag /
-nnoremap ,T :tag <C-r><C-w><CR>
-nnoremap ,j :tjump /
-nnoremap ,J :tjump <C-r><C-w><CR>
-nnoremap ,p :ptag /
-nnoremap ,P :ptag <C-r><C-w><CR>
+"   - goto first match : <Leader>t
+"       - current word : <Leader>T
+"   - list if multiple : <Leader>j
+"       - current word : <Leader>J
+"   - show preview     : <Leader>p
+"       - current word : <Leader>P
+nnoremap <Leader>t :tag /
+nnoremap <Leader>T :tag <C-r><C-w><CR>
+nnoremap <Leader>j :tjump /
+nnoremap <Leader>J :tjump <C-r><C-w><CR>
+nnoremap <Leader>p :ptag /
+nnoremap <Leader>P :ptag <C-r><C-w><CR>
 
 " }}}
 
@@ -281,9 +298,6 @@ function! CleverTab() abort
 endfunction
 inoremap <silent> <Tab> <C-r>=CleverTab()<CR>
 
-" Select entry from completion-menu using ENTER
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-
 " Use SHIFT-TAB for traversing the completion-menu in reverse, and to insert tabs after non-space characters
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "<Space><Tab>"
 
@@ -302,8 +316,8 @@ set ignorecase
 set smartcase
 
 " Grep
-"   - prompt       : ,a
-"   - current word : ,A
+"   - prompt       : <Leader>a
+"   - current word : <Leader>A
 if executable('rg')
     " If available, use 'ripgrep' as the grep-program
     set grepprg=rg\ --smart-case\ --vimgrep
@@ -317,12 +331,12 @@ else
     " Use vimgrep in the 'Grep' command
     command! -nargs=+ Grep silent lvimgrep /<args>/gj ** | lwindow | redraw!
 endif
-nnoremap ,a :Grep<Space>
-nnoremap ,A :Grep <C-r><C-w><CR>
+nnoremap <Leader>a :Grep<Space>
+nnoremap <Leader>A :Grep <C-r><C-w><CR>
 
 " Better global searches
-"   - prompt       : ,g
-"   - current word : ,G
+"   - prompt       : <Leader>g
+"   - current word : <Leader>G
 function! GlobalSearch(...) abort
     " If no pattern was supplied, prompt for one
     if a:0 == 0
@@ -344,8 +358,8 @@ function! GlobalSearch(...) abort
         endif
     endif
 endfunction
-nnoremap <silent> ,g :call GlobalSearch()<CR>
-nnoremap <silent> ,G :call GlobalSearch("<C-r><C-w>")<CR>
+nnoremap <silent> <Leader>g :call GlobalSearch()<CR>
+nnoremap <silent> <Leader>G :call GlobalSearch("<C-r><C-w>")<CR>
 
 " }}}
 
@@ -354,11 +368,11 @@ nnoremap <silent> ,G :call GlobalSearch("<C-r><C-w>")<CR>
 " Don't save options and mapings as part of sessions
 set sessionoptions-=options
 
-" Save session using ,ss
-nnoremap ,ss :mksession! ~/.vim/.sessions/<C-z><S-Tab>
+" Save session using <Leader>ss
+nnoremap <Leader>ss :mksession! ~/.vim/.sessions/<C-z><S-Tab>
 
-" Open session using ,so
-nnoremap ,so :source ~/.vim/.sessions/<C-z><S-Tab>
+" Open session using <Leader>so
+nnoremap <Leader>so :source ~/.vim/.sessions/<C-z><S-Tab>
 
 " Automatically save session before leaving vim
 augroup vimrc
@@ -367,8 +381,8 @@ augroup vimrc
                 \ else | mksession! ~/.vim/.sessions/previous.vim | endif
 augroup END
 
-" Restore previous (unnamed) session using ,sp
-nnoremap <silent> ,sp :source ~/.vim/.sessions/previous.vim<CR>
+" Restore previous (unnamed) session using <Leader>sp
+nnoremap <silent> <Leader>sp :source ~/.vim/.sessions/previous.vim<CR>
 
 " }}}
 
@@ -401,7 +415,7 @@ augroup vimrc
 augroup END
 
 " Colorscheme (doesn't complain if the specified colorscheme doesn't exist)
-silent! colorscheme solarized
+silent! colorscheme flattened_light
 
 " }}}
 

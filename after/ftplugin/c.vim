@@ -30,7 +30,7 @@ function! CurrentFunction()
         echo startline
     endif
 endfunction
-nnoremap ,m :call CurrentFunction()<CR>
+nnoremap <Leader>m :call CurrentFunction()<CR>
 
 " Fold using expressions
 setlocal foldmethod=expr
