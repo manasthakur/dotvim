@@ -34,10 +34,10 @@ if v:version >= 800
         endif
     endfunction
 
-    " Set <Leader>l to compile using 'ant'
-    nnoremap <buffer> <silent> <Leader>l :call RunAsync('ant')<CR>
+    " Set <Leader>, to compile using 'ant'
+    nnoremap <buffer> <silent> <Leader>, :call RunAsync('ant')<CR>
 else
-    nnoremap <buffer> <Leader>l :silent make! \| cwindow \| redraw!<CR>
+    nnoremap <buffer> <Leader>, :silent make! \| cwindow \| redraw!<CR>
 endif
 
 " Fold using expressions
