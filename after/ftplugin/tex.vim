@@ -3,8 +3,8 @@
 " Enable spell-check
 setlocal spell
 
-" Use <Leader>n to make (forced)
-nnoremap <buffer> <Leader>n :!make -B<CR><CR>
+" Use <Leader>l to make (forced)
+nnoremap <buffer> <Leader>l :!make -B<CR><CR>
 
 " Complete words containing ':' and '-'
 setlocal iskeyword+=:,-
