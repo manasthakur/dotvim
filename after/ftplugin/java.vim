@@ -4,7 +4,7 @@
 nnoremap <buffer> <Leader>d :call GlobalSearch("^\\s*\\(class\\\|public\\\|private\\\|protected\\).*{")<CR>
 
 " Echo current method's header (works if explicit access-modifiers have been used)
-nnoremap <buffer> <Leader>m :echo getline(search("^\\s*\\(public\\\|private\\\|protected\\).*{"<Leader> 'bn'))<CR>
+nnoremap <buffer> <Leader>m :echo getline(search("^\\s*\\(public\\\|private\\\|protected\\).*{", 'bn'))<CR>
 
 " Search among visit methods
 nnoremap <buffer> <Leader>vm :keeppatterns ilist /visit.*.*{<Left><Left><Left>
