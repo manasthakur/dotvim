@@ -139,7 +139,7 @@ inoremap <expr> } getline('.')[col('.')-1] == "}" ? "\<Right>" : "}"
 " Intelligent ENTER
 "   - selects entry in completion menu
 "   - expands block if the next character is '}'
-"   - works normally otherwise
+"   - works normally in other cases
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : ((getline('.')[col('.')-1] == '}') ? "\<CR>\<C-o>O" : "\<C-g>u\<CR>")
 
 " Copy selected text and paste it indented using CTRL-k
@@ -230,6 +230,12 @@ cnoremap vsb vertical sb
 " Switch to alternate buffer using <Leader>r
 nnoremap <Leader>r :b#<CR>
 
+" Switch windows using <Leader>+h,j,k,l
+nnoremap <Leader>h <C-w>h
+nnoremap <Leader>j <C-w>j
+nnoremap <Leader>k <C-w>k
+nnoremap <Leader>l <C-w>l
+
 " Bracket maps to cycle back-and-forth
 "   - Buffers        : [b and ]b
 "   - Tabs           : [t and ]t
@@ -247,14 +253,14 @@ nnoremap ]w :lnext<CR>
 " Tags
 "   - goto first match : <Leader>t
 "       - current word : <Leader>T
-"   - list if multiple : <Leader>j
-"       - current word : <Leader>J
+"   - list if multiple : <Leader>y
+"       - current word : <Leader>Y
 "   - show preview     : <Leader>p
 "       - current word : <Leader>P
 nnoremap <Leader>t :tag /
 nnoremap <Leader>T :tag <C-r><C-w><CR>
-nnoremap <Leader>j :tjump /
-nnoremap <Leader>J :tjump <C-r><C-w><CR>
+nnoremap <Leader>y :tjump /
+nnoremap <Leader>Y :tjump <C-r><C-w><CR>
 nnoremap <Leader>p :ptag /
 nnoremap <Leader>P :ptag <C-r><C-w><CR>
 
