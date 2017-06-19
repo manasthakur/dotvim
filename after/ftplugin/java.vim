@@ -1,13 +1,13 @@
 " Java specific settings
 
 " List all classes and public/private/protected methods
-nnoremap <buffer> <Leader>d :call GlobalSearch("^\\s*\\(class\\\|public\\\|private\\\|protected\\).*{")<CR>
+nnoremap <buffer> ,d :call GlobalSearch("^\\s*\\(class\\\|public\\\|private\\\|protected\\).*{")<CR>
 
 " Echo current method's header (works if explicit access-modifiers have been used)
-nnoremap <buffer> <Leader>m :echo getline(search("^\\s*\\(public\\\|private\\\|protected\\).*{", 'bn'))<CR>
+nnoremap <buffer> ,m :echo getline(search("^\\s*\\(public\\\|private\\\|protected\\).*{", 'bn'))<CR>
 
 " Search among visit methods
-nnoremap <buffer> <Leader>vm :keeppatterns ilist /visit.*.*{<Left><Left><Left>
+nnoremap <buffer> ,vm :keeppatterns ilist /visit.*.*{<Left><Left><Left>
 
 " Use 'ant' as the compiler (sets 'makeprg' and 'errorformat')
 compiler ant
@@ -34,10 +34,10 @@ if v:version >= 800
         endif
     endfunction
 
-    " Set <Leader>, to compile using 'ant'
-    nnoremap <buffer> <silent> <Leader>, :call RunAsync('ant')<CR>
+    " Set ,, to compile using 'ant'
+    nnoremap <buffer> <silent> ,, :call RunAsync('ant')<CR>
 else
-    nnoremap <buffer> <Leader>, :silent make! \| cwindow \| redraw!<CR>
+    nnoremap <buffer> ,, :silent make! \| cwindow \| redraw!<CR>
 endif
 
 " Fold using expressions

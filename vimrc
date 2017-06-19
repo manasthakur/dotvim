@@ -109,9 +109,6 @@ augroup END
 
 " 4. SHORTHANDS {{{
 
-" Replace further occurrences of <Leader> with <Space>
-let mapleader = "\<Space>"
-
 " Exit insert and select modes using jk
 inoremap jk <Esc>
 snoremap jk <Esc>
@@ -198,8 +195,8 @@ set hidden
 " Confirm before quitting vim with unsaved buffers
 set confirm
 
-" Update buffer using <Leader>w
-nnoremap <Leader>w :update<CR>
+" Update buffer using ,w
+nnoremap ,w :update<CR>
 
 " Ignore following patterns while expanding file-names
 set wildignore+=tags,*.class,*.o,*.out,*.aux,*.bbl,*.blg,*.cls
@@ -211,30 +208,27 @@ set suffixes+=*.bib,*.log,*.jpg,*.png,*.dvi,*.ps,*.pdf
 set wildcharm=<C-z>
 
 " Search recursively and open files
-"   - from the current working directory : <Leader>e
-"   - from the directory of current file : <Leader>E
+"   - from the current working directory : ,e
+"   - from the directory of current file : ,E
 "   (press CTRL-a to list and open multiple matching files)
-nnoremap <Leader>e :n **/*
-nnoremap <Leader>E :n <C-R>=fnameescape(expand('%:p:h'))<CR>/<C-z><S-Tab>
+nnoremap ,e :n **/*
+nnoremap ,E :n <C-R>=fnameescape(expand('%:p:h'))<CR>/<C-z><S-Tab>
 
 " Switch buffer
-"   - without listing : <Leader>b
-"   - after listing   : <Leader>f
-nnoremap <Leader>b :b <C-z><S-Tab>
-nnoremap <Leader>f :ls<CR>:b<Space>
+"   - without listing : ,b
+"   - after listing   : ,f
+nnoremap ,b :b <C-z><S-Tab>
+nnoremap ,f :ls<CR>:b<Space>
 
 " Open a buffer in a vsplit using :vsb
 " (:sb does the same in a split)
 cnoremap vsb vertical sb
 
-" Switch to alternate buffer using <Leader>r
-nnoremap <Leader>r :b#<CR>
+" Switch to alternate buffer using ,r
+nnoremap ,r :b#<CR>
 
-" Switch windows using <Leader>+h,j,k,l
-nnoremap <Leader>h <C-w>h
-nnoremap <Leader>j <C-w>j
-nnoremap <Leader>k <C-w>k
-nnoremap <Leader>l <C-w>l
+" Use <Space> to access window-navigation shortcuts
+nnoremap <Space> <C-w>
 
 " Bracket maps to cycle back-and-forth
 "   - Buffers        : [b and ]b
@@ -251,18 +245,18 @@ nnoremap [w :lprevious<CR>
 nnoremap ]w :lnext<CR>
 
 " Tags
-"   - goto first match : <Leader>t
-"       - current word : <Leader>T
-"   - list if multiple : <Leader>y
-"       - current word : <Leader>Y
-"   - show preview     : <Leader>p
-"       - current word : <Leader>P
-nnoremap <Leader>t :tag /
-nnoremap <Leader>T :tag <C-r><C-w><CR>
-nnoremap <Leader>y :tjump /
-nnoremap <Leader>Y :tjump <C-r><C-w><CR>
-nnoremap <Leader>p :ptag /
-nnoremap <Leader>P :ptag <C-r><C-w><CR>
+"   - goto first match : ,t
+"       - current word : ,T
+"   - list if multiple : ,y
+"       - current word : ,Y
+"   - show preview     : ,p
+"       - current word : ,P
+nnoremap ,t :tag /
+nnoremap ,T :tag <C-r><C-w><CR>
+nnoremap ,y :tjump /
+nnoremap ,Y :tjump <C-r><C-w><CR>
+nnoremap ,p :ptag /
+nnoremap ,P :ptag <C-r><C-w><CR>
 
 " }}}
 
@@ -320,8 +314,8 @@ set ignorecase
 set smartcase
 
 " Grep
-"   - prompt       : <Leader>a
-"   - current word : <Leader>A
+"   - prompt       : ,a
+"   - current word : ,A
 if executable('rg')
     " If available, use 'ripgrep' as the grep-program
     set grepprg=rg\ --smart-case\ --vimgrep
@@ -335,12 +329,12 @@ else
     " Use vimgrep in the 'Grep' command
     command! -nargs=+ Grep silent lvimgrep /<args>/gj ** | lwindow | redraw!
 endif
-nnoremap <Leader>a :Grep<Space>
-nnoremap <Leader>A :Grep <C-r><C-w><CR>
+nnoremap ,a :Grep<Space>
+nnoremap ,A :Grep <C-r><C-w><CR>
 
 " Better global searches
-"   - prompt       : <Leader>g
-"   - current word : <Leader>G
+"   - prompt       : ,g
+"   - current word : ,G
 function! GlobalSearch(...) abort
     " If no pattern was supplied, prompt for one
     if a:0 == 0
@@ -362,8 +356,8 @@ function! GlobalSearch(...) abort
         endif
     endif
 endfunction
-nnoremap <silent> <Leader>g :call GlobalSearch()<CR>
-nnoremap <silent> <Leader>G :call GlobalSearch("<C-r><C-w>")<CR>
+nnoremap <silent> ,g :call GlobalSearch()<CR>
+nnoremap <silent> ,G :call GlobalSearch("<C-r><C-w>")<CR>
 
 " }}}
 
@@ -372,11 +366,11 @@ nnoremap <silent> <Leader>G :call GlobalSearch("<C-r><C-w>")<CR>
 " Don't save options and mapings as part of sessions
 set sessionoptions-=options
 
-" Save session using <Leader>ss
-nnoremap <Leader>ss :mksession! ~/.vim/.sessions/<C-z><S-Tab>
+" Save session using ,ss
+nnoremap ,ss :mksession! ~/.vim/.sessions/<C-z><S-Tab>
 
-" Open session using <Leader>so
-nnoremap <Leader>so :source ~/.vim/.sessions/<C-z><S-Tab>
+" Open session using ,so
+nnoremap ,so :source ~/.vim/.sessions/<C-z><S-Tab>
 
 " Automatically save session before leaving vim
 augroup vimrc
@@ -385,8 +379,8 @@ augroup vimrc
                 \ else | mksession! ~/.vim/.sessions/previous.vim | endif
 augroup END
 
-" Restore previous (unnamed) session using <Leader>sp
-nnoremap <silent> <Leader>sp :source ~/.vim/.sessions/previous.vim<CR>
+" Restore previous (unnamed) session using ,sp
+nnoremap <silent> ,sp :source ~/.vim/.sessions/previous.vim<CR>
 
 " }}}
 
