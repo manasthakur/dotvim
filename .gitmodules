@@ -13,3 +13,6 @@
 [submodule "pack/bundle/start/vim-dirvish"]
 	path = pack/bundle/start/vim-dirvish
 	url = https://github.com/justinmk/vim-dirvish.git
+[submodule "pack/bundle/start/vim-asyncmake"]
+	path = pack/bundle/start/vim-asyncmake
+	url = https://github.com/manasthakur/vim-asyncmake.git
