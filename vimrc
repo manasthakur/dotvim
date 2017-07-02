@@ -127,7 +127,7 @@ function! BetterBackSpace() abort
     else
         return "\<BS>"
 endfunction
-inoremap <BS> <C-r>=BetterBackSpace()<CR>
+inoremap <silent> <BS> <C-r>=BetterBackSpace()<CR>
 
 " Skip over closing parenthesis/brace
 inoremap <expr> ) getline('.')[col('.')-1] == ")" ? "\<Right>" : ")"
@@ -136,7 +136,7 @@ inoremap <expr> } getline('.')[col('.')-1] == "}" ? "\<Right>" : "}"
 " Intelligent ENTER
 "   - selects entry in completion menu
 "   - expands block if the next character is '}'
-"   - works normally in other cases
+"   - works normally otherwise
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : ((getline('.')[col('.')-1] == '}') ? "\<CR>\<C-o>O" : "\<C-g>u\<CR>")
 
 " Copy selected text and paste it indented using CTRL-k
