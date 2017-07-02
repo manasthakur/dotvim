@@ -45,4 +45,3 @@ function! MyFoldLevel()
 
     return '='
 endfunction
-
