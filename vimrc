@@ -76,6 +76,9 @@ set display=lastline
 " Keep cursor off by a line while scrolling (for context)
 set scrolloff=1
 
+" Draw the screen lazily (speeds up scroll and macro-execution)
+set lazyredraw
+
 " Keep 1000 lines of command-line history
 set history=1000
 
