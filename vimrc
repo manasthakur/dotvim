@@ -215,7 +215,7 @@ set wildcharm=<C-z>
 "   - from the directory of current file : ,E
 "   (press CTRL-a to list and open multiple matching files)
 nnoremap ,e :n **/*
-nnoremap ,E :n <C-R>=fnameescape(expand('%:p:h'))<CR>/<C-z><S-Tab>
+nnoremap ,E :n <C-R>=fnameescape(expand('%:p:h'))<CR>/**/*
 
 " Switch buffer
 "   - without listing : ,b
