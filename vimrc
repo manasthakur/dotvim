@@ -401,11 +401,19 @@ set statusline=%<%f\ %h%m%r\%{exists('g:loaded_fugitive')?fugitive#statusline():
 " Show (partial) command in the last line of the screen
 set showcmd
 
-" Different cursor-shapes in different modes
-let &t_SI = "\<Esc>[6 q"
-let &t_EI = "\<Esc>[2 q"
-if v:version > 704 || v:version == 704 && has("patch693")
-    let &t_SR = "\<Esc>[4 q"
+" Different cursor-shapes in different modes (tweaked for GNU-Screen as well)
+if &term =~ "screen."
+    let &t_SI.="\eP\e[6 q\e\\"
+    let &t_EI.="\eP\e[2 q\e\\"
+    if v:version > 704 || v:version == 704 && has("patch693")
+        let &t_SR = "\eP\e[4 q\e\\"
+    endif
+else
+    let &t_SI = "\<Esc>[6 q"
+    let &t_EI = "\<Esc>[2 q"
+    if v:version > 704 || v:version == 704 && has("patch693")
+        let &t_SR = "\<Esc>[4 q"
+    endif
 endif
 
 " No cursorline in diff, quickfix, and inactive windows
