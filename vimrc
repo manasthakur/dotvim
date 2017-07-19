@@ -162,6 +162,10 @@ nnoremap gV '[V']
 " Delete surrounding brace-construct using dsc
 nnoremap dsc diB"_ddk"_ddP=`]
 
+" Paste and indent using =p and =P
+nnoremap =p p'[V']=
+nnoremap =P P'[V']=
+
 " Copy selected text to system-clipboard using Y
 xnoremap Y "+y
 
