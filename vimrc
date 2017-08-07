@@ -22,6 +22,9 @@ runtime macros/matchit.vim
 " Put all the swap files (with full path as name) at '~/.vim/.swap/'
 set directory=~/.vim/.swap//
 
+" Don't create backup files
+set nobackup
+
 " Clear autocommands
 augroup vimrc
     autocmd!
@@ -60,8 +63,8 @@ if v:version > 703 || v:version == 703 && has("patch541")
     set formatoptions+=j
 endif
 
-" Unicode characters for list mode (show up on ':set list')
-set listchars=tab:»\ ,trail:·
+" Characters for list mode (show up on ':set list')
+set listchars=tab:>\ ,trail:-
 
 " }}}
 
