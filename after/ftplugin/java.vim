@@ -12,15 +12,15 @@ nnoremap <buffer> ,vm :keeppatterns ilist /visit.*.*{<Left><Left><Left>
 " Set proper errorformat
 setlocal errorformat=%A%f:%l:\ %m,%-Z%p^,%-C%.%#
 
-" The variable 'b:asyncmakeprg' holds a default javac command
-let b:asyncmakeprg = "javac "
+" The variable 'b:dispatch' holds the default build command (vim-dispatch)
+let b:dispatch = 'javac '
 if isdirectory("../bin")
-    let b:asyncmakeprg .= "-d ../bin/ "
+    let b:dispatch .= '-d ../bin/ '
 endif
-let b:asyncmakeprg .= expand('%')
+let b:dispatch .= expand('%')
 
-" Set ,, to compile using the AsyncMake plugin
-nnoremap <buffer> <silent> ,, :AsyncMake<CR>
+" Set ,, to compile using the dispatch plugin
+nnoremap <buffer> <silent> ,, :Dispatch<CR>
 
 " Fold using expressions
 setlocal foldmethod=expr
