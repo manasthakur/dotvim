@@ -12,6 +12,9 @@ nnoremap <buffer> ,vm :keeppatterns ilist /visit.*.*{<Left><Left><Left>
 " Set proper errorformat
 setlocal errorformat=%A%f:%l:\ %m,%-Z%p^,%-C%.%#
 
+" Enable vim-dispatch
+packadd vim-dispatch
+
 " The variable 'b:dispatch' holds the default build command (vim-dispatch)
 let b:dispatch = 'javac '
 if isdirectory("../bin")
