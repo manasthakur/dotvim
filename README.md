@@ -1,4 +1,4 @@
-# Manas's vim setup
+# Manas's Vim setup
 
 This is my personal vim-configuration.
 It keeps changing based on my requirements and experience.
@@ -12,13 +12,14 @@ Minimum compatible version: Vim 7.2+.
 - Clone repository into `$HOME/.vim`:
 
     ```
-    git clone --recursive https://github.com/manasthakur/dotvim.git ~/.vim
+    git clone https://github.com/manasthakur/dotvim.git $HOME/.vim
     ```
 
-- Symlink `.vimrc` (not _needed_ in Vim 7.4+):
+- Clone plugins:
 
     ```
-    ln -sf ~/.vim/vimrc ~/.vimrc
+    cd $HOME/.vim
+    bash ./setup.sh
     ```
 
 - Generate helptags:
@@ -28,14 +29,12 @@ Minimum compatible version: Vim 7.2+.
     :helptags ALL
     ```
 
-Plugins installed in `.vim/pack/bundle/start/` get loaded automatically, and
-those in `.vim/pack/bundle/opt/` (if any) can be loaded on-demand using `:packadd
+I use the package feature introduced in Vim 8 (an overview is available
+[here](https://gist.github.com/manasthakur/ab4cf8d32a28ea38271ac0d07373bb53))
+to manage my plugins.
+Plugins installed in `.vim/pack/*/start/` get loaded automatically, and
+those in `.vim/pack/*/opt/` (if any) can be loaded on-demand using `:packadd
 <plugin-name>`.
-The last section of [this
-article](https://gist.github.com/manasthakur/ab4cf8d32a28ea38271ac0d07373bb53)
-describes Vim 8's package feature in detail, and [this
-article](https://gist.github.com/manasthakur/d4dc9a610884c60d944a4dd97f0b3560)
-provides help on managing plugins using git submodules.
 
 ## License
 
