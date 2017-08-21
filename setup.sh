@@ -1,4 +1,4 @@
-mkdir -p pack/mine/start pack/mine/opt pack/others/start pack/others/opt
+mkdir -p pack/mine/start pack/mine/opt pack/others/start pack/others/opt .sessions .swap
 
 cd pack/mine/start/
 git clone https://github.com/manasthakur/vim-commentor.git
