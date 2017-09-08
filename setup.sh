@@ -9,8 +9,5 @@ git clone https://github.com/tpope/vim-surround.git
 git clone https://github.com/tpope/vim-fugitive.git
 git clone https://github.com/justinmk/vim-dirvish.git
 
-cd ../opt/
-git clone -b job https://github.com/tpope/vim-dispatch.git
-
 cd ~
 ln -s ~/.vim/vimrc .vimrc
