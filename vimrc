@@ -409,7 +409,7 @@ set statusline=%<%f\ %h%m%r\%{exists('g:loaded_fugitive')?fugitive#statusline():
 set showcmd
 
 " Different cursor-shapes in different modes (tweaked for GNU-Screen as well)
-if &term =~ "screen."
+if !empty($STY)
     let &t_SI.="\eP\e[6 q\e\\"
     let &t_EI.="\eP\e[2 q\e\\"
     if v:version > 704 || v:version == 704 && has("patch693")
