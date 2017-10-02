@@ -91,25 +91,22 @@ set mouse=a
 " Time-out for key-codes in 50ms (leads to a faster ESC)
 set ttimeoutlen=50
 
-" Behavioral autocommands
-augroup vimrc
-    " On opening a file, restore the last-known position
-    autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") |
-                \ execute "normal! g'\"" | endif
+" On opening a file, restore the last-known position
+autocmd vimrc BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") |
+            \ execute "normal! g'\"" | endif
 
-    " Don't move the cursor to start-of-line when switching buffers
-    autocmd BufLeave * set nostartofline |
-                \ autocmd CursorMoved,CursorMovedI * set startofline |
-                \ autocmd! vimrc CursorMoved,CursorMovedI
+" Don't move the cursor to start-of-line when switching buffers
+autocmd vimrc BufLeave * set nostartofline |
+            \ autocmd CursorMoved,CursorMovedI * set startofline |
+            \ autocmd! vimrc CursorMoved,CursorMovedI
 
-    " Make insert-mode completions case-sensitive
-    autocmd InsertEnter * set noignorecase
-    autocmd InsertLeave * set ignorecase
+" Make insert-mode completions case-sensitive
+autocmd vimrc InsertEnter * set noignorecase
+autocmd vimrc InsertLeave * set ignorecase
 
-    " Automatically open quickfix/location windows when populated
-    autocmd QuickFixCmdPost [^l]* cwindow
-    autocmd QuickFixCmdPost l* lwindow
-augroup END
+" Automatically open quickfix/location windows when populated
+autocmd vimrc QuickFixCmdPost [^l]* cwindow
+autocmd vimrc QuickFixCmdPost l* lwindow
 
 " }}}
 
@@ -383,11 +380,9 @@ nnoremap ,ss :mksession! ~/.vim/.sessions/<C-z><S-Tab>
 nnoremap ,so :source ~/.vim/.sessions/<C-z><S-Tab>
 
 " Automatically save session before leaving vim
-augroup vimrc
-    autocmd VimLeavePre * if !empty(v:this_session) |
-                \ execute "mksession! " . fnameescape(v:this_session) |
-                \ else | mksession! ~/.vim/.sessions/previous.vim | endif
-augroup END
+autocmd vimrc VimLeavePre * if !empty(v:this_session) |
+            \ execute "mksession! " . fnameescape(v:this_session) |
+            \ else | mksession! ~/.vim/.sessions/previous.vim | endif
 
 " Restore previous (unnamed) session using ,sp
 nnoremap <silent> ,sp :source ~/.vim/.sessions/previous.vim<CR>
@@ -424,11 +419,9 @@ else
 endif
 
 " No cursorline in diff, quickfix, and inactive windows
-augroup vimrc
-    autocmd VimEnter * set cursorline
-    autocmd WinEnter * if &filetype != "qf" && !&diff | set cursorline | endif
-    autocmd WinLeave * set nocursorline
-augroup END
+autocmd vimrc VimEnter * set cursorline
+autocmd vimrc WinEnter * if &filetype != "qf" && !&diff | set cursorline | endif
+autocmd vimrc WinLeave * set nocursorline
 
 " Colorscheme (doesn't complain if the specified colorscheme doesn't exist)
 silent! colorscheme flattened_light
