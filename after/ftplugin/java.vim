@@ -31,8 +31,8 @@ setlocal foldexpr=JavaFoldExpr()
 
 " The variable 'b:dispatch' holds the default build command
 let b:dispatch = 'javac '
-if isdirectory("../bin")
-    let b:dispatch .= '-d ../bin/ '
+if isdirectory("../obj")
+    let b:dispatch .= '-d ../obj/ '
 endif
 let b:dispatch .= expand('%')
 
