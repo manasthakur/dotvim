@@ -52,9 +52,6 @@ set softtabstop=4
 " Use 4 spaces for each step of (auto)indent
 set shiftwidth=4
 
-" Replace tabs with spaces
-set expandtab
-
 " Allow backspacing over all characters
 set backspace=indent,eol,start
 
