@@ -33,9 +33,6 @@ augroup END
 " Change the default flavor for LaTeX files (affects 'filetype')
 let g:tex_flavor = "latex"
 
-" Disable netrw (using dirvish instead)
-let g:loaded_netrwPlugin = 1
-
 " }}}
 
 " 2. FORMATTING {{{
@@ -46,11 +43,9 @@ set autoindent
 " Count existing tabs as 4 spaces
 set tabstop=4
 
-" Backspace over 4 characters; further, treat a TAB literal as 4 spaces
-set softtabstop=4
-
-" Use 4 spaces for each step of (auto)indent
+" Backspace, tab, and indent with 4 spaces
 set shiftwidth=4
+let &softtabstop = &shiftwidth
 
 " Allow backspacing over all characters
 set backspace=indent,eol,start
@@ -139,11 +134,11 @@ inoremap <expr> } getline('.')[col('.')-1] == "}" ? "\<Right>" : "}"
 "   - works normally otherwise
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : ((getline('.')[col('.')-1] == '}') ? "\<CR>\<C-o>O" : "\<C-g>u\<CR>")
 
-" Copy selected text and paste it indented using CTRL-k
+" Copy selected text and paste it indented using CTRL+k
 xnoremap <C-k> "xc
 inoremap <C-k> <Esc>"_dd"xP=']']A
 
-" Scroll without moving the cursor using CTRL-j and CTRL-k
+" Scroll without moving the cursor using CTRL+j and CTRL+k
 nnoremap <C-j> j<C-e>
 nnoremap <C-k> k<C-y>
 
@@ -208,13 +203,13 @@ set wildignore+=tags,*.class,*.o,*.out,*.aux,*.bbl,*.blg,*.cls
 " Reduce the priority of following patterns while expanding file-names
 set suffixes+=*.bib,*.log,*.jpg,*.png,*.dvi,*.ps,*.pdf
 
-" Use CTRL-z to start wildcard-expansion in command-line mappings
+" Use CTRL+z to start wildcard-expansion in command-line mappings
 set wildcharm=<C-z>
 
 " Search recursively and open files
 "   - from the current working directory : ,e
 "   - from the directory of current file : ,E
-"   (press CTRL-a to list and open multiple matching files)
+"   (press CTRL+a to list and open multiple matching files)
 nnoremap ,e :n **/*
 nnoremap ,E :n <C-R>=fnameescape(expand('%:p:h'))<CR>/**/*
 
@@ -430,7 +425,28 @@ nnoremap <silent> ,sp :source ~/.vim/.sessions/previous.vim<CR>
 
 " }}}
 
-" 10. APPEARANCE {{{
+" 10. NETRW {{{
+
+" Open using '-' (also jumps to current file)
+function! OpenNetrw() abort
+    let l:alt_file = expand('%:t')
+    execute "Explore"
+    call search(fnameescape(l:alt_file))
+endfunction
+nnoremap <silent> - :call OpenNetrw()<CR>
+
+" Disable the banner
+let g:netrw_banner = 0
+
+" Hide './' and '../' entries
+let g:netrw_list_hide = '^\.\.\=/$'
+
+" Maintain the alternate buffer
+let g:netrw_altfile = 1
+
+" }}}
+
+" 11. APPEARANCE {{{
 
 " Show position at bottom-right
 set ruler
@@ -464,7 +480,7 @@ autocmd vimrc VimEnter * set cursorline
 autocmd vimrc WinEnter * if &filetype != "qf" && !&diff | set cursorline | endif
 autocmd vimrc WinLeave * set nocursorline
 
-" Colorscheme (doesn't complain if the specified colorscheme doesn't exist)
+" Colorscheme (don't complain if the specified colorscheme doesn't exist)
 silent! colorscheme base16-ocean
 
 " }}}
