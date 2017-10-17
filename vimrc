@@ -96,10 +96,6 @@ autocmd vimrc BufLeave * set nostartofline |
 autocmd vimrc InsertEnter * set noignorecase
 autocmd vimrc InsertLeave * set ignorecase
 
-" Automatically open quickfix/location windows when populated
-autocmd vimrc QuickFixCmdPost [^l]* cwindow
-autocmd vimrc QuickFixCmdPost l* lwindow
-
 " }}}
 
 " 4. SHORTHANDS {{{
@@ -455,7 +451,7 @@ set ruler
 set laststatus=2
 
 " Custom statusline with git-branch-name (if fugitive is installed), and ruler
-set statusline=%<%f\ %h%m%r\%{exists('g:loaded_fugitive')?fugitive#statusline():''}%=%-14.(%l,%c%V%)\ %P
+set statusline=%<%f\ %h%m%r\%{exists('g:loaded_fugitive')?fugitive#statusline():''}\%{exists('g:loaded_asyncmake')?asyncmake#statusline():''}%=%-14.(%l,%c%V%)\ %P
 
 " Show (partial) command in the last line of the screen
 set showcmd

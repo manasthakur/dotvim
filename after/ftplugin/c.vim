@@ -8,6 +8,15 @@ if filereadable('cscope.out')
     cs add cscope.out
 endif
 
+" Enable asynchronous error-checking
+packadd vim-asyncmake
+
+" The variable 'b:dispatch' holds the default build command
+let b:dispatch = 'g++ ' . expand('%')
+
+" Set ,, to compile using the variable 'b:dispatch'
+nnoremap <buffer> <silent> ,, :Dispatch<CR>
+
 " Find the callers of the function under cursor
 nmap <C-\>c :cs find c <C-R>=expand('<cword>')<CR><CR>
 
