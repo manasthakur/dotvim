@@ -27,7 +27,7 @@ set nobackup
 
 " Clear autocommands
 augroup vimrc
-    autocmd!
+	autocmd!
 augroup END
 
 " Change the default flavor for LaTeX files (affects 'filetype')
@@ -52,7 +52,7 @@ set backspace=indent,eol,start
 
 " Remove comment-leader when joining lines (using J)
 if v:version > 703 || v:version == 703 && has("patch541")
-    set formatoptions+=j
+	set formatoptions+=j
 endif
 
 " Characters for list mode (show up on ':set list')
@@ -85,12 +85,12 @@ set ttimeoutlen=50
 
 " On opening a file, restore the last-known position
 autocmd vimrc BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") |
-            \ execute "normal! g'\"" | endif
+			\ execute "normal! g'\"" | endif
 
 " Don't move the cursor to start-of-line when switching buffers
 autocmd vimrc BufLeave * set nostartofline |
-            \ autocmd CursorMoved,CursorMovedI * set startofline |
-            \ autocmd! vimrc CursorMoved,CursorMovedI
+			\ autocmd CursorMoved,CursorMovedI * set startofline |
+			\ autocmd! vimrc CursorMoved,CursorMovedI
 
 " Make insert-mode completions case-sensitive
 autocmd vimrc InsertEnter * set noignorecase
@@ -110,13 +110,13 @@ inoremap { {}<Left>
 
 " Auto-delete closing parenthesis/brace
 function! BetterBackSpace() abort
-    let cur_line = getline('.')
-    let before_char = cur_line[col('.')-2]
-    let after_char = cur_line[col('.')-1]
-    if (before_char == '(' && after_char == ')') || before_char == '{' && after_char == '}'
-        return "\<Del>\<BS>"
-    else
-        return "\<BS>"
+	let cur_line = getline('.')
+	let before_char = cur_line[col('.')-2]
+	let after_char = cur_line[col('.')-1]
+	if (before_char == '(' && after_char == ')') || before_char == '{' && after_char == '}'
+		return "\<Del>\<BS>"
+	else
+		return "\<BS>"
 endfunction
 inoremap <silent> <BS> <C-r>=BetterBackSpace()<CR>
 
@@ -209,11 +209,22 @@ set wildcharm=<C-z>
 nnoremap ,e :n **/*
 nnoremap ,E :n <C-R>=fnameescape(expand('%:p:h'))<CR>/**/*
 
+" Function to get the number of listed buffers
+function! NumListedBufs() abort
+	return len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) == 1
+endfunction
+
 " Switch buffer
 "   - without listing : ,b
 "   - after listing   : ,f
-nnoremap ,b :b <C-z><S-Tab>
+nnoremap <expr> ,b (NumListedBufs() == 1) ? ':b <C-z>' : ':b <C-z><S-Tab>'
 nnoremap ,f :ls<CR>:b<Space>
+
+" Delete buffer
+"	- with wildmenu : ,d
+"	- current one   : ,D
+nnoremap <expr> ,d (NumListedBufs() == 1) ? ':bd <C-z>' : ':bd <C-z><S-Tab>'
+nnoremap ,D :bd%<CR>
 
 " Open a buffer in a vsplit using :vsb
 " (:sb does the same in a split)
@@ -267,24 +278,24 @@ set complete-=i
 
 " Use TAB for clever insert-mode completion
 function! CleverTab() abort
-    " If completion-menu is visible, keep scrolling
-    if pumvisible()
-        return "\<C-n>"
-    endif
-    " Determine the pattern before the cursor
-    let str = matchstr(strpart(getline('.'), 0, col('.')-1), '[^ \t]*$')
-    if empty(str)
-        " After spaces, return the TAB literal
-        return "\<Tab>"
-    else
-        if match(str, '\/') != -1
-            " File-completion on seeing a '/'
-            return "\<C-x>\<C-f>"
-        else
-            " Complete based on the 'complete' option
-            return "\<C-p>"
-        endif
-    endif
+	" If completion-menu is visible, keep scrolling
+	if pumvisible()
+		return "\<C-n>"
+	endif
+	" Determine the pattern before the cursor
+	let str = matchstr(strpart(getline('.'), 0, col('.')-1), '[^ \t]*$')
+	if empty(str)
+		" After spaces, return the TAB literal
+		return "\<Tab>"
+	else
+		if match(str, '\/') != -1
+			" File-completion on seeing a '/'
+			return "\<C-x>\<C-f>"
+		else
+			" Complete based on the 'complete' option
+			return "\<C-p>"
+		endif
+	endif
 endfunction
 inoremap <silent> <Tab> <C-r>=CleverTab()<CR>
 
@@ -309,17 +320,17 @@ set smartcase
 "   - prompt       : ,a
 "   - current word : ,A
 if executable('rg')
-    " If available, use 'ripgrep' as the grep-program
-    set grepprg=rg\ --smart-case\ --vimgrep
+	" If available, use 'ripgrep' as the grep-program
+	set grepprg=rg\ --smart-case\ --vimgrep
 
-    " Display column numbers as well
-    set grepformat^=%f:%l:%c:%m
+	" Display column numbers as well
+	set grepformat^=%f:%l:%c:%m
 
-    " Define a 'Grep' command
-    command! -nargs=+ Grep silent lgrep! <args> | lwindow | redraw!
+	" Define a 'Grep' command
+	command! -nargs=+ Grep silent lgrep! <args> | lwindow | redraw!
 else
-    " Use vimgrep in the 'Grep' command
-    command! -nargs=+ Grep silent lvimgrep /<args>/gj ** | lwindow | redraw!
+	" Use vimgrep in the 'Grep' command
+	command! -nargs=+ Grep silent lvimgrep /<args>/gj ** | lwindow | redraw!
 endif
 nnoremap ,a :Grep<Space>
 nnoremap ,A :Grep <C-r><C-w><CR>
@@ -328,25 +339,25 @@ nnoremap ,A :Grep <C-r><C-w><CR>
 "   - prompt       : ,g
 "   - current word : ,G
 function! GlobalSearch(...) abort
-    " If no pattern was supplied, prompt for one
-    if a:0 == 0
-        let pattern = input(':g/')
-    else
-        let pattern = a:1
-    endif
-    if !empty(pattern)
-        " Print lines matching the pattern (along with line-numbers)
-        execute "g/" . pattern . "/#"
-        " The valid value of 'choice' is a line-number
-        let choice = input(':')
-        if !empty(choice)
-            " Jump to the entered line-number
-            execute choice
-        else
-            " If no choice was entered, restore the cursor position
-            execute "normal! \<C-o>"
-        endif
-    endif
+	" If no pattern was supplied, prompt for one
+	if a:0 == 0
+		let pattern = input(':g/')
+	else
+		let pattern = a:1
+	endif
+	if !empty(pattern)
+		" Print lines matching the pattern (along with line-numbers)
+		execute "g/" . pattern . "/#"
+		" The valid value of 'choice' is a line-number
+		let choice = input(':')
+		if !empty(choice)
+			" Jump to the entered line-number
+			execute choice
+		else
+			" If no choice was entered, restore the cursor position
+			execute "normal! \<C-o>"
+		endif
+	endif
 endfunction
 nnoremap <silent> ,g :call GlobalSearch()<CR>
 nnoremap <silent> ,G :call GlobalSearch("<C-r><C-w>")<CR>
@@ -358,38 +369,38 @@ nnoremap <silent> ,G :call GlobalSearch("<C-r><C-w>")<CR>
 " Easy comment toggles
 "	- gc  : operator
 "	- gcc : linewise
-function! CommentToggle(type, ...)
-  " Get the list of comment-markers
-  let cmt_markers = split(substitute(substitute(&commentstring, '\S\zs%s', ' %s', ''), '%s\ze\S', '%s ', ''), '%s', 1)
+function! CommentToggle(type, ...) abort
+	" Get the list of comment-markers
+	let cmt_markers = split(substitute(substitute(&commentstring, '\S\zs%s', ' %s', ''), '%s\ze\S', '%s ', ''), '%s', 1)
 
-  " Get space-trimmed LHS and RHS comment-markers
-  let lhs_cmt_marker = substitute(cmt_markers[0], ' ', '', '')
-  let rhs_cmt_marker = substitute(cmt_markers[1], ' ', '', '')
+	" Get space-trimmed LHS and RHS comment-markers
+	let lhs_cmt_marker = substitute(cmt_markers[0], ' ', '', '')
+	let rhs_cmt_marker = substitute(cmt_markers[1], ' ', '', '')
 
-  " Check if the first line is commented
-  if match(getline('.'), lhs_cmt_marker) == 0
-    " Yes ==> uncomment
-    if a:0
-      " Visual mode
-      silent execute "normal! :'<,'>s]^" . lhs_cmt_marker . "]\<CR>`<"
-      silent execute "normal! :'<,'>s]" . rhs_cmt_marker . "$]]\<CR>`<"
-    else
-      " Normal mode
-      silent execute "normal! :'[,']s]^" . lhs_cmt_marker . "]\<CR>`["
-      silent execute "normal! :'[,']s]" . rhs_cmt_marker . "$]]\<CR>`["
-    endif
-  else
-    " No ==> comment
-    if a:0
-      " Visual mode
-      silent execute "normal! :'<,'>s]^]" . lhs_cmt_marker . "\<CR>`<"
-      silent execute "normal! :'<,'>s]$]" . rhs_cmt_marker . "\<CR>`<"
-    else
-      " Normal mode
-      silent execute "normal! :'[,']s]^]" . lhs_cmt_marker . "\<CR>`["
-      silent execute "normal! :'[,']s]$]" . rhs_cmt_marker . "\<CR>`["
-    endif
-  endif
+	" Check if the first line is commented
+	if match(getline('.'), lhs_cmt_marker) == 0
+		" Yes ==> uncomment
+		if a:0
+			" Visual mode
+			silent execute "normal! :'<,'>s]^" . lhs_cmt_marker . "]\<CR>`<"
+			silent execute "normal! :'<,'>s]" . rhs_cmt_marker . "$]]\<CR>`<"
+		else
+			" Normal mode
+			silent execute "normal! :'[,']s]^" . lhs_cmt_marker . "]\<CR>`["
+			silent execute "normal! :'[,']s]" . rhs_cmt_marker . "$]]\<CR>`["
+		endif
+	else
+		" No ==> comment
+		if a:0
+			" Visual mode
+			silent execute "normal! :'<,'>s]^]" . lhs_cmt_marker . "\<CR>`<"
+			silent execute "normal! :'<,'>s]$]" . rhs_cmt_marker . "\<CR>`<"
+		else
+			" Normal mode
+			silent execute "normal! :'[,']s]^]" . lhs_cmt_marker . "\<CR>`["
+			silent execute "normal! :'[,']s]$]" . rhs_cmt_marker . "\<CR>`["
+		endif
+	endif
 endfunction
 nnoremap gc :<C-u>set opfunc=CommentToggle<CR>g@
 xnoremap gc :<C-u>call CommentToggle(visualmode(), 1)<CR>
@@ -410,8 +421,8 @@ nnoremap ,so :source ~/.vim/.sessions/<C-z><S-Tab>
 
 " Automatically save session before leaving vim
 autocmd vimrc VimLeavePre * if !empty(v:this_session) |
-            \ execute "mksession! " . fnameescape(v:this_session) |
-            \ else | mksession! ~/.vim/.sessions/previous.vim | endif
+			\ execute "mksession! " . fnameescape(v:this_session) |
+			\ else | mksession! ~/.vim/.sessions/previous.vim | endif
 
 " Restore previous (unnamed) session using ,sp
 nnoremap <silent> ,sp :source ~/.vim/.sessions/previous.vim<CR>
@@ -422,9 +433,8 @@ nnoremap <silent> ,sp :source ~/.vim/.sessions/previous.vim<CR>
 
 " Open using '-' (also jumps to current file)
 function! OpenNetrw() abort
-    let l:alt_file = expand('%:t')
-    execute "Explore"
-    call search(fnameescape(l:alt_file))
+	execute "Explore"
+	call search(fnameescape(expand('%:t')))
 endfunction
 nnoremap <silent> - :call OpenNetrw()<CR>
 
@@ -442,8 +452,10 @@ let g:netrw_altfile = 1
 " 11. TERMINAL {{{
 
 if has('terminal')
-	" Enter terminal-normal mode using ESC twice
-	tnoremap <Esc><Esc> <C-\><C-n>
+	if has('patch1108')
+		" Enter terminal-normal mode using ESC twice
+		tnoremap <Esc><Esc> <C-\><C-n>
+	endif
 
 	" Create a terminal buffer
 	"	- current window : SPACE+c
@@ -469,24 +481,38 @@ set ruler
 set laststatus=2
 
 " Custom statusline
-set statusline=%<%f\ %h%m%r\%{exists('g:loaded_fugitive')?fugitive#statusline():''}\%{exists('g:loaded_asyncmake')?asyncmake#statusline():''}%=%-14.(%l,%c%V%)\ %P
+set statusline=%<%f                                                                       " File name
+set statusline+=\ %h%m%r                                                                  " Help, RO, Modified
+set statusline+=%{exists('g:loaded_fugitive')?fugitive#statusline():''}                   " Git branch
+set statusline+=%=                                                                        " Separator
+set statusline+=%#WarningMsg#%{exists('g:loaded_asyncmake')?asyncmake#statusline():''}%*  " Quickfix validity
+set statusline+=\ %-14.(%l,%c%V%)                                                         " Line and column
+set statusline+=\ %p%%                                                                    " Percentage in file
 
 " Show (partial) command in the last line of the screen
 set showcmd
 
+" Echo highlight-group of text under cursor
+function! HighlightGroup() abort
+	if !exists("*synstack")
+		return
+	endif
+	echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
+
 " Different cursor-shapes in different modes (tweaked for GNU-Screen as well)
 if !empty($STY)
-    let &t_SI.="\eP\e[6 q\e\\"
-    let &t_EI.="\eP\e[2 q\e\\"
-    if v:version > 704 || v:version == 704 && has("patch693")
-        let &t_SR = "\eP\e[4 q\e\\"
-    endif
+	let &t_SI.="\eP\e[6 q\e\\"
+	let &t_EI.="\eP\e[2 q\e\\"
+	if v:version > 704 || v:version == 704 && has("patch693")
+		let &t_SR = "\eP\e[4 q\e\\"
+	endif
 else
-    let &t_SI = "\<Esc>[6 q"
-    let &t_EI = "\<Esc>[2 q"
-    if v:version > 704 || v:version == 704 && has("patch693")
-        let &t_SR = "\<Esc>[4 q"
-    endif
+	let &t_SI = "\<Esc>[6 q"
+	let &t_EI = "\<Esc>[2 q"
+	if v:version > 704 || v:version == 704 && has("patch693")
+		let &t_SR = "\<Esc>[4 q"
+	endif
 endif
 
 " No cursorline in diff, quickfix, and inactive windows
