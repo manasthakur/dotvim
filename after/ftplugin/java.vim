@@ -32,6 +32,11 @@ setlocal foldexpr=JavaFoldExpr()
 " Enable asynchronous error-checking
 packadd vim-asyncmake
 
+augroup asyncmake
+  autocmd!
+  autocmd BufWritePost,BufEnter *.java silent! :Dispatch!
+augroup END
+
 " The variable 'b:dispatch' holds the default build command
 let b:dispatch = 'javac -Xlint '
 if isdirectory("../obj")
