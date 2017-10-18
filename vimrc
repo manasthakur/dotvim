@@ -452,6 +452,10 @@ if has('terminal')
 	nnoremap <Space>c :term ++curwin<CR>
 	nnoremap <Space>s :term<CR>
 	nnoremap <Space>v :execute "rightbelow" . float2nr(0.33 * winwidth(0)) . "vsplit"<CR> <bar> :term ++curwin<CR>
+
+	" Send key-sequence to a terminal window using SPACE+e
+	command! -nargs=+ SendKeys :call term_sendkeys(bufnr("bash"), <q-args>."\<CR>")
+	nnoremap <Space>e :SendKeys<Space>
 endif
 
 " }}}
