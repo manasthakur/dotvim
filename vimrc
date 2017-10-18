@@ -222,9 +222,6 @@ cnoremap vsb vertical sb
 " Switch to alternate buffer using ,r
 nnoremap ,r :b#<CR>
 
-" Use <Space> to access window-navigation shortcuts
-nnoremap <Space> <C-w>
-
 " Bracket maps to cycle back-and-forth
 "   - Buffers        : [b and ]b
 "   - Tabs           : [t and ]t
@@ -442,7 +439,24 @@ let g:netrw_altfile = 1
 
 " }}}
 
-" 11. APPEARANCE {{{
+" 11. TERMINAL {{{
+
+if has('terminal')
+	" Switch to terminal-normal mode using ESC
+	tnoremap <Esc> <C-w>N
+
+	" Create a terminal buffer
+	"	- current window : SPACE+c
+	"	- split          : SPACE+s
+	"	- 1/3rd vsplit   : SPACE+v
+	nnoremap <Space>c :term ++curwin<CR>
+	nnoremap <Space>s :term<CR>
+	nnoremap <Space>v :execute "rightbelow" . float2nr(0.33 * winwidth(0)) . "vsplit"<CR> <bar> :term ++curwin<CR>
+endif
+
+" }}}
+
+" 12. APPEARANCE {{{
 
 " Show position at bottom-right
 set ruler
@@ -450,7 +464,7 @@ set ruler
 " Display statusline all the time
 set laststatus=2
 
-" Custom statusline with git-branch-name (if fugitive is installed), and ruler
+" Custom statusline
 set statusline=%<%f\ %h%m%r\%{exists('g:loaded_fugitive')?fugitive#statusline():''}\%{exists('g:loaded_asyncmake')?asyncmake#statusline():''}%=%-14.(%l,%c%V%)\ %P
 
 " Show (partial) command in the last line of the screen
@@ -477,7 +491,7 @@ autocmd vimrc WinEnter * if &filetype != "qf" && !&diff | set cursorline | endif
 autocmd vimrc WinLeave * set nocursorline
 
 " Colorscheme (don't complain if the specified colorscheme doesn't exist)
-silent! colorscheme base16-ocean
+silent! colorscheme flattened_light
 
 " }}}
 
