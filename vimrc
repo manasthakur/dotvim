@@ -442,13 +442,16 @@ let g:netrw_altfile = 1
 " 11. TERMINAL {{{
 
 if has('terminal')
+	" Enter terminal-normal mode using ESC twice
+	tnoremap <Esc><Esc> <C-\><C-n>
+
 	" Create a terminal buffer
 	"	- current window : SPACE+c
 	"	- split          : SPACE+s
 	"	- 1/3rd vsplit   : SPACE+v
 	nnoremap <Space>c :term ++curwin<CR>
 	nnoremap <Space>s :term<CR>
-	nnoremap <Space>v :execute "rightbelow" . float2nr(0.33 * winwidth(0)) . "vsplit"<CR> <bar> :term ++curwin<CR>
+	nnoremap <Space>v :execute "rightbelow" . float2nr(0.33 * winwidth(0)) . "vsplit <bar> :term ++curwin"<CR>
 
 	" Send key-sequence to a terminal window using SPACE+e
 	command! -nargs=+ SendKeys :call term_sendkeys(bufnr("bash"), <q-args>."\<CR>")
