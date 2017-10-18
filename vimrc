@@ -442,9 +442,6 @@ let g:netrw_altfile = 1
 " 11. TERMINAL {{{
 
 if has('terminal')
-	" Switch to terminal-normal mode using ESC
-	tnoremap <Esc> <C-w>N
-
 	" Create a terminal buffer
 	"	- current window : SPACE+c
 	"	- split          : SPACE+s
@@ -495,7 +492,7 @@ autocmd vimrc WinEnter * if &filetype != "qf" && !&diff | set cursorline | endif
 autocmd vimrc WinLeave * set nocursorline
 
 " Colorscheme (don't complain if the specified colorscheme doesn't exist)
-silent! colorscheme flattened_light
+silent! colorscheme base16-ocean
 
 " }}}
 
