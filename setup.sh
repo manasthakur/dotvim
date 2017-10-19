@@ -2,6 +2,7 @@ mkdir -p pack/mine/start pack/mine/opt pack/others/start pack/others/opt .sessio
 
 cd pack/mine/start/
 git clone https://github.com/manasthakur/vim-minisnip.git
+git clone https://github.com/manasthakur/vim-commentor.git
 
 cd ../opt/
 git clone https://github.com/manasthakur/vim-asyncmake.git
