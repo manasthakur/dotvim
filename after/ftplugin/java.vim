@@ -9,9 +9,6 @@ nnoremap <buffer> ,m :echo getline(search("^\\s*\\(public\\\|private\\\|protecte
 " Search among visit methods
 nnoremap <buffer> ,vm :keeppatterns ilist /visit.*.*{<Left><Left><Left>
 
-" Set proper errorformat
-setlocal errorformat=%A%f:%l:\ %m,%-Z%p^,%-C%.%#
-
 " Fold using expressions
 setlocal foldmethod=expr
 
@@ -29,20 +26,24 @@ function! JavaFoldExpr()
 endfunction
 setlocal foldexpr=JavaFoldExpr()
 
+" Set proper errorformat
+setlocal errorformat=%A%f:%l:\ %m,%-Z%p^,%-C%.%#
+
 " Enable asynchronous error-checking
 packadd vim-asyncmake
 
+" Automatically run AsyncMake on buffer-entry and file-save
 augroup asyncmake
   autocmd!
-  autocmd BufWritePost,BufEnter *.java silent! :Dispatch!
+  autocmd BufWritePost,BufEnter *.java silent! :AsyncMake!
 augroup END
 
-" The variable 'b:dispatch' holds the default build command
-let b:dispatch = 'javac -Xlint '
+" The variable 'b:asyncmakeprg' holds the default build command
+let b:asyncmakeprg = 'javac -Xlint '
 if isdirectory("../obj")
-    let b:dispatch .= '-d ../obj/ '
+    let b:asyncmakeprg .= '-d ../obj/ '
 endif
-let b:dispatch .= expand('%')
+let b:asyncmakeprg .= expand('%')
 
-" Set ,, to compile using the variable 'b:dispatch'
-nnoremap <buffer> <silent> ,, :Dispatch<CR>
+" Set ,, to compile using the variable 'b:asyncmakeprg'
+nnoremap <buffer> <silent> ,, :AsyncMake<CR>

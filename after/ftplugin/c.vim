@@ -11,11 +11,17 @@ endif
 " Enable asynchronous error-checking
 packadd vim-asyncmake
 
-" The variable 'b:dispatch' holds the default build command
-let b:dispatch = 'g++ ' . expand('%')
+" The variable 'b:asyncmakeprg' holds the default build command
+let b:asyncmakeprg = 'g++ ' . expand('%')
 
-" Set ,, to compile using the variable 'b:dispatch'
-nnoremap <buffer> <silent> ,, :Dispatch<CR>
+" Set ,, to compile using the variable 'b:asyncmakeprg'
+nnoremap <buffer> <silent> ,, :AsyncMake<CR>
+
+" Automatically run AsyncMake on buffer-entry and file-save
+augroup asyncmake
+  autocmd!
+  autocmd BufWritePost,BufEnter *.c,*.cpp silent! :AsyncMake!
+augroup END
 
 " Find the callers of the function under cursor
 nmap <C-\>c :cs find c <C-R>=expand('<cword>')<CR><CR>

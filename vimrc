@@ -364,51 +364,7 @@ nnoremap <silent> ,G :call GlobalSearch("<C-r><C-w>")<CR>
 
 " }}}
 
-" 8. COMMENTING {{{
-
-" Easy comment toggles
-"	- gc  : operator
-"	- gcc : linewise
-function! CommentToggle(type, ...) abort
-	" Get the list of comment-markers
-	let cmt_markers = split(substitute(substitute(&commentstring, '\S\zs%s', ' %s', ''), '%s\ze\S', '%s ', ''), '%s', 1)
-
-	" Get space-trimmed LHS and RHS comment-markers
-	let lhs_cmt_marker = substitute(cmt_markers[0], ' ', '', '')
-	let rhs_cmt_marker = substitute(cmt_markers[1], ' ', '', '')
-
-	" Check if the first line is commented
-	if match(getline('.'), lhs_cmt_marker) == 0
-		" Yes ==> uncomment
-		if a:0
-			" Visual mode
-			silent execute "normal! :'<,'>s]^" . lhs_cmt_marker . "]\<CR>`<"
-			silent execute "normal! :'<,'>s]" . rhs_cmt_marker . "$]]\<CR>`<"
-		else
-			" Normal mode
-			silent execute "normal! :'[,']s]^" . lhs_cmt_marker . "]\<CR>`["
-			silent execute "normal! :'[,']s]" . rhs_cmt_marker . "$]]\<CR>`["
-		endif
-	else
-		" No ==> comment
-		if a:0
-			" Visual mode
-			silent execute "normal! :'<,'>s]^]" . lhs_cmt_marker . "\<CR>`<"
-			silent execute "normal! :'<,'>s]$]" . rhs_cmt_marker . "\<CR>`<"
-		else
-			" Normal mode
-			silent execute "normal! :'[,']s]^]" . lhs_cmt_marker . "\<CR>`["
-			silent execute "normal! :'[,']s]$]" . rhs_cmt_marker . "\<CR>`["
-		endif
-	endif
-endfunction
-nnoremap gc :<C-u>set opfunc=CommentToggle<CR>g@
-xnoremap gc :<C-u>call CommentToggle(visualmode(), 1)<CR>
-nnoremap gcc :<C-u>set opfunc=CommentToggle<bar>execute "normal! " . v:count1 . "g@_"<CR>
-
-" }}}
-
-" 9. SESSIONS {{{
+" 8. SESSIONS {{{
 
 " Don't save options and mapings as part of sessions
 set sessionoptions-=options
@@ -429,7 +385,7 @@ nnoremap <silent> ,sp :source ~/.vim/.sessions/previous.vim<CR>
 
 " }}}
 
-" 10. NETRW {{{
+" 9. NETRW {{{
 
 " Open using '-' (also jumps to current file)
 function! OpenNetrw() abort
@@ -449,7 +405,7 @@ let g:netrw_altfile = 1
 
 " }}}
 
-" 11. TERMINAL {{{
+" 10. TERMINAL {{{
 
 if has('terminal')
 	if has('patch1108')
@@ -472,7 +428,7 @@ endif
 
 " }}}
 
-" 12. APPEARANCE {{{
+" 11. APPEARANCE {{{
 
 " Show position at bottom-right
 set ruler
