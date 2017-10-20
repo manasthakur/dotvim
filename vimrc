@@ -413,13 +413,15 @@ if has('terminal')
 		tnoremap <Esc><Esc> <C-\><C-n>
 	endif
 
-	" Create a terminal buffer
+	" Create a terminal buffer in
 	"	- current window : SPACE+c
 	"	- split          : SPACE+s
 	"	- 1/3rd vsplit   : SPACE+v
+	"	- new tab        : SPACE+t
 	nnoremap <Space>c :term ++curwin<CR>
 	nnoremap <Space>s :term<CR>
 	nnoremap <Space>v :execute "rightbelow" . float2nr(0.33 * winwidth(0)) . "vsplit <bar> :term ++curwin"<CR>
+	nnoremap <Space>t :execute ":tabnew <bar> term ++curwin"<CR>
 
 	" Send key-sequence to a terminal window using SPACE+e
 	command! -nargs=+ SendKeys :call term_sendkeys(bufnr("bash"), <q-args>."\<CR>")

@@ -18,10 +18,10 @@ let b:asyncmakeprg = 'g++ ' . expand('%')
 nnoremap <buffer> <silent> ,, :AsyncMake<CR>
 
 " Automatically run AsyncMake on buffer-entry and file-save
-augroup asyncmake
-  autocmd!
-  autocmd BufWritePost,BufEnter *.c,*.cpp silent! :AsyncMake!
-augroup END
+"augroup asyncmake
+"  autocmd!
+"  autocmd BufWritePost,BufEnter *.c,*.cpp silent! :AsyncMake!
+"augroup END
 
 " Find the callers of the function under cursor
 nmap <C-\>c :cs find c <C-R>=expand('<cword>')<CR><CR>
