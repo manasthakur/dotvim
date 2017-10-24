@@ -224,7 +224,7 @@ nnoremap ,f :ls<CR>:b<Space>
 "	- with wildmenu : ,d
 "	- current one   : ,D
 nnoremap <expr> ,d (NumListedBufs() == 1) ? ':bd <C-z>' : ':bd <C-z><S-Tab>'
-nnoremap ,D :bd%<CR>
+nnoremap ,D :b#<bar>bd#<CR>
 
 " Open a buffer in a vsplit using :vsb
 " (:sb does the same in a split)

@@ -35,7 +35,8 @@ packadd vim-asyncmake
 " Automatically run AsyncMake on buffer-entry and file-save
 augroup asyncmake
   autocmd!
-  autocmd BufWritePost,BufEnter *.java silent! :AsyncMake!
+  autocmd BufWritePost *.java silent! :AsyncMake!
+"  autocmd BufWritePost,BufEnter *.java silent! :AsyncMake!
 augroup END
 
 " The variable 'b:asyncmakeprg' holds the default build command
