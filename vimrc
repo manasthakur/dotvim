@@ -408,10 +408,8 @@ let g:netrw_altfile = 1
 " 10. TERMINAL {{{
 
 if has('terminal')
-	if has('patch1108')
-		" Enter terminal-normal mode using ESC twice
-		tnoremap <Esc><Esc> <C-\><C-n>
-	endif
+	" Enter terminal-normal mode using two ESCs
+	tnoremap <Esc><Esc> <C-\><C-n>
 
 	" Create a terminal buffer in
 	"	- current window : SPACE+c
