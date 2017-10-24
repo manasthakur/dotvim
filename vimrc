@@ -389,8 +389,9 @@ nnoremap <silent> ,sp :source ~/.vim/.sessions/previous.vim<CR>
 
 " Open using '-' (also jumps to current file)
 function! OpenNetrw() abort
+	let l:alt_file = fnameescape(expand('%:t'))
 	execute "Explore"
-	call search(fnameescape(expand('%:t')))
+	call search(l:alt_file)
 endfunction
 nnoremap <silent> - :call OpenNetrw()<CR>
 
