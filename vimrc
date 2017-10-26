@@ -268,12 +268,15 @@ nnoremap ,P :ptag <C-r><C-w><CR>
 " Visual completion in the command-line
 set wildmenu
 
+" Command-line completion like bash (default is like zsh)
+set wildmode=list:longest
+
 " Ignore case in command-line completion
 if exists('&wildignorecase')
     set wildignorecase
 endif
 
-" Don't complete from included files
+" Don't complete (in insert-mode) from included files
 set complete-=i
 
 " Use TAB for clever insert-mode completion
