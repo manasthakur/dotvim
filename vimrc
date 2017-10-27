@@ -209,21 +209,16 @@ set wildcharm=<C-z>
 nnoremap ,e :n **/*
 nnoremap ,E :n <C-R>=fnameescape(expand('%:p:h'))<CR>/**/*
 
-" Function to get the number of listed buffers
-function! NumListedBufs() abort
-	return len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) == 1
-endfunction
-
 " Switch buffer
 "   - without listing : ,b
 "   - after listing   : ,f
-nnoremap <expr> ,b (NumListedBufs() == 1) ? ':b <C-z>' : ':b <C-z><S-Tab>'
+nnoremap <expr> ,b :b <C-z>
 nnoremap ,f :ls<CR>:b<Space>
 
 " Delete buffer
 "	- with wildmenu : ,d
 "	- current one   : ,D
-nnoremap <expr> ,d (NumListedBufs() == 1) ? ':bd <C-z>' : ':bd <C-z><S-Tab>'
+nnoremap <expr> ,d :bd <C-z>
 nnoremap ,D :b#<bar>bd#<CR>
 
 " Open a buffer in a vsplit using :vsb
@@ -268,8 +263,8 @@ nnoremap ,P :ptag <C-r><C-w><CR>
 " Visual completion in the command-line
 set wildmenu
 
-" Command-line completion like bash (default is like zsh)
-set wildmode=list:longest
+" Command-line completion like bash on first tab, and like zsh on second
+set wildmode=list:longest,full
 
 " Ignore case in command-line completion
 if exists('&wildignorecase')
@@ -373,10 +368,10 @@ nnoremap <silent> ,G :call GlobalSearch("<C-r><C-w>")<CR>
 set sessionoptions-=options
 
 " Save session using ,ss
-nnoremap ,ss :mksession! ~/.vim/.sessions/<C-z><S-Tab>
+nnoremap ,ss :mksession! ~/.vim/.sessions/<C-z>
 
 " Open session using ,so
-nnoremap ,so :source ~/.vim/.sessions/<C-z><S-Tab>
+nnoremap ,so :source ~/.vim/.sessions/<C-z>
 
 " Automatically save session before leaving vim
 autocmd vimrc VimLeavePre * if !empty(v:this_session) |
@@ -451,14 +446,6 @@ set statusline+=\ %p%%                                                          
 
 " Show (partial) command in the last line of the screen
 set showcmd
-
-" Echo highlight-group of text under cursor
-function! HighlightGroup() abort
-	if !exists("*synstack")
-		return
-	endif
-	echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
-endfunc
 
 " Different cursor-shapes in different modes (tweaked for GNU-Screen as well)
 if !empty($STY)
