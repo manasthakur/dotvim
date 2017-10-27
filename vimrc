@@ -212,13 +212,13 @@ nnoremap ,E :n <C-R>=fnameescape(expand('%:p:h'))<CR>/**/*
 " Switch buffer
 "   - without listing : ,b
 "   - after listing   : ,f
-nnoremap <expr> ,b :b <C-z>
+nnoremap ,b :b<Space>
 nnoremap ,f :ls<CR>:b<Space>
 
 " Delete buffer
 "	- with wildmenu : ,d
 "	- current one   : ,D
-nnoremap <expr> ,d :bd <C-z>
+nnoremap ,d :bd<Space>
 nnoremap ,D :b#<bar>bd#<CR>
 
 " Open a buffer in a vsplit using :vsb
