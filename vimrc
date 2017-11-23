@@ -468,7 +468,7 @@ autocmd vimrc WinEnter * if &filetype != "qf" && !&diff | set cursorline | endif
 autocmd vimrc WinLeave * set nocursorline
 
 " Colorscheme (don't complain if the specified colorscheme doesn't exist)
-silent! colorscheme base16-ocean
+silent! colorscheme flattened_light
 
 " }}}
 
