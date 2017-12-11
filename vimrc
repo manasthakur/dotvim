@@ -206,19 +206,19 @@ set wildcharm=<C-z>
 "   - from the current working directory : ,e
 "   - from the directory of current file : ,E
 "   (press CTRL+a to list and open multiple matching files)
-nnoremap ,e :n **/*
+nnoremap ,e :n **/*<C-z><S-Tab>
 nnoremap ,E :n <C-R>=fnameescape(expand('%:p:h'))<CR>/**/*
 
 " Switch buffer
 "   - without listing : ,b
 "   - after listing   : ,f
-nnoremap ,b :b<Space>
+nnoremap ,b :b<Space><C-z><S-Tab>
 nnoremap ,f :ls<CR>:b<Space>
 
 " Delete buffer
 "	- with wildmenu : ,d
 "	- current one   : ,D
-nnoremap ,d :bd<Space>
+nnoremap ,d :bd<Space><C-z><S-Tab>
 nnoremap ,D :b#<bar>bd#<CR>
 
 " Open a buffer in a vsplit using :vsb
@@ -262,9 +262,6 @@ nnoremap ,P :ptag <C-r><C-w><CR>
 
 " Visual completion in the command-line
 set wildmenu
-
-" Command-line completion like bash on first tab, and like zsh on second
-set wildmode=list:longest,full
 
 " Ignore case in command-line completion
 if exists('&wildignorecase')
@@ -368,10 +365,10 @@ nnoremap <silent> ,G :call GlobalSearch("<C-r><C-w>")<CR>
 set sessionoptions-=options
 
 " Save session using ,ss
-nnoremap ,ss :mksession! ~/.vim/.sessions/<C-z>
+nnoremap ,ss :mksession! ~/.vim/.sessions/<C-z><S-Tab>
 
 " Open session using ,so
-nnoremap ,so :source ~/.vim/.sessions/<C-z>
+nnoremap ,so :source ~/.vim/.sessions/<C-z><S-Tab>
 
 " Automatically save session before leaving vim
 autocmd vimrc VimLeavePre * if !empty(v:this_session) |
