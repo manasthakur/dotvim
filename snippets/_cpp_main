@@ -1,1 +1,4 @@
-_c_main
+int main() {
+    <++>
+    return 0;
+}

@@ -1,1 +1,3 @@
-_cpp_fore
+for (<+Object+> <+obj+> : <+collection+>) {
+    <++>
+}

@@ -4,11 +4,7 @@
 setlocal spell
 
 " Use ,, to make (forced)
-if has('terminal')
-	nnoremap <buffer> ,, :term ++curwin ++close make -B<CR>
-else
-	nnoremap <buffer> ,, :!make -B<CR><CR>
-endif
+nnoremap <buffer> ,, :!make -B<CR><CR>
 
 " Complete words containing ':' and '-'
 setlocal iskeyword+=:,-
