@@ -8,8 +8,9 @@ if filereadable('cscope.out')
     cs add cscope.out
 endif
 
-" Enable asynchronous error-checking
+" Enable related plugins
 packadd vim-asyncmake
+packadd tagbar
 
 " The variable 'b:asyncmakeprg' holds the default build command
 let b:asyncmakeprg = 'g++ ' . expand('%')
@@ -30,22 +31,22 @@ nmap <C-\>c :cs find c <C-R>=expand('<cword>')<CR><CR>
 set cscopetag
 
 " Echo current method's header (works for simple well-structured programs)
-function! CurrentFunction()
-    " Get the previous uncommented line that starts without space and ends with '{'
-    let startline = getline(search("^[^ \s\t\/\/].*[^:]$", 'nb'))
-    " Check if the line contains 'class' or 'struct'
-    if startline =~ ".*\\(class\\|struct\\).*"
-        " If yes, then print the value of the motion '[m'
-        execute "normal! mxHmy`x[m"
-        let startline = getline('.')
-        execute "normal! `yzt`x"
-        echo startline
-    else
-        " Else print the line itself
-        echo startline
-    endif
-endfunction
-nnoremap <Leader>m :call CurrentFunction()<CR>
+"function! CurrentFunction()
+"    " Get the previous uncommented line that starts without space and ends with '{'
+"    let startline = getline(search("^[^ \s\t\/\/].*[^:]$", 'nb'))
+"    " Check if the line contains 'class' or 'struct'
+"    if startline =~ ".*\\(class\\|struct\\).*"
+"        " If yes, then print the value of the motion '[m'
+"        execute "normal! mxHmy`x[m"
+"        let startline = getline('.')
+"        execute "normal! `yzt`x"
+"        echo startline
+"    else
+"        " Else print the line itself
+"        echo startline
+"    endif
+"endfunction
+"nnoremap <Leader>m :call CurrentFunction()<CR>
 
 " Fold using expressions
 setlocal foldmethod=expr
