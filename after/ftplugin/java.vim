@@ -30,8 +30,14 @@ setlocal foldexpr=JavaFoldExpr()
 setlocal errorformat=%A%f:%l:\ %m,%-Z%p^,%-C%.%#
 
 " Enable related plugins
-packadd vim-asyncmake
 packadd tagbar
+packadd vim-asyncmake
+
+" List/unlist all tags using ,l
+nnoremap <buffer> <silent> ,l :Tagbar<CR>
+
+" List current tag using ,m
+nnoremap <buffer> <silent> ,m :TagbarCurrentTag<CR>
 
 " Automatically run AsyncMake on buffer-entry and file-save
 augroup asyncmake

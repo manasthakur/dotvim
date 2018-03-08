@@ -9,8 +9,14 @@ if filereadable('cscope.out')
 endif
 
 " Enable related plugins
-packadd vim-asyncmake
 packadd tagbar
+packadd vim-asyncmake
+
+" List/unlist all tags using ,l
+nnoremap <buffer> <silent> ,l :Tagbar<CR>
+
+" List current tag using ,m
+nnoremap <buffer> <silent> ,m :TagbarCurrentTag<CR>
 
 " The variable 'b:asyncmakeprg' holds the default build command
 let b:asyncmakeprg = 'g++ ' . expand('%')
