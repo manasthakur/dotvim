@@ -436,13 +436,13 @@ set ruler
 set laststatus=2
 
 " Custom statusline
-set statusline=%<%f                                                                       " File name
+set statusline=\ %<%f                                                                     " File name
 set statusline+=\ %h%m%r                                                                  " Help, RO, Modified
 set statusline+=%{exists('g:loaded_fugitive')?fugitive#statusline():''}                   " Git branch
 set statusline+=%=                                                                        " Separator
 set statusline+=%#WarningMsg#%{exists('g:loaded_asyncmake')?asyncmake#statusline():''}%*  " Quickfix validity
-set statusline+=\ %-14.(%l,%c%V%)                                                         " Line and column
-set statusline+=\ %p%%                                                                    " Percentage in file
+set statusline+=\ %-14.(c%c%V%)                                                           " Real and virtual column numbers
+set statusline+=\ %l/%L\                                                                   " Current and total line numbers
 
 " Show (partial) command in the last line of the screen
 set showcmd
