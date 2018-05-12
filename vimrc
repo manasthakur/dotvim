@@ -116,7 +116,7 @@ function! BetterBackSpace() abort
 	let cur_line = getline('.')
 	let before_char = cur_line[col('.')-2]
 	let after_char = cur_line[col('.')-1]
-	if (before_char == '(' && after_char == ')') || before_char == '{' && after_char == '}'
+	if (before_char == '(' && after_char == ')') || (before_char == '{' && after_char == '}')
 		return "\<Del>\<BS>"
 	else
 		return "\<BS>"
