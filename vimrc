@@ -4,7 +4,7 @@
 " LICENSE: MIT                                                               "
 "                                                                            "
 " NOTE:    (a) Filetype settings are in 'after/ftplugin'                     "
-"          (b) Plugins reside in 'pack/bundle'                               "
+"          (b) Plugins reside in 'pack/*'                                    "
 "          (c) Toggle folds using 'za'                                       "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
