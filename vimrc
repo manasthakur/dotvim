@@ -183,6 +183,9 @@ nnoremap cop :setlocal paste!<CR>:setlocal paste?<CR>
 nnoremap col :setlocal list!<CR>:setlocal list?<CR>
 nnoremap coh :setlocal hlsearch!<CR>:setlocal hlsearch?<CR>
 
+" Compatibility mode with coc (useful over SSH connections)
+nnoremap coc :colorscheme default \| highlight CursorLine cterm=NONE ctermbg=7<CR>
+
 " }}}
 
 " 5. NAVIGATION {{{
@@ -441,8 +444,8 @@ set statusline+=\ %h%m%r                                                        
 set statusline+=%{exists('g:loaded_fugitive')?fugitive#statusline():''}                   " Git branch
 set statusline+=%=                                                                        " Separator
 set statusline+=%#WarningMsg#%{exists('g:loaded_asyncmake')?asyncmake#statusline():''}%*  " Quickfix validity
-set statusline+=\ %-14.(c%c%V%)                                                           " Real and virtual column numbers
-set statusline+=\ %l/%L\                                                                   " Current and total line numbers
+set statusline+=\ %-20.(%y\ \ c%c%V%)                                                     " Filetype, and real-virtual column numbers
+set statusline+=\ %l/%L\                                                                  " Current and total line numbers
 
 " Show (partial) command in the last line of the screen
 set showcmd
