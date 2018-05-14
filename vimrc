@@ -120,6 +120,7 @@ function! BetterBackSpace() abort
 		return "\<Del>\<BS>"
 	else
 		return "\<BS>"
+	endif
 endfunction
 inoremap <silent> <BS> <C-r>=BetterBackSpace()<CR>
 
