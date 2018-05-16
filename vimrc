@@ -30,7 +30,7 @@ set modelines=5
 
 " Clear autocommands
 augroup vimrc
-	autocmd!
+    autocmd!
 augroup END
 
 " Change the default flavor for LaTeX files (affects 'filetype')
@@ -55,7 +55,7 @@ set backspace=indent,eol,start
 
 " Remove comment-leader when joining lines (using J)
 if v:version > 703 || v:version == 703 && has("patch541")
-	set formatoptions+=j
+    set formatoptions+=j
 endif
 
 " Characters for list mode (show up on ':set list')
@@ -88,12 +88,12 @@ set ttimeoutlen=50
 
 " On opening a file, restore the last-known position
 autocmd vimrc BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") |
-			\ execute "normal! g'\"" | endif
+            \ execute "normal! g'\"" | endif
 
 " Don't move the cursor to start-of-line when switching buffers
 autocmd vimrc BufLeave * set nostartofline |
-			\ autocmd CursorMoved,CursorMovedI * set startofline |
-			\ autocmd! vimrc CursorMoved,CursorMovedI
+            \ autocmd CursorMoved,CursorMovedI * set startofline |
+            \ autocmd! vimrc CursorMoved,CursorMovedI
 
 " Make insert-mode completions case-sensitive
 autocmd vimrc InsertEnter * set noignorecase
@@ -113,14 +113,14 @@ inoremap { {}<Left>
 
 " Auto-delete closing parenthesis/brace
 function! BetterBackSpace() abort
-	let cur_line = getline('.')
-	let before_char = cur_line[col('.')-2]
-	let after_char = cur_line[col('.')-1]
-	if (before_char == '(' && after_char == ')') || (before_char == '{' && after_char == '}')
-		return "\<Del>\<BS>"
-	else
-		return "\<BS>"
-	endif
+    let cur_line = getline('.')
+    let before_char = cur_line[col('.')-2]
+    let after_char = cur_line[col('.')-1]
+    if (before_char == '(' && after_char == ')') || (before_char == '{' && after_char == '}')
+        return "\<Del>\<BS>"
+    else
+        return "\<BS>"
+    endif
 endfunction
 inoremap <silent> <BS> <C-r>=BetterBackSpace()<CR>
 
@@ -133,10 +133,6 @@ inoremap <expr> } getline('.')[col('.')-1] == "}" ? "\<Right>" : "}"
 "   - expands block if the next character is '}'
 "   - works normally otherwise
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : ((getline('.')[col('.')-1] == '}') ? "\<CR>\<C-o>O" : "\<C-g>u\<CR>")
-
-" Copy selected text and paste it indented using CTRL+k
-xnoremap <C-k> "xc
-inoremap <C-k> <Esc>"_dd"xP=']']A
 
 " Scroll without moving the cursor using CTRL+j and CTRL+k
 nnoremap <C-j> j<C-e>
@@ -163,9 +159,6 @@ xnoremap Y "+y
 
 " Search selected text using *
 xnoremap * "xy/\V<C-r>x<CR>
-
-" Toggle a .npad window on the right using :Npad
-command! Npad execute 'rightbelow ' . float2nr(0.2 * winwidth(0)) . 'vsplit +setlocal\ filetype=markdown\ nobuflisted .npad'
 
 " Write a file with sudo when it was opened without using :SudoWrite
 command! SudoWrite w !sudo tee % > /dev/null
@@ -223,8 +216,8 @@ nnoremap ,b :b<Space><C-z><S-Tab>
 nnoremap ,f :ls<CR>:b<Space>
 
 " Delete buffer
-"	- with wildmenu : ,d
-"	- current one   : ,D
+"   - with wildmenu : ,d
+"   - current one   : ,D
 nnoremap ,d :bd<Space><C-z><S-Tab>
 nnoremap ,D :b#<bar>bd#<CR>
 
@@ -280,24 +273,24 @@ set complete-=i
 
 " Use TAB for clever insert-mode completion
 function! CleverTab() abort
-	" If completion-menu is visible, keep scrolling
-	if pumvisible()
-		return "\<C-n>"
-	endif
-	" Determine the pattern before the cursor
-	let str = matchstr(strpart(getline('.'), 0, col('.')-1), '[^ \t]*$')
-	if empty(str)
-		" After spaces, return the TAB literal
-		return "\<Tab>"
-	else
-		if match(str, '\/') != -1
-			" File-completion on seeing a '/'
-			return "\<C-x>\<C-f>"
-		else
-			" Complete based on the 'complete' option
-			return "\<C-p>"
-		endif
-	endif
+    " If completion-menu is visible, keep scrolling
+    if pumvisible()
+        return "\<C-n>"
+    endif
+    " Determine the pattern before the cursor
+    let str = matchstr(strpart(getline('.'), 0, col('.')-1), '[^ \t]*$')
+    if empty(str)
+        " After spaces, return the TAB literal
+        return "\<Tab>"
+    else
+        if match(str, '\/') != -1
+            " File-completion on seeing a '/'
+            return "\<C-x>\<C-f>"
+        else
+            " Complete based on the 'complete' option
+            return "\<C-p>"
+        endif
+    endif
 endfunction
 inoremap <silent> <Tab> <C-r>=CleverTab()<CR>
 
@@ -322,17 +315,17 @@ set smartcase
 "   - prompt       : ,a
 "   - current word : ,A
 if executable('rg')
-	" If available, use 'ripgrep' as the grep-program
-	set grepprg=rg\ --smart-case\ --vimgrep
+    " If available, use 'ripgrep' as the grep-program
+    set grepprg=rg\ --smart-case\ --vimgrep
 
-	" Display column numbers as well
-	set grepformat^=%f:%l:%c:%m
+    " Display column numbers as well
+    set grepformat^=%f:%l:%c:%m
 
-	" Define a 'Grep' command
-	command! -nargs=+ Grep silent lgrep! <args> | lwindow | redraw!
+    " Define a 'Grep' command
+    command! -nargs=+ Grep silent lgrep! <args> | lwindow | redraw!
 else
-	" Use vimgrep in the 'Grep' command
-	command! -nargs=+ Grep silent lvimgrep /<args>/gj ** | lwindow | redraw!
+    " Use vimgrep in the 'Grep' command
+    command! -nargs=+ Grep silent lvimgrep /<args>/gj ** | lwindow | redraw!
 endif
 nnoremap ,a :Grep<Space>
 nnoremap ,A :Grep <C-r><C-w><CR>
@@ -341,25 +334,25 @@ nnoremap ,A :Grep <C-r><C-w><CR>
 "   - prompt       : ,g
 "   - current word : ,G
 function! GlobalSearch(...) abort
-	" If no pattern was supplied, prompt for one
-	if a:0 == 0
-		let pattern = input(':g/')
-	else
-		let pattern = a:1
-	endif
-	if !empty(pattern)
-		" Print lines matching the pattern (along with line-numbers)
-		execute "g/" . pattern . "/#"
-		" The valid value of 'choice' is a line-number
-		let choice = input(':')
-		if !empty(choice)
-			" Jump to the entered line-number
-			execute choice
-		else
-			" If no choice was entered, restore the cursor position
-			execute "normal! \<C-o>"
-		endif
-	endif
+    " If no pattern was supplied, prompt for one
+    if a:0 == 0
+        let pattern = input(':g/')
+    else
+        let pattern = a:1
+    endif
+    if !empty(pattern)
+        " Print lines matching the pattern (along with line-numbers)
+        execute "g/" . pattern . "/#"
+        " The valid value of 'choice' is a line-number
+        let choice = input(':')
+        if !empty(choice)
+            " Jump to the entered line-number
+            execute choice
+        else
+            " If no choice was entered, restore the cursor position
+            execute "normal! \<C-o>"
+        endif
+    endif
 endfunction
 nnoremap <silent> ,g :call GlobalSearch()<CR>
 nnoremap <silent> ,G :call GlobalSearch("<C-r><C-w>")<CR>
@@ -379,8 +372,8 @@ nnoremap ,so :source ~/.vim/.sessions/<C-z><S-Tab>
 
 " Automatically save session before leaving vim
 autocmd vimrc VimLeavePre * if !empty(v:this_session) |
-			\ execute "mksession! " . fnameescape(v:this_session) |
-			\ else | mksession! ~/.vim/.sessions/previous.vim | endif
+            \ execute "mksession! " . fnameescape(v:this_session) |
+            \ else | mksession! ~/.vim/.sessions/previous.vim | endif
 
 " Restore previous (unnamed) session using ,sp
 nnoremap <silent> ,sp :source ~/.vim/.sessions/previous.vim<CR>
@@ -391,9 +384,9 @@ nnoremap <silent> ,sp :source ~/.vim/.sessions/previous.vim<CR>
 
 " Open using '-' (also jumps to current file)
 function! OpenNetrw() abort
-	let l:alt_file = fnameescape(expand('%:t'))
-	execute "Explore"
-	call search(l:alt_file)
+    let l:alt_file = fnameescape(expand('%:t'))
+    execute "Explore"
+    call search(l:alt_file)
 endfunction
 nnoremap <silent> - :call OpenNetrw()<CR>
 
@@ -411,22 +404,22 @@ let g:netrw_altfile = 1
 " 10. TERMINAL {{{
 
 if has('terminal')
-	" Enter terminal-normal mode using two ESCs
-	tnoremap <Esc><Esc> <C-\><C-n>
+    " Enter terminal-normal mode using two ESCs
+    tnoremap <Esc><Esc> <C-\><C-n>
 
-	" Create a terminal buffer in
-	"	- current window : SPACE+c
-	"	- split          : SPACE+s
-	"	- 1/3rd vsplit   : SPACE+v
-	"	- new tab        : SPACE+t
-	nnoremap <Space>c :term ++curwin<CR>
-	nnoremap <Space>s :term<CR>
-	nnoremap <Space>v :execute "rightbelow" . float2nr(0.33 * winwidth(0)) . "vsplit <bar> :term ++curwin"<CR>
-	nnoremap <Space>t :execute ":tabnew <bar> term ++curwin"<CR>
+    " Create a terminal buffer in
+    "   - current window : SPACE+c
+    "   - split          : SPACE+s
+    "   - 1/3rd vsplit   : SPACE+v
+    "   - new tab        : SPACE+t
+    nnoremap <Space>c :term ++curwin<CR>
+    nnoremap <Space>s :term<CR>
+    nnoremap <Space>v :execute "rightbelow" . float2nr(0.33 * winwidth(0)) . "vsplit <bar> :term ++curwin"<CR>
+    nnoremap <Space>t :execute ":tabnew <bar> term ++curwin"<CR>
 
-	" Send key-sequence to a terminal window using SPACE+e
-	command! -nargs=+ SendKeys :call term_sendkeys(bufnr("bash"), <q-args>."\<CR>")
-	nnoremap <Space>e :SendKeys<Space>
+    " Send key-sequence to a terminal window using SPACE+e
+    command! -nargs=+ SendKeys :call term_sendkeys(bufnr("bash"), <q-args>."\<CR>")
+    nnoremap <Space>e :SendKeys<Space>
 endif
 
 " }}}
@@ -453,17 +446,17 @@ set showcmd
 
 " Different cursor-shapes in different modes (tweaked for GNU-Screen as well)
 if !empty($STY)
-	let &t_SI.="\eP\e[6 q\e\\"
-	let &t_EI.="\eP\e[2 q\e\\"
-	if v:version > 704 || v:version == 704 && has("patch693")
-		let &t_SR = "\eP\e[4 q\e\\"
-	endif
+    let &t_SI.="\eP\e[6 q\e\\"
+    let &t_EI.="\eP\e[2 q\e\\"
+    if v:version > 704 || v:version == 704 && has("patch693")
+        let &t_SR = "\eP\e[4 q\e\\"
+    endif
 else
-	let &t_SI = "\<Esc>[6 q"
-	let &t_EI = "\<Esc>[2 q"
-	if v:version > 704 || v:version == 704 && has("patch693")
-		let &t_SR = "\<Esc>[4 q"
-	endif
+    let &t_SI = "\<Esc>[6 q"
+    let &t_EI = "\<Esc>[2 q"
+    if v:version > 704 || v:version == 704 && has("patch693")
+        let &t_SR = "\<Esc>[4 q"
+    endif
 endif
 
 " No cursorline in diff, quickfix, and inactive windows
