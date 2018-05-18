@@ -376,51 +376,7 @@ nnoremap <silent> <Space>sp :source ~/.vim/.sessions/previous.vim<CR>
 
 " }}}
 
-" 9. NETRW {{{
-
-" Open using '-' (also jumps to current file)
-function! OpenNetrw() abort
-    let l:alt_file = fnameescape(expand('%:t'))
-    execute "Explore"
-    call search(l:alt_file)
-endfunction
-nnoremap <silent> - :call OpenNetrw()<CR>
-
-" Disable the banner
-let g:netrw_banner = 0
-
-" Hide './' and '../' entries
-let g:netrw_list_hide = '^\.\.\=/$'
-
-" Maintain the alternate buffer
-let g:netrw_altfile = 1
-
-" }}}
-
-" 10. TERMINAL {{{
-
-if has('terminal')
-    " Enter terminal-normal mode using two ESCs
-    tnoremap <Esc><Esc> <C-\><C-n>
-
-    " Create a terminal buffer in
-    "   - current window : SPACE+c
-    "   - split          : SPACE+s
-    "   - 1/3rd vsplit   : SPACE+v
-    "   - new tab        : SPACE+t
-    nnoremap <Space>c :term ++curwin<CR>
-    nnoremap <Space>s :term<CR>
-    nnoremap <Space>v :execute "rightbelow" . float2nr(0.33 * winwidth(0)) . "vsplit <bar> :term ++curwin"<CR>
-    nnoremap <Space>t :execute ":tabnew <bar> term ++curwin"<CR>
-
-    " Send key-sequence to a terminal window using SPACE+e
-    command! -nargs=+ SendKeys :call term_sendkeys(bufnr("bash"), <q-args>."\<CR>")
-    nnoremap <Space>e :SendKeys<Space>
-endif
-
-" }}}
-
-" 11. APPEARANCE {{{
+" 9. APPEARANCE {{{
 
 " Show line and column numbers at bottom-right
 set ruler
@@ -462,6 +418,48 @@ autocmd vimrc WinLeave * set nocursorline
 
 " Colorscheme (don't complain if the specified colorscheme doesn't exist)
 silent! colorscheme flattened_light
+
+" }}}
+
+" 10. PLUGIN SETTINGS {{{
+
+" (a) NETRW
+
+" Open using '-' (also jumps to current file)
+function! OpenNetrw() abort
+    let l:alt_file = fnameescape(expand('%:t'))
+    execute "Explore"
+    call search(l:alt_file)
+endfunction
+nnoremap <silent> - :call OpenNetrw()<CR>
+
+" Disable the banner
+let g:netrw_banner = 0
+
+" Hide './' and '../' entries
+let g:netrw_list_hide = '^\.\.\=/$'
+
+" Maintain the alternate buffer
+let g:netrw_altfile = 1
+
+" (b) MINISNIP
+
+" Define the directory to look into for the snippets
+let g:minisnip_dir = '~/.vim/snippets'
+
+" Change the trigger to CTRL+j
+let g:minisnip_trigger = '<C-j>'
+
+" Change the start and end delimiters
+let g:minisnip_startdelim = '<+'
+let g:minisnip_enddelim = '+>'
+let g:minisnip_finalstartdelim = '<-'
+let g:minisnip_finalenddelim = '->'
+
+" (c) TAGBAR
+
+" Sort based on order
+let g:tagbar_sort = 0
 
 " }}}
 
