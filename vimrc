@@ -360,19 +360,19 @@ nnoremap <silent> ,G :call GlobalSearch("<C-r><C-w>")<CR>
 " Don't save options and mapings as part of sessions
 set sessionoptions-=options
 
-" Save session using ,ss
-nnoremap ,ss :mksession! ~/.vim/.sessions/<C-z><S-Tab>
+" Save session using <Space>ss
+nnoremap <Space>ss :mksession! ~/.vim/.sessions/<C-z><S-Tab>
 
-" Open session using ,so
-nnoremap ,so :source ~/.vim/.sessions/<C-z><S-Tab>
+" Open session using <Space>so
+nnoremap <Space>so :source ~/.vim/.sessions/<C-z><S-Tab>
 
 " Automatically save session before leaving vim
 autocmd vimrc VimLeavePre * if !empty(v:this_session) |
             \ execute "mksession! " . fnameescape(v:this_session) |
             \ else | mksession! ~/.vim/.sessions/previous.vim | endif
 
-" Restore previous (unnamed) session using ,sp
-nnoremap <silent> ,sp :source ~/.vim/.sessions/previous.vim<CR>
+" Restore previous (unnamed) session using <Space>sp
+nnoremap <silent> <Space>sp :source ~/.vim/.sessions/previous.vim<CR>
 
 " }}}
 
