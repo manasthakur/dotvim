@@ -74,9 +74,6 @@ set display=lastline
 " Keep cursor off by a line while scrolling (for context)
 set scrolloff=1
 
-" Keep preview-windows just one-line high
-set previewheight=1
-
 " Draw the screen lazily (speeds up scroll and macro-execution)
 set lazyredraw
 
@@ -85,9 +82,6 @@ set history=1000
 
 " Enable mouse in all the modes
 set mouse=a
-
-" Time-out for key-codes in 50ms (leads to a faster ESC)
-set ttimeoutlen=50
 
 " On opening a file, restore the last-known position
 autocmd vimrc BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") |
