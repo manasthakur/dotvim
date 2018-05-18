@@ -74,6 +74,9 @@ set display=lastline
 " Keep cursor off by a line while scrolling (for context)
 set scrolloff=1
 
+" Keep preview-windows just one-line high
+set previewheight=1
+
 " Draw the screen lazily (speeds up scroll and macro-execution)
 set lazyredraw
 
@@ -106,6 +109,10 @@ autocmd vimrc InsertLeave * set ignorecase
 " Exit insert and select modes using jk
 inoremap jk <Esc>
 snoremap jk <Esc>
+
+" Keep the selection after shifting text
+xnoremap > >gv
+xnoremap < <gv
 
 " Auto-insert closing parenthesis/brace
 inoremap ( ()<Left>
@@ -154,9 +161,6 @@ nnoremap dsc diB"_ddk"_ddP=`]
 nnoremap =p p'[V']=
 nnoremap =P P'[V']=
 
-" Copy selected text to system-clipboard using Y
-xnoremap Y "+y
-
 " Search selected text using *
 xnoremap * "xy/\V<C-r>x<CR>
 
@@ -193,6 +197,9 @@ set confirm
 " Update buffer using ,w
 nnoremap ,w :update<CR>
 
+" By default 'find' files recursively under the current directory
+set path=.,**
+
 " Ignore following patterns while expanding file-names
 set wildignore+=tags,*.class,*.o,*.out,*.aux,*.bbl,*.blg,*.cls
 
@@ -202,41 +209,30 @@ set suffixes+=*.bib,*.log,*.jpg,*.png,*.dvi,*.ps,*.pdf
 " Use CTRL+z to start wildcard-expansion in command-line mappings
 set wildcharm=<C-z>
 
-" Search recursively and open files
-"   - from the current working directory : ,e
-"   - from the directory of current file : ,E
-"   (press CTRL+a to list and open multiple matching files)
-nnoremap ,e :n **/*<C-z><S-Tab>
-nnoremap ,E :n <C-R>=fnameescape(expand('%:p:h'))<CR>/**/*
+" Find and open file in current window, horizontal (s), or vertical (v) split
+" (capital versions search the directory of the current file)
+nnoremap ,f :find *
+nnoremap ,s :sfind *
+nnoremap ,v :vert sfind *
+nnoremap ,F :find <C-R>=fnameescape(expand('%:p:h'))<CR>/**/*
+nnoremap ,S :sfind <C-R>=fnameescape(expand('%:p:h'))<CR>/**/*
+nnoremap ,V :vert sfind <C-R>=fnameescape(expand('%:p:h'))<CR>/**/*
 
 " Switch buffer
-"   - without listing : ,b
-"   - after listing   : ,f
 nnoremap ,b :b<Space><C-z><S-Tab>
-nnoremap ,f :ls<CR>:b<Space>
 
-" Delete buffer
-"   - with wildmenu : ,d
-"   - current one   : ,D
-nnoremap ,d :bd<Space><C-z><S-Tab>
-nnoremap ,D :b#<bar>bd#<CR>
-
-" Open a buffer in a vsplit using :vsb
-" (:sb does the same in a split)
-cnoremap vsb vertical sb
+" List buffers
+nnoremap ,l :ls<CR>:b<Space>
 
 " Switch to alternate buffer using ,r
 nnoremap ,r :b#<CR>
 
 " Bracket maps to cycle back-and-forth
 "   - Buffers        : [b and ]b
-"   - Tabs           : [t and ]t
 "   - Quickfix lists : [q and ]q
 "   - Location lists : [w and ]w
 nnoremap [b :bprevious<CR>
 nnoremap ]b :bnext<CR>
-nnoremap [t :tabprevious<CR>
-nnoremap ]t :tabnext<CR>
 nnoremap [q :cprevious<CR>
 nnoremap ]q :cnext<CR>
 nnoremap [w :lprevious<CR>
@@ -251,8 +247,8 @@ nnoremap ]w :lnext<CR>
 "       - current word : ,P
 nnoremap ,t :tag /
 nnoremap ,T :tag <C-r><C-w><CR>
-nnoremap ,y :tjump /
-nnoremap ,Y :tjump <C-r><C-w><CR>
+nnoremap ,j :tjump /
+nnoremap ,J :tjump <C-r><C-w><CR>
 nnoremap ,p :ptag /
 nnoremap ,P :ptag <C-r><C-w><CR>
 
@@ -426,7 +422,7 @@ endif
 
 " 11. APPEARANCE {{{
 
-" Show position at bottom-right
+" Show line and column numbers at bottom-right
 set ruler
 
 " Display statusline all the time
