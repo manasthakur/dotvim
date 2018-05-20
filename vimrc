@@ -456,10 +456,10 @@ let g:minisnip_finalenddelim = '->'
 let g:tagbar_sort = 0
 
 " List/unlist all tags using SPACE+b
-nnoremap <buffer> <silent> <Space>b :Tagbar<CR>
+nnoremap <silent> <Space>b :Tagbar<CR>
 
 " List current tag using SPACE+m
-nnoremap <buffer> <silent> <Space>m :TagbarCurrentTag<CR>
+nnoremap <silent> <Space>m :TagbarCurrentTag<CR>
 
 " }}}
 
