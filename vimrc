@@ -100,9 +100,9 @@ autocmd vimrc InsertLeave * set ignorecase
 
 " 4. SHORTHANDS {{{
 
-" Exit insert and select modes using jk
+" Exit insert mode using jk or kj
 inoremap jk <Esc>
-snoremap jk <Esc>
+inoremap kj <Esc>
 
 " Keep the selection after shifting text
 xnoremap > >gv
