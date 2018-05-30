@@ -65,6 +65,9 @@ set listchars=tab:>\ ,trail:-
 
 " 3. BEHAVIOR {{{
 
+" Wait only 50 ms after ESC
+set ttimeoutlen=50
+
 " Wrap long lines
 set linebreak
 
