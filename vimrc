@@ -179,7 +179,17 @@ nnoremap col :setlocal list!<CR>:setlocal list?<CR>
 nnoremap coh :setlocal hlsearch!<CR>:setlocal hlsearch?<CR>
 
 " Compatibility mode with coc (useful over SSH connections)
-nnoremap coc :colorscheme default \| highlight CursorLine cterm=NONE ctermbg=7<CR>
+function! CompatibilityMode() abort
+	if g:colors_name != "default"
+		colorscheme default
+		highlight CursorLine cterm=NONE ctermbg=8
+		highlight Visual cterm=NONE ctermbg=8
+	else
+		colorscheme apprentice
+	endif
+	set foldenable!
+endfunction
+nnoremap <silent> coc :call CompatibilityMode()<CR>
 
 " }}}
 
@@ -414,7 +424,7 @@ autocmd vimrc WinEnter * if &filetype != "qf" && !&diff | set cursorline | endif
 autocmd vimrc WinLeave * set nocursorline
 
 " Colorscheme (don't complain if the specified colorscheme doesn't exist)
-silent! colorscheme flattened_light
+silent! colorscheme apprentice
 
 " }}}
 
