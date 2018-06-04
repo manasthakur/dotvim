@@ -263,5 +263,3 @@ hi link diffNoEOL                WarningMsg
 hi link diffOnly                 WarningMsg
 hi link diffRemoved              WarningMsg
 hi link diffAdded                String
-
-hi link gitcommitSelected        Special
