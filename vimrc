@@ -111,33 +111,6 @@ inoremap kj <Esc>
 xnoremap > >gv
 xnoremap < <gv
 
-" Auto-insert closing parenthesis/brace
-inoremap ( ()<Left>
-inoremap { {}<Left>
-
-" Auto-delete closing parenthesis/brace
-function! BetterBackSpace() abort
-    let cur_line = getline('.')
-    let before_char = cur_line[col('.')-2]
-    let after_char = cur_line[col('.')-1]
-    if (before_char == '(' && after_char == ')') || (before_char == '{' && after_char == '}')
-        return "\<Del>\<BS>"
-    else
-        return "\<BS>"
-    endif
-endfunction
-inoremap <silent> <BS> <C-r>=BetterBackSpace()<CR>
-
-" Skip over closing parenthesis/brace
-inoremap <expr> ) getline('.')[col('.')-1] == ")" ? "\<Right>" : ")"
-inoremap <expr> } getline('.')[col('.')-1] == "}" ? "\<Right>" : "}"
-
-" Intelligent ENTER
-"   - selects entry in completion menu
-"   - expands block if the next character is '}'
-"   - works normally otherwise
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : ((getline('.')[col('.')-1] == '}') ? "\<CR>\<C-o>O" : "\<C-g>u\<CR>")
-
 " Scroll without moving the cursor using CTRL+j and CTRL+k
 nnoremap <C-j> j<C-e>
 nnoremap <C-k> k<C-y>
