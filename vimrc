@@ -103,9 +103,8 @@ autocmd vimrc InsertLeave * set ignorecase
 
 " 4. SHORTHANDS {{{
 
-" Exit insert mode using jk or kj
+" Exit insert mode using jk
 inoremap jk <Esc>
-inoremap kj <Esc>
 
 " Keep the selection after shifting text
 xnoremap > >gv
@@ -354,6 +353,16 @@ autocmd vimrc VimLeavePre * if !empty(v:this_session) |
 " Restore previous (unnamed) session using <Space>sp
 nnoremap <silent> <Space>sp :source ~/.vim/.sessions/previous.vim<CR>
 
+" Function to get the session name
+function! SessionName() abort
+	if empty(v:this_session)
+		return ""
+	else
+		let l:session_name = fnamemodify(v:this_session, ':t:r')
+		return "[".l:session_name."] "
+	endif
+endfunction
+
 " }}}
 
 " 9. APPEARANCE {{{
@@ -367,6 +376,7 @@ set laststatus=2
 " Custom statusline
 set statusline=\ %<%f                                                                     " File name
 set statusline+=\ %h%m%r                                                                  " Help, RO, Modified
+set statusline+=%{SessionNameStatusLine()}								                  " Git directory-name
 set statusline+=%{exists('g:loaded_fugitive')?fugitive#statusline():''}                   " Git branch
 set statusline+=%=                                                                        " Separator
 set statusline+=%#WarningMsg#%{exists('g:loaded_asyncmake')?asyncmake#statusline():''}%*  " Quickfix validity
