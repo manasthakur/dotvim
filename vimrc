@@ -376,7 +376,7 @@ set laststatus=2
 " Custom statusline
 set statusline=\ %<%f                                                                     " File name
 set statusline+=\ %h%m%r                                                                  " Help, RO, Modified
-set statusline+=%{SessionNameStatusLine()}								                  " Git directory-name
+set statusline+=%{SessionName()}                                                          " Git directory-name
 set statusline+=%{exists('g:loaded_fugitive')?fugitive#statusline():''}                   " Git branch
 set statusline+=%=                                                                        " Separator
 set statusline+=%#WarningMsg#%{exists('g:loaded_asyncmake')?asyncmake#statusline():''}%*  " Quickfix validity
