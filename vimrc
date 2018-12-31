@@ -157,7 +157,7 @@ function! CompatibilityMode() abort
 		highlight CursorLine cterm=NONE ctermbg=8
 		highlight Visual cterm=NONE ctermbg=8
 	else
-		colorscheme apprentice
+		colorscheme papercolor
 	endif
 	set foldenable!
 endfunction
@@ -407,7 +407,7 @@ autocmd vimrc WinEnter * if &filetype != "qf" && !&diff | set cursorline | endif
 autocmd vimrc WinLeave * set nocursorline
 
 " Colorscheme (don't complain if the specified colorscheme doesn't exist)
-silent! colorscheme apprentice
+silent! colorscheme papercolor
 
 " }}}
 
