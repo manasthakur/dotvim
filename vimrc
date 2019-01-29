@@ -40,15 +40,13 @@ let g:tex_flavor = "latex"
 
 " 2. FORMATTING {{{
 
-" Copy the indent of current line when starting a new line
+" Copy the indent of current line onto next
 set autoindent
-
-" Count existing tabs as 4 spaces
-set tabstop=4
 
 " Backspace, tab, and indent with 4 spaces
 set shiftwidth=4
-let &softtabstop = &shiftwidth
+set softtabstop=4
+set expandtab
 
 " Allow backspacing over all characters
 set backspace=indent,eol,start
@@ -152,14 +150,14 @@ nnoremap coh :setlocal hlsearch!<CR>:setlocal hlsearch?<CR>
 
 " Compatibility mode with coc (useful over SSH connections)
 function! CompatibilityMode() abort
-	if g:colors_name != "default"
-		colorscheme default
-		highlight CursorLine cterm=NONE ctermbg=8
-		highlight Visual cterm=NONE ctermbg=8
-	else
-		colorscheme papercolor
-	endif
-	set foldenable!
+    if g:colors_name != "default"
+        colorscheme default
+        highlight CursorLine cterm=NONE ctermbg=8
+        highlight Visual cterm=NONE ctermbg=8
+    else
+        colorscheme papercolor
+    endif
+    set foldenable!
 endfunction
 nnoremap <silent> coc :call CompatibilityMode()<CR>
 
@@ -355,12 +353,12 @@ nnoremap <silent> <Space>sp :source ~/.vim/.sessions/previous.vim<CR>
 
 " Function to get the session name
 function! SessionName() abort
-	if empty(v:this_session)
-		return ""
-	else
-		let l:session_name = fnamemodify(v:this_session, ':t:r')
-		return "[".l:session_name."] "
-	endif
+    if empty(v:this_session)
+        return ""
+    else
+        let l:session_name = fnamemodify(v:this_session, ':t:r')
+        return "[".l:session_name."] "
+    endif
 endfunction
 
 " }}}
@@ -388,17 +386,17 @@ set showcmd
 
 " Different cursor-shapes in different modes (also tweaked for tmux)
 if exists('$TMUX')
-	let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-	let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
-	if v:version > 704 || v:version == 704 && has("patch693")
-		let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
-	endif
+    let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+    let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+    if v:version > 704 || v:version == 704 && has("patch693")
+        let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
+    endif
 else
-	let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-	let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-	if v:version > 704 || v:version == 704 && has("patch693")
-		let &t_SR = "\<Esc>]50;CursorShape=2\x7"
-	endif
+    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+    if v:version > 704 || v:version == 704 && has("patch693")
+        let &t_SR = "\<Esc>]50;CursorShape=2\x7"
+    endif
 endif
 
 " No cursorline in diff, quickfix, and inactive windows
