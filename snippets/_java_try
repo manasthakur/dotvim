@@ -1,5 +1,5 @@
 try {
     <+~#+>
-} catch(<+Exception+> <+e+>) {
-    <+~\~1+>.<+printStackTrace()+>;
+} catch (<+Exception+> <+e+>) {
+    <+~\~1+>.<+printStackTrace()+>;<++>
 }
