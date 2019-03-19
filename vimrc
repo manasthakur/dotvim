@@ -196,7 +196,7 @@ nnoremap ,S :sfind <C-R>=fnameescape(expand('%:p:h'))<CR>/**/*
 nnoremap ,V :vert sfind <C-R>=fnameescape(expand('%:p:h'))<CR>/**/*
 
 " Switch buffer
-nnoremap ,b :b<Space><C-z><S-Tab>
+nnoremap ,b :b<Space>
 
 " List buffers
 nnoremap ,l :ls<CR>:b<Space>
