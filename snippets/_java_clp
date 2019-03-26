@@ -1,3 +1,3 @@
-public class <+~expand('%:t')+> {
+public class <+~expand('%:t:r')+> {
     <++>
 }
