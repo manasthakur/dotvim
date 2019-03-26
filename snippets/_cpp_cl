@@ -1,4 +1,4 @@
-class <+~expand('%:r')+> {
+class <+~expand('%:t')+> {
 private:
     <++>
 

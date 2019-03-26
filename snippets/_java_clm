@@ -1,4 +1,4 @@
-public class <+~expand('%:r')+> {
+public class <+~expand('%:t')+> {
     public static void main(String[] args) {
         <++>
     }
