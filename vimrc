@@ -10,6 +10,9 @@
 
 " 1. INITIALIZATION {{{
 
+" Enable reading the bashrc for executing shell commands
+set shell=/bin/bash\ -i
+
 " Enable filetype detection, and filetype-based plugins and indentation
 filetype plugin indent on
 
