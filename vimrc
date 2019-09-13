@@ -10,9 +10,6 @@
 
 " 1. INITIALIZATION {{{
 
-" Enable reading the bashrc for executing shell commands
-set shell=/bin/bash\ -i
-
 " Enable filetype detection, and filetype-based plugins and indentation
 filetype plugin indent on
 
@@ -408,7 +405,7 @@ autocmd vimrc WinEnter * if &filetype != "qf" && !&diff | set cursorline | endif
 autocmd vimrc WinLeave * set nocursorline
 
 " Colorscheme (don't complain if the specified colorscheme doesn't exist)
-silent! colorscheme papercolor
+silent! colorscheme apprentice
 
 " }}}
 
