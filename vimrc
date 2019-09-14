@@ -155,7 +155,7 @@ function! CompatibilityMode() abort
         highlight CursorLine cterm=NONE ctermbg=8
         highlight Visual cterm=NONE ctermbg=8
     else
-        colorscheme papercolor
+        silent! colorscheme apprentice
     endif
     set foldenable!
 endfunction
@@ -384,20 +384,10 @@ set statusline+=\ %l/%L\                                                        
 " Show (partial) command in the last line of the screen
 set showcmd
 
-" Different cursor-shapes in different modes (also tweaked for tmux)
-if exists('$TMUX')
-    let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-    let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
-    if v:version > 704 || v:version == 704 && has("patch693")
-        let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
-    endif
-else
-    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-    if v:version > 704 || v:version == 704 && has("patch693")
-        let &t_SR = "\<Esc>]50;CursorShape=2\x7"
-    endif
-endif
+" Different cursor-shapes in different modes
+let &t_SI = "\<Esc>[6 q"
+let &t_SR = "\<Esc>[4 q"
+let &t_EI = "\<Esc>[2 q"
 
 " No cursorline in diff, quickfix, and inactive windows
 autocmd vimrc VimEnter * set cursorline
