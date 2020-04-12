@@ -128,6 +128,29 @@ nnoremap dsc diB"_ddk"_ddP=`]
 nnoremap =p p'[V']=
 nnoremap =P P'[V']=
 
+" Auto-insert closing parenthesis/brace
+inoremap ( ()<Left>
+inoremap { {}<Left>
+
+" Expand opening-brace followed by ENTER to a block and place cursor inside
+inoremap {<CR> {<CR>}<Esc>O
+
+" Auto-delete closing parenthesis/brace
+function! BetterBackSpace() abort
+    let cur_line = getline('.')
+    let before_char = cur_line[col('.')-2]
+    let after_char = cur_line[col('.')-1]
+    if (before_char == '(' && after_char == ')') || (before_char == '{' && after_char == '}')
+        return "\<Del>\<BS>"
+    else
+        return "\<BS>"
+endfunction
+inoremap <silent> <BS> <C-r>=BetterBackSpace()<CR>
+
+" Skip over closing parenthesis/brace
+inoremap <expr> ) getline('.')[col('.')-1] == ")" ? "\<Right>" : ")"
+inoremap <expr> } getline('.')[col('.')-1] == "}" ? "\<Right>" : "}"
+
 " Search selected text using *
 xnoremap * "xy/\V<C-r>x<CR>
 
@@ -420,21 +443,7 @@ let g:netrw_list_hide = '^\.\.\=/$'
 " Maintain the alternate buffer
 let g:netrw_altfile = 1
 
-" (b) MINISNIP
-
-" Define the directory to look into for the snippets
-let g:minisnip_dir = '~/.vim/snippets'
-
-" Change the trigger to CTRL+j
-let g:minisnip_trigger = '<C-j>'
-
-" Change the start and end delimiters
-let g:minisnip_startdelim = '<+'
-let g:minisnip_enddelim = '+>'
-let g:minisnip_finalstartdelim = '<-'
-let g:minisnip_finalenddelim = '->'
-
-" (c) TAGBAR
+" (b) TAGBAR
 
 " Sort based on order
 let g:tagbar_sort = 0
