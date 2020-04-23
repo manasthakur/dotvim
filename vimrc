@@ -129,8 +129,12 @@ nnoremap =p p'[V']=
 nnoremap =P P'[V']=
 
 " Auto-insert closing parenthesis/brace
-inoremap ( ()<Left>
-inoremap { {}<Left>
+inoremap <expr> ( col('.') < col('$') ? "(" : "()\<Left>"
+inoremap <expr> { col('.') < col('$') ? "{" : "{}\<Left>"
+
+" Skip over closing parenthesis/brace
+inoremap <expr> ) getline('.')[col('.')-1] == ")" ? "\<Right>" : ")"
+inoremap <expr> } getline('.')[col('.')-1] == "}" ? "\<Right>" : "}"
 
 " Expand opening-brace followed by ENTER to a block and place cursor inside
 inoremap {<CR> {<CR>}<Esc>O
@@ -146,10 +150,6 @@ function! BetterBackSpace() abort
         return "\<BS>"
 endfunction
 inoremap <silent> <BS> <C-r>=BetterBackSpace()<CR>
-
-" Skip over closing parenthesis/brace
-inoremap <expr> ) getline('.')[col('.')-1] == ")" ? "\<Right>" : ")"
-inoremap <expr> } getline('.')[col('.')-1] == "}" ? "\<Right>" : "}"
 
 " Search selected text using *
 xnoremap * "xy/\V<C-r>x<CR>
