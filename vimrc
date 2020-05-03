@@ -25,6 +25,9 @@ set directory=~/.vim/.swap//
 " Don't create backup files
 set nobackup
 
+" Look out for five modelines
+set modelines=5
+
 " Clear autocommands
 augroup vimrc
     autocmd!
