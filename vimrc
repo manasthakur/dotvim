@@ -14,7 +14,7 @@
 filetype plugin indent on
 
 " Enable syntax highlights
-syntax enable
+syntax on
 
 " Load the builtin matchit plugin (allows jumping among matching keywords using %)
 runtime macros/matchit.vim
@@ -24,9 +24,6 @@ set directory=~/.vim/.swap//
 
 " Don't create backup files
 set nobackup
-
-" Set modelines to 5 (disabled by system-wide vimrc sometimes)
-set modelines=5
 
 " Clear autocommands
 augroup vimrc
@@ -74,9 +71,6 @@ set display=lastline
 
 " Keep cursor off by a line while scrolling (for context)
 set scrolloff=1
-
-" Draw the screen lazily (speeds up scroll and macro-execution)
-set lazyredraw
 
 " Keep 1000 lines of command-line history
 set history=1000
@@ -201,10 +195,10 @@ nnoremap ,w :update<CR>
 set path=.,**
 
 " Ignore following patterns while expanding file-names
-set wildignore+=tags,*.class,*.o,*.out,*.aux,*.bbl,*.blg,*.cls
+set wildignore+=tags,*.class,*.o,*.out,*.aux,*.bbl,*.blg,*.cls,*.jpg,*.png,*.dvi,*.ps,*.pdf
 
 " Reduce the priority of following patterns while expanding file-names
-set suffixes+=*.bib,*.log,*.jpg,*.png,*.dvi,*.ps,*.pdf
+set suffixes+=*.bib,*.log
 
 " Use CTRL+z to start wildcard-expansion in command-line mappings
 set wildcharm=<C-z>
@@ -241,8 +235,8 @@ nnoremap ]w :lnext<CR>
 " Tags
 "   - goto first match : ,t
 "       - current word : ,T
-"   - list if multiple : ,y
-"       - current word : ,Y
+"   - list if multiple : ,j
+"       - current word : ,J
 "   - show preview     : ,p
 "       - current word : ,P
 nnoremap ,t :tag /
@@ -417,8 +411,8 @@ autocmd vimrc VimEnter * set cursorline
 autocmd vimrc WinEnter * if &filetype != "qf" && !&diff | set cursorline | endif
 autocmd vimrc WinLeave * set nocursorline
 
-" Colorscheme (don't complain if the specified colorscheme doesn't exist)
-silent! colorscheme apprentice
+" Colorscheme
+colorscheme apprentice
 
 " }}}
 
