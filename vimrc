@@ -287,7 +287,7 @@ function! CleverTab() abort
 endfunction
 inoremap <silent> <Tab> <C-r>=CleverTab()<CR>
 
-" Use SHIFT-TAB for traversing the completion-menu in reverse, and to insert tabs after non-space characters
+" Use SHIFT-TAB for traversing the completion menu in reverse, and to insert tabs after non-space characters
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "<Space><Tab>"
 
 " }}}
