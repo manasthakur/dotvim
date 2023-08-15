@@ -172,8 +172,8 @@ nnoremap coh :setlocal hlsearch!<CR>:setlocal hlsearch?<CR>
 function! CompatibilityMode() abort
     if g:colors_name != "default"
         colorscheme default
-        highlight CursorLine cterm=NONE ctermbg=8
-        highlight Visual cterm=NONE ctermbg=8
+        highlight CursorLine cterm=NONE ctermbg=255
+        highlight Visual cterm=NONE ctermbg=255
     else
         silent! colorscheme apprentice
     endif
@@ -415,7 +415,9 @@ autocmd vimrc WinEnter * if &filetype != "qf" && !&diff | set cursorline | endif
 autocmd vimrc WinLeave * set nocursorline
 
 " Colorscheme
-colorscheme apprentice
+highlight CursorLineNr cterm=NONE ctermbg=255
+highlight CursorLine cterm=NONE ctermbg=255
+highlight Visual cterm=NONE ctermbg=255
 
 " }}}
 
